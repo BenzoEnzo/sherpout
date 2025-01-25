@@ -1,0 +1,9 @@
+dn: ou=users,dc=sherpout,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=groups,dc=sherpout,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups

@@ -9,11 +9,15 @@ services:
       LDAP_ADMIN_USERNAME: "admin"
       LDAP_ADMIN_PASSWORD: "admin"
       LDAP_BASE_DN: "dc=sherpout,dc=com"
+      LDAP_TLS: "false"
+      LDAP_LOG_LEVEL: "256"
     ports:
       - "389:389"
+    command: --copy-service
     volumes:
-      - ldap_data:/var/lib/ldap
-      - ldap_config:/etc/ldap
+#      - ldap_data:/var/lib/ldap
+#      - ldap_config:/etc/ldap
+      - ./ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom
 
   ldap-admin:
     image: osixia/phpldapadmin:latest
@@ -26,9 +30,21 @@ services:
     depends_on:
       - ldap
 
-volumes:
-  ldap_data:
-  ldap_config:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: dev-mem
+    ports:
+      - "8082:8080"
+    depends_on:
+      - ldap
+    command: start-dev
+
+#volumes:
+#  ldap_data:
+#  ldap_config:
 
 networks:
   default:

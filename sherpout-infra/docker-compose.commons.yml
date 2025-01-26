@@ -46,7 +46,7 @@ services:
 
   postgres:
     image: 'postgres:latest'
-    container_name: sherpout-db
+    container_name: psql
     environment:
       - 'POSTGRES_DB=sherpout'
       - 'POSTGRES_PASSWORD=secret'

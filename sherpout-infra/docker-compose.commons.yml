@@ -10,7 +10,6 @@ services:
       LDAP_ADMIN_PASSWORD: "admin"
       LDAP_BASE_DN: "dc=sherpout,dc=com"
       LDAP_TLS: "false"
-      LDAP_LOG_LEVEL: "256"
     ports:
       - "389:389"
     command: --copy-service
@@ -32,6 +31,7 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin

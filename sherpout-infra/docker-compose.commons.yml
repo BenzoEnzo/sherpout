@@ -40,7 +40,9 @@ services:
       - "8082:8080"
     depends_on:
       - ldap
-    command: start-dev
+    command: -v start-dev --import-realm
+    volumes:
+      - ./keycloak:/opt/keycloak/data/import
 
 volumes:
   ldap_data:

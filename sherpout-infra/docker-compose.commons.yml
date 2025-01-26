@@ -9,11 +9,14 @@ services:
       LDAP_ADMIN_USERNAME: "admin"
       LDAP_ADMIN_PASSWORD: "admin"
       LDAP_BASE_DN: "dc=sherpout,dc=com"
+      LDAP_TLS: "false"
     ports:
       - "389:389"
+    command: --copy-service
     volumes:
       - ldap_data:/var/lib/ldap
       - ldap_config:/etc/ldap
+      - ./ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom
 
   ldap-admin:
     image: osixia/phpldapadmin:latest
@@ -26,9 +29,24 @@ services:
     depends_on:
       - ldap
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: dev-mem
+    ports:
+      - "8082:8080"
+    depends_on:
+      - ldap
+    command: -v start-dev --import-realm
+    volumes:
+      - ./keycloak:/opt/keycloak/data/import
+
   postgres:
     image: 'postgres:latest'
-    container_name: sherpout-db
+    container_name: psql
     environment:
       - 'POSTGRES_DB=sherpout'
       - 'POSTGRES_PASSWORD=secret'
@@ -45,7 +63,7 @@ volumes:
   postgres-data:
     driver: local
 
-#networks:
-#  default:
-#    external: true
-#    name: sherpout
+networks:
+  default:
+    external: true
+    name: sherpout

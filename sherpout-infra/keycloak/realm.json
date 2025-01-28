@@ -29,13 +29,13 @@
   "oauth2DevicePollingInterval": 5,
   "enabled": true,
   "sslRequired": "external",
-  "registrationAllowed": false,
+  "registrationAllowed": true,
   "registrationEmailAsUsername": true,
   "rememberMe": false,
   "verifyEmail": false,
   "loginWithEmailAllowed": true,
   "duplicateEmailsAllowed": false,
-  "resetPasswordAllowed": false,
+  "resetPasswordAllowed": true,
   "editUsernameAllowed": true,
   "bruteForceProtected": false,
   "permanentLockout": false,
@@ -164,7 +164,8 @@
       "protocol": "openid-connect",
       "attributes": {
         "realm_client": "false",
-        "client.use.lightweight.access.token.enabled": "true"
+        "client.use.lightweight.access.token.enabled": "true",
+        "post.logout.redirect.uris": "+"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
@@ -193,7 +194,8 @@
       "frontchannelLogout": false,
       "protocol": "openid-connect",
       "attributes": {
-        "realm_client": "true"
+        "realm_client": "true",
+        "post.logout.redirect.uris": "+"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
@@ -222,7 +224,8 @@
       "frontchannelLogout": false,
       "protocol": "openid-connect",
       "attributes": {
-        "realm_client": "true"
+        "realm_client": "true",
+        "post.logout.redirect.uris": "+"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
@@ -325,6 +328,25 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "374c88d1-e03a-473d-8e4e-0b830a30062d",
+          "name": "uuid",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "false",
+            "userinfo.token.claim": "false",
+            "user.attribute": "ldap_uuid",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "uuid",
+            "jsonType.label": "String"
+          }
+        }
+      ],
       "defaultClientScopes": [
         "web-origins",
         "acr",
@@ -1144,13 +1166,13 @@
         "config": {
           "allowed-protocol-mapper-types": [
             "oidc-usermodel-property-mapper",
-            "oidc-full-name-mapper",
-            "saml-user-attribute-mapper",
-            "oidc-address-mapper",
-            "saml-user-property-mapper",
             "saml-role-list-mapper",
+            "oidc-address-mapper",
+            "oidc-full-name-mapper",
             "oidc-usermodel-attribute-mapper",
-            "oidc-sha256-pairwise-sub-mapper"
+            "oidc-sha256-pairwise-sub-mapper",
+            "saml-user-attribute-mapper",
+            "saml-user-property-mapper"
           ]
         }
       },
@@ -1162,14 +1184,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-role-list-mapper",
-            "oidc-full-name-mapper",
-            "oidc-address-mapper",
-            "saml-user-attribute-mapper",
             "oidc-usermodel-property-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
+            "oidc-full-name-mapper",
+            "saml-user-attribute-mapper",
+            "oidc-address-mapper",
+            "oidc-usermodel-attribute-mapper",
             "saml-user-property-mapper",
-            "oidc-usermodel-attribute-mapper"
+            "saml-role-list-mapper",
+            "oidc-sha256-pairwise-sub-mapper"
           ]
         }
       }
@@ -1193,14 +1215,40 @@
                 "is.mandatory.in.ldap": [
                   "true"
                 ],
-                "read.only": [
+                "always.read.value.from.ldap": [
                   "false"
                 ],
-                "always.read.value.from.ldap": [
+                "read.only": [
                   "false"
                 ],
                 "user.model.attribute": [
                   "username"
+                ]
+              }
+            },
+            {
+              "id": "f3b9fcb7-2e61-4cdb-bacd-3b21d348c395",
+              "name": "UUID",
+              "providerId": "user-attribute-ldap-mapper",
+              "subComponents": {},
+              "config": {
+                "ldap.attribute": [
+                  "entryUUID"
+                ],
+                "attribute.force.default": [
+                  "false"
+                ],
+                "is.mandatory.in.ldap": [
+                  "false"
+                ],
+                "is.binary.attribute": [
+                  "false"
+                ],
+                "read.only": [
+                  "true"
+                ],
+                "user.model.attribute": [
+                  "ldap_uuid"
                 ]
               }
             },
@@ -1216,11 +1264,11 @@
                 "is.mandatory.in.ldap": [
                   "true"
                 ],
-                "read.only": [
-                  "false"
-                ],
                 "always.read.value.from.ldap": [
                   "true"
+                ],
+                "read.only": [
+                  "false"
                 ],
                 "user.model.attribute": [
                   "lastName"
@@ -1268,32 +1316,32 @@
                 "group.name.ldap.attribute": [
                   "cn"
                 ],
-                "preserve.group.inheritance": [
+                "ignore.missing.groups": [
                   "false"
-                ],
-                "membership.ldap.attribute": [
-                  "member"
                 ],
                 "membership.user.ldap.attribute": [
                   "uid"
                 ],
-                "ignore.missing.groups": [
+                "membership.ldap.attribute": [
+                  "member"
+                ],
+                "preserve.group.inheritance": [
                   "false"
                 ],
                 "groups.dn": [
                   "ou=groups,dc=sherpout,dc=com"
                 ],
-                "memberof.ldap.attribute": [
-                  "memberOf"
-                ],
                 "group.object.classes": [
                   "groupOfNames"
                 ],
-                "groups.path": [
-                  "/"
+                "memberof.ldap.attribute": [
+                  "memberOf"
                 ],
                 "drop.non.existing.groups.during.sync": [
                   "false"
+                ],
+                "groups.path": [
+                  "/"
                 ]
               }
             },
@@ -1309,10 +1357,10 @@
                 "is.mandatory.in.ldap": [
                   "false"
                 ],
-                "read.only": [
+                "always.read.value.from.ldap": [
                   "false"
                 ],
-                "always.read.value.from.ldap": [
+                "read.only": [
                   "false"
                 ],
                 "user.model.attribute": [
@@ -1335,11 +1383,11 @@
           "startTls": [
             "false"
           ],
-          "connectionPooling": [
-            "true"
-          ],
           "usersDn": [
             "ou=users,dc=sherpout,dc=com"
+          ],
+          "connectionPooling": [
+            "true"
           ],
           "cachePolicy": [
             "DEFAULT"
@@ -1353,17 +1401,17 @@
           "enabled": [
             "true"
           ],
-          "bindDn": [
-            "cn=admin,dc=sherpout,dc=com"
+          "changedSyncPeriod": [
+            "-1"
+          ],
+          "bindCredential": [
+            "**********"
           ],
           "usernameLDAPAttribute": [
             "mail"
           ],
-          "bindCredential": [
-            "admin"
-          ],
-          "changedSyncPeriod": [
-            "-1"
+          "bindDn": [
+            "cn=admin,dc=sherpout,dc=com"
           ],
           "vendor": [
             "other"
@@ -1371,11 +1419,11 @@
           "uuidLDAPAttribute": [
             "entryUUID"
           ],
-          "connectionUrl": [
-            "ldap://ldap:389"
-          ],
           "allowKerberosAuthentication": [
             "false"
+          ],
+          "connectionUrl": [
+            "ldap://ldap:389"
           ],
           "syncRegistrations": [
             "true"

@@ -17,6 +17,7 @@ public class MeController {
     private final TokenService tokenService;
 
     @GetMapping
+//    @PreAuthorize("hasAuthority(T(pl.sherpout.server.api.user.dto.UserGroup).USER.getRole())")
     public ResponseEntity<UserDto> getUserInfo(JwtAuthenticationToken auth) {
         return ResponseEntity
                 .ok()

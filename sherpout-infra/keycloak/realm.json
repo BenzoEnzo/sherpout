@@ -345,6 +345,23 @@
             "claim.name": "uuid",
             "jsonType.label": "String"
           }
+        },
+        {
+          "id": "82aa6442-28ed-48e1-b9e8-97433cbbc2c5",
+          "name": "groups",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "consentRequired": false,
+          "config": {
+            "full.path": "true",
+            "introspection.token.claim": "false",
+            "userinfo.token.claim": "true",
+            "multivalued": "true",
+            "id.token.claim": "false",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "groups"
+          }
         }
       ],
       "defaultClientScopes": [
@@ -1165,14 +1182,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-usermodel-property-mapper",
-            "saml-role-list-mapper",
-            "oidc-address-mapper",
+            "saml-user-property-mapper",
             "oidc-full-name-mapper",
-            "oidc-usermodel-attribute-mapper",
             "oidc-sha256-pairwise-sub-mapper",
-            "saml-user-attribute-mapper",
-            "saml-user-property-mapper"
+            "oidc-usermodel-attribute-mapper",
+            "saml-role-list-mapper",
+            "oidc-usermodel-property-mapper",
+            "oidc-address-mapper",
+            "saml-user-attribute-mapper"
           ]
         }
       },
@@ -1184,14 +1201,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
+            "oidc-address-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
+            "saml-user-property-mapper",
             "oidc-usermodel-property-mapper",
             "oidc-full-name-mapper",
-            "saml-user-attribute-mapper",
-            "oidc-address-mapper",
             "oidc-usermodel-attribute-mapper",
-            "saml-user-property-mapper",
             "saml-role-list-mapper",
-            "oidc-sha256-pairwise-sub-mapper"
+            "saml-user-attribute-mapper"
           ]
         }
       }
@@ -1235,10 +1252,10 @@
                 "ldap.attribute": [
                   "entryUUID"
                 ],
-                "attribute.force.default": [
+                "is.mandatory.in.ldap": [
                   "false"
                 ],
-                "is.mandatory.in.ldap": [
+                "attribute.force.default": [
                   "false"
                 ],
                 "is.binary.attribute": [
@@ -1316,23 +1333,23 @@
                 "group.name.ldap.attribute": [
                   "cn"
                 ],
-                "ignore.missing.groups": [
-                  "false"
+                "membership.ldap.attribute": [
+                  "member"
                 ],
                 "membership.user.ldap.attribute": [
                   "uid"
                 ],
-                "membership.ldap.attribute": [
-                  "member"
+                "ignore.missing.groups": [
+                  "false"
                 ],
                 "preserve.group.inheritance": [
                   "false"
                 ],
-                "groups.dn": [
-                  "ou=groups,dc=sherpout,dc=com"
-                ],
                 "group.object.classes": [
                   "groupOfNames"
+                ],
+                "groups.dn": [
+                  "ou=groups,dc=sherpout,dc=com"
                 ],
                 "memberof.ldap.attribute": [
                   "memberOf"
@@ -1401,17 +1418,17 @@
           "enabled": [
             "true"
           ],
-          "changedSyncPeriod": [
-            "-1"
+          "bindDn": [
+            "cn=admin,dc=sherpout,dc=com"
           ],
           "bindCredential": [
             "**********"
           ],
+          "changedSyncPeriod": [
+            "-1"
+          ],
           "usernameLDAPAttribute": [
             "mail"
-          ],
-          "bindDn": [
-            "cn=admin,dc=sherpout,dc=com"
           ],
           "vendor": [
             "other"
@@ -1419,11 +1436,11 @@
           "uuidLDAPAttribute": [
             "entryUUID"
           ],
-          "allowKerberosAuthentication": [
-            "false"
-          ],
           "connectionUrl": [
             "ldap://ldap:389"
+          ],
+          "allowKerberosAuthentication": [
+            "false"
           ],
           "syncRegistrations": [
             "true"

@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import pl.sherpout.server.config.security.group.UserGroup;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,11 +28,13 @@ public class SecurityConfig {
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         return new JwtAuthenticationConverter() {{
             setJwtGrantedAuthoritiesConverter(jwt -> {
-                List<String> groups = jwt.getClaimAsStringList("groups"); // Pobranie grup z JWT
-                if (groups == null) return List.of();
+                List<String> groups = jwt.getClaimAsStringList("groups");
+                if (groups == null || groups.isEmpty()) {
+                    groups = List.of(UserGroup.DEFAULT.getRole());
+                }
 
                 return groups.stream()
-                        .map(group -> group.replace("/", "").toUpperCase()) // Prefix "GROUP_" i usunięcie "/"
+                        .map(group -> group.replace("/", "").toUpperCase())
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
             });

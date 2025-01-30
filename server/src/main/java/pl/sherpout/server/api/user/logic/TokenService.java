@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import pl.sherpout.server.api.user.dto.UserDto;
-import pl.sherpout.server.api.user.dto.UserGroup;
+import pl.sherpout.server.config.security.group.UserGroup;
 
 @Service
 public class TokenService {

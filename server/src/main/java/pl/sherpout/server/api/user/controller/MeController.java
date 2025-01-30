@@ -2,6 +2,7 @@ package pl.sherpout.server.api.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class MeController {
     private final TokenService tokenService;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority(T(pl.sherpout.server.api.user.dto.UserGroup).USER.getRole())")
+    @PreAuthorize("hasAuthority(T(pl.sherpout.server.api.user.dto.UserGroup).USER.getRole())")
     public ResponseEntity<UserDto> getUserInfo(JwtAuthenticationToken auth) {
         return ResponseEntity
                 .ok()

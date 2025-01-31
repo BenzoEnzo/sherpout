@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "fad87b54-2628-49c9-b902-a9e21fa4bec2",
+		"name": "Sherpout Keycloak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33506091"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "sherpout-rest-api",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "gustaw.wasowski@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/rest-auth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"rest-auth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TRAINER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "sherpout-rest-api",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "jakub.bartus@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/rest-auth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"rest-auth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADMIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "sherpout-rest-api",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "sherpout-admin@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/rest-auth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"rest-auth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

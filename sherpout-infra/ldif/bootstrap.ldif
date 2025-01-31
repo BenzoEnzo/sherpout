@@ -1,10 +1,55 @@
 
+# Organizational units
 dn: ou=groups,dc=sherpout,dc=com
-objectClass: organizationalunit
-objectClass: top
+objectclass: organizationalunit
+objectclass: top
 ou: groups
 
 dn: ou=users,dc=sherpout,dc=com
-objectClass: organizationalunit
-objectClass: top
+objectclass: organizationalunit
+objectclass: top
 ou: users
+
+# Users
+dn: mail=gustaw.wasowski@gmail.com,ou=users,dc=sherpout,dc=com
+cn: Gustaw
+mail: gustaw.wasowski@gmail.com
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+sn: Wąsowski
+userpassword: {SSHA}4x98r4fIgSVy+Cp5XtiRgWlPXaR0PTlP
+
+dn: mail=jakub.bartus@gmail.com,ou=users,dc=sherpout,dc=com
+cn: Jakub
+mail: jakub.bartus@gmail.com
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+sn: Bartuś
+userpassword: {SSHA}mUOW8MG8sLtcPS0wMSAjftUMrZJDG2nQ
+
+dn: mail=sherpout-admin@gmail.com,ou=users,dc=sherpout,dc=com
+cn: Admin
+mail: sherpout-admin@gmail.com
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+sn: Admin
+userpassword: {SSHA}mpRSNdnoyXYAsGD97mWTaYg47Dy1UzyI
+
+# Groups units
+dn: cn=user,ou=groups,dc=sherpout,dc=com
+cn: user
+member: mail=gustaw.wasowski@gmail.com,ou=users,dc=sherpout,dc=com
+objectclass: groupOfNames
+objectclass: top
+
+dn: cn=trainer,ou=groups,dc=sherpout,dc=com
+cn: trainer
+member: mail=jakub.bartus@gmail.com,ou=users,dc=sherpout,dc=com
+objectclass: groupOfNames
+objectclass: top
+
+dn: cn=admin,ou=groups,dc=sherpout,dc=com
+cn: admin
+member: mail=sherpout-admin@gmail.com,ou=users,dc=sherpout,dc=com
+objectclass: groupOfNames
+objectclass: top

@@ -40,17 +40,13 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8082/realms/Sherpout/protocol/openid-connect/token",
+							"raw": "http://localhost/rest-auth/token",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8082",
 							"path": [
-								"realms",
-								"Sherpout",
-								"protocol",
-								"openid-connect",
+								"rest-auth",
 								"token"
 							]
 						}
@@ -88,17 +84,13 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8082/realms/Sherpout/protocol/openid-connect/token",
+							"raw": "http://localhost/rest-auth/token",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8082",
 							"path": [
-								"realms",
-								"Sherpout",
-								"protocol",
-								"openid-connect",
+								"rest-auth",
 								"token"
 							]
 						}
@@ -136,17 +128,13 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8082/realms/Sherpout/protocol/openid-connect/token",
+							"raw": "http://localhost/rest-auth/token",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8082",
 							"path": [
-								"realms",
-								"Sherpout",
-								"protocol",
-								"openid-connect",
+								"rest-auth",
 								"token"
 							]
 						}

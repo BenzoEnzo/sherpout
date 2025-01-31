@@ -1422,7 +1422,7 @@
             "cn=admin,dc=sherpout,dc=com"
           ],
           "bindCredential": [
-            "**********"
+            "admin"
           ],
           "changedSyncPeriod": [
             "-1"

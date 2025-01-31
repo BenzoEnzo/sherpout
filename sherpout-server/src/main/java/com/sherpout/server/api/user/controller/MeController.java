@@ -1,4 +1,4 @@
-package pl.sherpout.server.api.user.controller;
+package com.sherpout.server.api.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -6,11 +6,10 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.sherpout.server.api.user.dto.UserDto;
-import pl.sherpout.server.config.security.group.UserGroup;
-import pl.sherpout.server.api.user.logic.TokenService;
-import pl.sherpout.server.config.security.group.SecuredByGroup;
-
+import com.sherpout.server.api.user.dto.UserDto;
+import com.sherpout.server.config.security.group.UserGroup;
+import com.sherpout.server.api.user.logic.TokenService;
+import com.sherpout.server.config.security.group.SecuredByGroup;
 
 @RestController
 @RequestMapping("me")

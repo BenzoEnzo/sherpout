@@ -1,4 +1,4 @@
-package pl.sherpout.server.config.security;
+package com.sherpout.server.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import pl.sherpout.server.config.security.group.UserGroup;
+import com.sherpout.server.config.security.group.UserGroup;
 
 import java.util.List;
 import java.util.stream.Collectors;

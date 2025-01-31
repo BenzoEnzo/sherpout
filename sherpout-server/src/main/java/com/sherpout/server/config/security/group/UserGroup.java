@@ -1,4 +1,4 @@
-package pl.sherpout.server.config.security.group;
+package com.sherpout.server.config.security.group;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

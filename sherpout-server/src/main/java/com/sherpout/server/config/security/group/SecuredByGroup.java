@@ -1,4 +1,4 @@
-package pl.sherpout.server.config.security.group;
+package com.sherpout.server.config.security.group;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

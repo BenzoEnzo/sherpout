@@ -1,4 +1,4 @@
-package pl.sherpout.server.config.security.group;
+package com.sherpout.server.config.security.group;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

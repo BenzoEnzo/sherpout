@@ -1,10 +1,10 @@
-package pl.sherpout.server;
+package com.sherpout.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServerApplicationTests {
+class SherpoutServerApplicationTests {
 
     @Test
     void contextLoads() {

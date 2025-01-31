@@ -1,8 +1,8 @@
-package pl.sherpout.server.api.user.dto;
+package com.sherpout.server.api.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.sherpout.server.config.security.group.UserGroup;
+import com.sherpout.server.config.security.group.UserGroup;
 
 @Getter
 @Setter

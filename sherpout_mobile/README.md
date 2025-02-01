@@ -1,6 +1,6 @@
 # sherpout_mobile
 
-A new Flutter project.
+Sherpout mobile app
 
 ## Getting Started
 

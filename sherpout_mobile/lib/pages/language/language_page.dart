@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sherpout_mobile/pages/language/components/language_selector.dart';
 
-import 'language.dart';
+import 'objects/language.dart';
 
 class LanguagePage extends StatelessWidget {
   final Function(Language) setLocale;
@@ -17,19 +17,7 @@ class LanguagePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('Choose language:', style: TextStyle(fontSize: 24)),
-            DropdownMenu(
-              hintText: 'Language',
-              dropdownMenuEntries: Language.values
-                  .map((language) =>
-                      DropdownMenuEntry(value: language, label: language.name))
-                  .toList(),
-              onSelected: (value) async {
-                if (value != null) {
-                  setLocale(value);
-                  Navigator.pushReplacementNamed(context, '/dashboard');
-                }
-              },
-            ),
+            LanguageSelector(setLocale: setLocale)
           ],
         ),
       ),

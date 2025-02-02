@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sherpout_mobile/l10n/l10n.dart';
 import 'package:sherpout_mobile/pages/dashboard/dashboard_page.dart';
 import 'package:sherpout_mobile/pages/language/language_page.dart';
 
@@ -25,11 +28,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.blue[50],
       ),
+
       initialRoute: initialRoute,
       routes: {
         "/language": (context) => LanguagePage(),
         "/dashboard": (context) => DashboardPage()
       },
+
+      supportedLocales: L10n.all,
+      locale: const Locale('pl'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
     );
   }
 }

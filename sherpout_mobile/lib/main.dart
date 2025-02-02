@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sherpout_mobile/pages/LanguagePage.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+  final String? language = prefs.getString('selected_language');
+
+  runApp(MyApp(initialRoute: language == null ? '/language' : '/home'));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String initialRoute;
+
+  const MyApp({super.key, required this.initialRoute});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'Sherpout mobile app',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold
-            ),
-          )
-        )
-      ),
+    return MaterialApp(
+      title: "Sherpout App",
+      initialRoute: initialRoute,
+      routes: {
+        "/language": (context) => LanguagePage()
+      },
     );
   }
 }

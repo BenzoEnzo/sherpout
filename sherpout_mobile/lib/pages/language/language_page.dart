@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LanguagePage extends StatelessWidget {
-  LanguagePage({super.key});
+import 'language.dart';
 
-  final List languages = ['Polish', 'English'];
+class LanguagePage extends StatelessWidget {
+  final Function(Language) setLocale;
+
+  const LanguagePage({super.key, required this.setLocale});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +19,15 @@ class LanguagePage extends StatelessWidget {
             Text('Choose language:', style: TextStyle(fontSize: 24)),
             DropdownMenu(
               hintText: 'Language',
-              dropdownMenuEntries: languages
+              dropdownMenuEntries: Language.values
                   .map((language) =>
-                      DropdownMenuEntry(value: language, label: language))
+                      DropdownMenuEntry(value: language, label: language.name))
                   .toList(),
               onSelected: (value) async {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.setString('selected_language', value);
-                Navigator.pushReplacementNamed(context, '/dashboard');
+                if (value != null) {
+                  setLocale(value);
+                  Navigator.pushReplacementNamed(context, '/dashboard');
+                }
               },
             ),
           ],

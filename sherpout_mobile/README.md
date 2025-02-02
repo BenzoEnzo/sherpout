@@ -10,24 +10,24 @@ A brief description of what this project does and who it's for
 
 **Purpose:** Generate native splash screen for Android and IOS
 
-**Usage:**
+- **Usage:**
 
-To change splash screen you need to edit splash.yml file.
+    To change splash screen you need to edit splash.yml file.
 
-To build splash screen you need to execute command:
+    To build splash screen you need to execute command:
 
-```console
-dart run flutter_native_splash:create --path=splash.yml
-```
+    ```console
+    dart run flutter_native_splash:create --path=splash.yml
+    ```
 
-If you don't see changes, try this:
+    If you don't see changes, try this:
 
-```console
-flutter clean
+    ```console
+    flutter clean
 
-flutter pub get
-```
+    flutter pub get
+    ```
 
-and then try to generate splash screen once again.
+    and then try to generate splash screen once again.
 
 

@@ -1,16 +1,33 @@
-# sherpout_mobile
 
-Sherpout mobile app
+# Sherpout mobile app
 
-## Getting Started
+A brief description of what this project does and who it's for
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Used libraries
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### flutter_native_splash
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Purpose:** Generate native splash screen for Android and IOS
+
+**Usage:**
+
+To change splash screen you need to edit splash.yml file.
+
+To build splash screen you need to execute command:
+
+```console
+dart run flutter_native_splash:create --path=splash.yml
+```
+
+If you don't see changes, try this:
+
+```console
+flutter clean
+
+flutter pub get
+```
+
+and then try to generate splash screen once again.
+
+

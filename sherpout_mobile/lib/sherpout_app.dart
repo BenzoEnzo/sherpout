@@ -6,6 +6,14 @@ import 'package:sherpout_mobile/pages/dashboard/dashboard_page.dart';
 import 'package:sherpout_mobile/pages/language/objects/language.dart';
 import 'package:sherpout_mobile/pages/language/language_page.dart';
 
+import 'package:sherpout_mobile/pages/account_page.dart';
+import 'package:sherpout_mobile/pages/friends_page.dart';
+import 'package:sherpout_mobile/pages/settings_page.dart';
+import 'package:sherpout_mobile/pages/exercises_page.dart';
+import 'package:sherpout_mobile/pages/rankings_page.dart';
+import 'package:sherpout_mobile/pages/records_page.dart';
+import 'package:sherpout_mobile/pages/trainings_page.dart';
+
 import 'l10n/l10n.dart';
 
 class SherpoutApp extends StatefulWidget {
@@ -50,7 +58,14 @@ class _SherpoutAppState extends State<SherpoutApp> {
       initialRoute: widget.initialRoute,
       routes: {
         "/language": (context) => LanguagePage(setLocale: setLocale),
-        "/dashboard": (context) => DashboardPage()
+        "/dashboard": (context) => DashboardPage(),
+        "/accounts": (context) => AccountPage(),
+        "/friends": (context) => FriendsPage(),
+        "/settings": (context) => SettingsPage(),
+        "/exercises": (context) => ExercisesPage(),
+        "/rankings": (context) => RankingsPage(),
+        "/records": (context) => RecordsPage(),
+        "/trainings": (context) => TrainingsPage(),
       },
 
       supportedLocales: L10n.all,

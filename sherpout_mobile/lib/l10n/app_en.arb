@@ -1,4 +1,11 @@
 {
     "dashboardTitle": "Dashboard",
-    "hello": "Hello"
+    "hello": "Hello",
+    "exercises": "Exercises",
+    "friends": "Friends",
+    "settings": "Settings",
+    "records": "Records",
+    "trainings": "Trainings",
+    "account": "Account",
+    "rankings": "Rankings"
 }

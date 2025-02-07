@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sherpout_mobile/component/user/user_drawer_header.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RightSideMenu extends StatelessWidget {
 
@@ -14,27 +15,27 @@ class RightSideMenu extends StatelessWidget {
         child: Column(
           children: [
             UserDrawerHeader(
-              accountName: "Jan Pawel",
-              accountEmail: "janpaweldrugi@wybitnepolakes.pl",
-              avatarInitial: "J",
+              name: "Jan",
+              lastName: "Pawel",
+              accountEmail: "janpaweldrugi@wybitnepolakes.pl"
             ),
             ListTile(
               leading: Icon(Icons.account_circle),
-              title: Text("Account"),
+              title: Text(AppLocalizations.of(context)!.account),
               onTap: () {
                 Navigator.pushNamed(context, "/accounts");
               },
             ),
             ListTile(
               leading: Icon(Icons.people),
-              title: Text("Friends"),
+              title: Text(AppLocalizations.of(context)!.friends),
               onTap: () {
                 Navigator.pushNamed(context, "/friends");
               },
             ),
             ListTile(
               leading: Icon(Icons.settings),
-              title: Text("Settings"),
+              title: Text(AppLocalizations.of(context)!.settings),
               onTap: () {
                 Navigator.pushNamed(context, "/settings");
               },

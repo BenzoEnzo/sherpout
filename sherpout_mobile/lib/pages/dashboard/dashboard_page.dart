@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sherpout_mobile/pages/dashboard/components/training_week.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -9,27 +9,25 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.dashboardTitle)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      body: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              AppLocalizations.of(context)!.hello,
+              "${AppLocalizations.of(context)!.hello} Janusz!",
               style: TextStyle(
-                fontSize: 24
+                fontSize: 36
               ),
             ),
-            ElevatedButton(
-              onPressed: () async {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.clear();
-                },
-              child: Text('Clear shared preferences.'),
-            )
+            Text(
+                "This week",
+              style: TextStyle(
+                fontSize: 30
+              )
+            ),
+            TrainingWeek(),
           ]
         )
-      ),
     );
   }
 }

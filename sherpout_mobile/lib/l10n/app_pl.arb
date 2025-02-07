@@ -1,4 +1,19 @@
 {
     "dashboardTitle": "Panel",
-    "hello": "Cześć"
+    "hello": "Cześć",
+
+    "monday": "Poniedziałek",
+    "mondayShortcut": "Pn",
+    "tuesday": "Wtorek",
+    "tuesdayShortcut": "Wt",
+    "wednesday": "Środa",
+    "wednesdayShortcut": "Śr",
+    "thursday": "Czwartek",
+    "thursdayShortcut": "Czw",
+    "friday": "Piątek",
+    "fridayShortcut": "Pt",
+    "saturday": "Sobota",
+    "saturdayShortcut": "Sob",
+    "sunday": "Niedziela",
+    "sundayShortcut": "Nie"
 }

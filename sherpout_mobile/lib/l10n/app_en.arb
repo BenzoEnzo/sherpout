@@ -1,4 +1,19 @@
 {
     "dashboardTitle": "Dashboard",
-    "hello": "Hello"
+    "hello": "Hello",
+
+    "monday": "Monday",
+    "mondayShortcut": "Mon",
+    "tuesday": "Tuesday",
+    "tuesdayShortcut": "Tue",
+    "wednesday": "Wednesday",
+    "wednesdayShortcut": "Weds",
+    "thursday": "Thursday",
+    "thursdayShortcut": "Thurs",
+    "friday": "Friday",
+    "fridayShortcut": "Fri",
+    "saturday": "Saturday",
+    "saturdayShortcut": "Sat",
+    "sunday": "Sunday",
+    "sundayShortcut": "Sun"
 }

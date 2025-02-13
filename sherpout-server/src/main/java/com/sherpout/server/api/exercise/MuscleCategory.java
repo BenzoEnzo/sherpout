@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum MuscleCategory {
     CHEST("chest", "klata"),
     BACK("back", "plecy"),
-    SHOULDERS("shoulders", "barki"),
+    DELTS("delts", "barki"),
     ARMS("arms", "ramiona"),
     LEGS("legs", "nogi"),
     ABS("abs", "brzuch");

@@ -5,6 +5,7 @@ import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.commons.mapper.ImageMapper;
 import com.sherpout.server.commons.mapper.TranslatedStringMapper;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(
         componentModel = "spring",
@@ -14,4 +15,7 @@ import org.mapstruct.Mapper;
         })
 public interface ExerciseMapper {
     ExerciseDTO mapToDTO(Exercise exercise);
+
+    @Mapping(target = "id", ignore = true)
+    Exercise mapToEntity(ExerciseDTO dto);
 }

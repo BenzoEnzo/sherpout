@@ -3,6 +3,9 @@ package com.sherpout.server.api.exercise;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public enum Muscle {
@@ -33,5 +36,11 @@ public enum Muscle {
     private final String en;
     private final String pl;
     private final MuscleCategory category;
+
+    public static List<Muscle> findByCategory(MuscleCategory category) {
+        return Arrays.stream(Muscle.values())
+                .filter(muscle -> muscle.category == category)
+                .toList();
+    }
 
 }

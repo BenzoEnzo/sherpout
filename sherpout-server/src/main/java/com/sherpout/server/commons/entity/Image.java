@@ -1,4 +1,4 @@
-package com.sherpout.server.api.image;
+package com.sherpout.server.commons.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -3,7 +3,7 @@ package com.sherpout.server.api.exercise.entity;
 import com.sherpout.server.api.exercise.enumerated.ExerciseDifficulty;
 import com.sherpout.server.api.exercise.enumerated.ExerciseEquipment;
 import com.sherpout.server.api.exercise.enumerated.Muscle;
-import com.sherpout.server.api.image.Image;
+import com.sherpout.server.commons.entity.Image;
 import com.sherpout.server.commons.entity.TranslatedString;
 import jakarta.persistence.*;
 import lombok.Getter;

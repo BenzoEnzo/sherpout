@@ -1,6 +1,5 @@
-package com.sherpout.server.commons.entity;
+package com.sherpout.server.commons.dto;
 
-import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Embeddable
-public class TranslatedString {
+public class TranslatedStringDTO {
     private String en;
     private String pl;
 }

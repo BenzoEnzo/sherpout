@@ -1,4 +1,4 @@
-package com.sherpout.server.api.exercise;
+package com.sherpout.server.api.exercise.enumerated;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

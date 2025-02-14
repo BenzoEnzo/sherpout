@@ -1,5 +1,7 @@
 server:
   port: 9090
+  servlet:
+    context-path: /api
 
 spring:
   datasource:
@@ -11,7 +13,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -26,5 +28,5 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8082/realms/Sherpout
+          issuer-uri: http://localhost/realms/Sherpout
           jwk-set-uri: http://localhost:8082/realms/Sherpout/protocol/openid-connect/certs

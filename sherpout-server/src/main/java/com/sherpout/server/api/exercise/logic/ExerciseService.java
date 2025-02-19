@@ -7,6 +7,8 @@ import com.sherpout.server.api.exercise.repository.ExerciseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ExerciseService {
@@ -22,5 +24,11 @@ public class ExerciseService {
         return exerciseRepository.findById(id)
                 .map(exerciseMapper::mapToDTO)
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    public List<ExerciseDTO> getAllExercises() {
+        return exerciseRepository.findAll().stream()
+                .map(exerciseMapper::mapToDTO)
+                .toList();
     }
 }

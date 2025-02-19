@@ -3,12 +3,12 @@ package com.sherpout.server.api.exercise.controller;
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.logic.ExerciseService;
-import com.sherpout.server.commons.dto.PaginationDTO;
+import com.sherpout.server.commons.dto.pagination.PageResponseDTO;
+import com.sherpout.server.commons.dto.pagination.PaginationDTO;
 import com.sherpout.server.config.security.group.SecuredByGroup;
 import com.sherpout.server.config.security.group.UserGroup;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class ExerciseController {
 
     @GetMapping
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<Page<ExerciseListDTO>> getExercises(PaginationDTO pagination) {
+    public ResponseEntity<PageResponseDTO<ExerciseListDTO>> getExercises(PaginationDTO pagination) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(exerciseService.getAllExercises(pagination));

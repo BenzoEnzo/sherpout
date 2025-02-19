@@ -1,6 +1,7 @@
 package com.sherpout.server.commons.service;
 
-import com.sherpout.server.commons.dto.PaginationDTO;
+import com.sherpout.server.commons.dto.pagination.PageResponseDTO;
+import com.sherpout.server.commons.dto.pagination.PaginationDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +17,8 @@ public class PaginationService {
         return PageRequest.of(page, size);
     }
 
-    public <T> Page<T> mapToPage(Stream<T> stream, Page<?> page) {
-        return new PageImpl<>(stream.toList(), page.getPageable(), page.getTotalElements());
+    public <T> PageResponseDTO<T> mapToPage(Stream<T> stream, Page<?> page) {
+        Page<T> mappedPage = new PageImpl<>(stream.toList(), page.getPageable(), page.getTotalElements());
+        return new PageResponseDTO<>(mappedPage);
     }
 }

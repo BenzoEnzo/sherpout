@@ -1,4 +1,4 @@
-package com.sherpout.server.commons.dto;
+package com.sherpout.server.commons.dto.pagination;
 
 import lombok.Getter;
 import lombok.Setter;

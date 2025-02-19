@@ -29,6 +29,39 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Exercise",
+			"item": [
+				{
+					"name": "Create exercise",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": {\r\n    \"en\": \"Bench Press\",\r\n    \"pl\": \"Wyciskanie na ławce\"\r\n  },\r\n  \"description\": {\r\n    \"en\": \"A compound exercise for chest, shoulders, and triceps.\",\r\n    \"pl\": \"Ćwiczenie wielostawowe na klatkę piersiową, barki i tricepsy.\"\r\n  },\r\n  \"difficulty\": \"MEDIUM\",\r\n  \"targetMuscle\": \"MID_CHEST\",\r\n  \"supportMuscles\": [\"LOWER_CHEST\", \"FRONT_DELTS\"],\r\n  \"equipments\": [\"BARBELL\", \"BENCH\"],\r\n  \"cover\": {\r\n    \"imageData\": \"/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDAREAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe8A/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPwD/2Q==\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/exercise",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"exercise"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("exercise")
+@RequestMapping("exercises")
 @RequiredArgsConstructor
 public class ExerciseController {
     private final ExerciseService exerciseService;

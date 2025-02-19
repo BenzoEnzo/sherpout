@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class ExerciseListDTO {
     private Long id;
     private TranslatedStringDTO name;

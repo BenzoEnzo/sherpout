@@ -1,6 +1,7 @@
 package com.sherpout.server.api.exercise.controller;
 
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
+import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.logic.ExerciseService;
 import com.sherpout.server.commons.dto.PaginationDTO;
 import com.sherpout.server.config.security.group.SecuredByGroup;
@@ -36,7 +37,7 @@ public class ExerciseController {
 
     @GetMapping
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<Page<ExerciseDTO>> getExercises(PaginationDTO pagination) {
+    public ResponseEntity<Page<ExerciseListDTO>> getExercises(PaginationDTO pagination) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(exerciseService.getAllExercises(pagination));

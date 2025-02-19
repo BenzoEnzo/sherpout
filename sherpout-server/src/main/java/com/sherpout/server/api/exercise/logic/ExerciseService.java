@@ -1,6 +1,7 @@
 package com.sherpout.server.api.exercise.logic;
 
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
+import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
@@ -29,9 +30,9 @@ public class ExerciseService {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    public Page<ExerciseDTO> getAllExercises(PaginationDTO pagination) {
+    public Page<ExerciseListDTO> getAllExercises(PaginationDTO pagination) {
         PageRequest pageRequest = paginationService.getPageRequest(pagination);
         Page<Exercise> exercisesPage = exerciseRepository.findAll(pageRequest);
-        return paginationService.mapToPage(exercisesPage.stream().map(exerciseMapper::mapToDTO), exercisesPage);
+        return paginationService.mapToPage(exercisesPage.stream().map(exerciseMapper::mapToListDTO), exercisesPage);
     }
 }

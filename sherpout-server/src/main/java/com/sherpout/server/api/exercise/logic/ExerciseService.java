@@ -17,4 +17,10 @@ public class ExerciseService {
         Exercise exercise = exerciseRepository.save(exerciseMapper.mapToEntity(dto));
         return exerciseMapper.mapToDTO(exercise);
     }
+
+    public ExerciseDTO getExerciseById(Long id) {
+        return exerciseRepository.findById(id)
+                .map(exerciseMapper::mapToDTO)
+                .orElseThrow(IllegalArgumentException::new);
+    }
 }

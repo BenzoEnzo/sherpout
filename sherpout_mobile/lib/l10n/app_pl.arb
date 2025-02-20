@@ -1,4 +1,12 @@
 {
     "dashboardTitle": "Panel",
-    "hello": "Cześć"
+    "hello": "Cześć",
+    "exercises": "Ćwiczenia",
+    "friends": "Znajomi",
+    "settings": "Ustawienia",
+    "records": "Rekordy",
+    "trainings": "Treningi",
+    "account": "Konto",
+    "settings": "Ustawienia",
+    "rankings": "Rankingi"
 }

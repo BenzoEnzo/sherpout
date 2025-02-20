@@ -20,13 +20,13 @@ public class ExerciseLike {
     private Exercise exercise;
 
     @Id
-    private UUID uuid;
+    private UUID userId;
 
     private LocalDateTime timestamp;
 
-    public ExerciseLike(Exercise exercise, UUID uuid) {
+    public ExerciseLike(Exercise exercise, UUID userId) {
         this.exercise = exercise;
-        this.uuid = uuid;
+        this.userId = userId;
         this.timestamp = LocalDateTime.now();
     }
 }

@@ -10,6 +10,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class ExerciseLikeId {
-    private Long exerciseId;
+    private Long exercise;
     private UUID userId;
 }

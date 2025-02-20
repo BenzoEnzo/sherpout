@@ -48,6 +48,8 @@ public class Exercise {
     @Column(name = "equipment_id", nullable = false)
     private Set<ExerciseEquipment> equipments;
 
+    private Integer likesNumber;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "cover_id")
     private Image cover;

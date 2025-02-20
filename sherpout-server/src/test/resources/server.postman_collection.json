@@ -67,15 +67,46 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/api/exercise/2",
+							"raw": "http://localhost/api/exercises/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"api",
-								"exercise",
+								"exercises",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercises",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/exercises",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"exercises"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -89,7 +120,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzTWtmb3V4MXphdmIya21sdFhHQzliSXZwOHQ0ZzkxNW5yMGx5NHRMLWJ3In0.eyJleHAiOjE3Mzk5ODUzMzMsImlhdCI6MTczOTk4NTAzMywianRpIjoiNGUxNDUwOWYtOTBjZC00Yjg0LWFkZWEtOTgwZjJhOWY3ZjVhIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdC9yZWFsbXMvU2hlcnBvdXQiLCJzdWIiOiJmOnpnY29EYWZQUjZXRHBXbURRaUxoV2c6c2hlcnBvdXQtYWRtaW5AZ21haWwuY29tIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2hlcnBvdXQtcmVzdC1hcGkiLCJzaWQiOiI2MzkwNTA3Zi1lMmYxLTRhMjktODhiNS0wNmNmNTJiMWJlMTMiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtc2hlcnBvdXQiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJBZG1pbiBBZG1pbiIsImdyb3VwcyI6WyIvYWRtaW4iXSwicHJlZmVycmVkX3VzZXJuYW1lIjoic2hlcnBvdXQtYWRtaW5AZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkFkbWluIiwidXVpZCI6IjhiM2I1YjAwLTdlODktMTAzZi05OWM5LWRiMWUyZGU3OGJlMyIsImZhbWlseV9uYW1lIjoiQWRtaW4iLCJlbWFpbCI6InNoZXJwb3V0LWFkbWluQGdtYWlsLmNvbSJ9.Y9SU2rwn7FWfkloVMBt37dz3o_75dLeqyE87PgJvjlSnm-lNkKHzhyNPZ5U1sqt9MVgWVy7RvzBBeAq_GKq8M1wxWkc-debsqqw6bcmSRaTGjrPwGyg23uIn4DXk1dqo7UuGU2TENNl6J6z7zxpz2cPbdpgCV2Bg0jjvtbPX39Dvi_p-X2aUZCx4wCNxo9kSnYNEHPNpXmFXfw-cAScv7lcvfiSF7jqs-T4K6dT_1CPKmZ7LhWcFJdwS_Lw9JF2vXs_eFd38uOegh2XvPuQoK3DyOvtcgpmXzAwx1z-3m751rYFBkl7svhhUTDEVSE5wRXjygANnWFjGCY2kyzf74Q",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzTWtmb3V4MXphdmIya21sdFhHQzliSXZwOHQ0ZzkxNW5yMGx5NHRMLWJ3In0.eyJleHAiOjE3Mzk5ODkyMzMsImlhdCI6MTczOTk4ODkzMywianRpIjoiMGUxNjQyZGQtZWM1Zi00ZGM1LWFjNWMtOTRlMWJhMzlmNDQ3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdC9yZWFsbXMvU2hlcnBvdXQiLCJzdWIiOiJmOnpnY29EYWZQUjZXRHBXbURRaUxoV2c6c2hlcnBvdXQtYWRtaW5AZ21haWwuY29tIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2hlcnBvdXQtcmVzdC1hcGkiLCJzaWQiOiJhMjdlNTk0Ny02YTU2LTRmZDgtYmQ3Ny1mYTFiZDA2MGNiOGIiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtc2hlcnBvdXQiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJBZG1pbiBBZG1pbiIsImdyb3VwcyI6WyIvYWRtaW4iXSwicHJlZmVycmVkX3VzZXJuYW1lIjoic2hlcnBvdXQtYWRtaW5AZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkFkbWluIiwidXVpZCI6IjhiM2I1YjAwLTdlODktMTAzZi05OWM5LWRiMWUyZGU3OGJlMyIsImZhbWlseV9uYW1lIjoiQWRtaW4iLCJlbWFpbCI6InNoZXJwb3V0LWFkbWluQGdtYWlsLmNvbSJ9.gwf2U8soqMSEF1opD6MD2WW3bDuWzdbJajbm8t_AHfT7546OcmtNBHoZEu2CMo5MxrDO1xP6lu2ZsnaiD-9SDtcCn7HKqBMD2iFElV3aOzldORPxgIE18tjvQ92jIGR7krMYkVHjrtK-kXasSZQfU3itf77LTWupahoCn-tKBiybqUepkCf5sS3CjgU1krui3wdex7IaR6AjoHNCwYA5sufCueaZgXp5Afn9wvNzOh_K4O6HbvjI8hkLU9Ik0iah7gSHOtPApMPrVuqPHW0T0pHwk_JdaS7b7sgmjIrEL8-CxfUOuT6bWOOaIDehpS9FHgp_xXSyduo6KoVjPpjXSw",
 				"type": "string"
 			}
 		]

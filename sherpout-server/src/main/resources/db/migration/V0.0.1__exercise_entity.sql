@@ -6,13 +6,13 @@ CREATE TABLE image
 
 CREATE TABLE exercise
 (
+    id             bigserial PRIMARY KEY,
     name_en        varchar(128) NULL,
     name_pl        varchar(128) NULL,
     description_en varchar(1024) NULL,
     description_pl varchar(1024) NULL,
     difficulty     int4 NOT NULL,
     target_muscle  int4 NOT NULL,
-    id             bigserial PRIMARY KEY,
     cover_id       bigint NULL,
     CONSTRAINT exercise_image_fk FOREIGN KEY (cover_id) REFERENCES image (id) ON DELETE SET NULL
 );

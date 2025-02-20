@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -40,12 +41,12 @@ public class Exercise {
     @ElementCollection(targetClass = Muscle.class)
     @CollectionTable(name = "exercise_support_muscle", joinColumns = @JoinColumn(name = "exercise_id"))
     @Column(name = "muscle_id", nullable = false)
-    private List<Muscle> supportMuscles;
+    private Set<Muscle> supportMuscles;
 
     @ElementCollection(targetClass = ExerciseEquipment.class)
     @CollectionTable(name = "exercise_equipment", joinColumns = @JoinColumn(name = "exercise_id"))
     @Column(name = "equipment_id", nullable = false)
-    private List<ExerciseEquipment> equipments;
+    private Set<ExerciseEquipment> equipments;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "cover_id")

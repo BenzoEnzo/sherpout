@@ -22,11 +22,11 @@ public class ExerciseLike {
     @Id
     private UUID userId;
 
-    private LocalDateTime timestamp;
+    private LocalDateTime likedAt;
 
     public ExerciseLike(Exercise exercise, UUID userId) {
         this.exercise = exercise;
         this.userId = userId;
-        this.timestamp = LocalDateTime.now();
+        this.likedAt = LocalDateTime.now();
     }
 }

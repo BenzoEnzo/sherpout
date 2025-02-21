@@ -1,6 +1,6 @@
 package com.sherpout.server.config.security.group;
 
-import com.sherpout.server.error.exception.SecurityGroupException;
+import com.sherpout.server.error.exception.SecurityByGroupException;
 import com.sherpout.server.error.model.ErrorLocationType;
 import com.sherpout.server.error.model.ErrorMessage;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -19,7 +19,7 @@ public class SecuredByGroupAspect {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-            throw new SecurityGroupException(ErrorMessage.UNAUTHORIZED, ErrorLocationType.QUERY_PARAM);
+            throw new SecurityByGroupException(ErrorMessage.UNAUTHORIZED, ErrorLocationType.QUERY_PARAM);
         }
 
         Integer userAccessLevel = authentication.getAuthorities().stream()
@@ -28,7 +28,7 @@ public class SecuredByGroupAspect {
                 .orElse(UserGroup.DEFAULT.getAccessLevel());
 
         if (securedByGroup.value().getAccessLevel() > userAccessLevel) {
-            throw new SecurityGroupException(ErrorMessage.UNAUTHORIZED, ErrorLocationType.QUERY_PARAM);
+            throw new SecurityByGroupException(ErrorMessage.UNAUTHORIZED, ErrorLocationType.QUERY_PARAM);
         }
 
         return joinPoint.proceed();

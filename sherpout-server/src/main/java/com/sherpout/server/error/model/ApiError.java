@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@Setter
 @Builder
-@With
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ApiError {
-    private List<ErrorMessage> errorMessages;
+    private ErrorMessage errorMessage;
     private ErrorLocationType errorLocationType;
     private String location;
     private Map<String, String> additionalParams;

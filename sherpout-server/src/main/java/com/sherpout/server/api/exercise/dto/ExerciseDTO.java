@@ -40,6 +40,9 @@ public class ExerciseDTO {
 
     private Set<ExerciseEquipment> equipments;
 
+    @Null
+    private Integer likesNumber;
+
     @Valid
     @NotNull
     private ImageDTO cover;

@@ -1,8 +1,8 @@
 package com.sherpout.server.api.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +20,9 @@ public class MeController {
 
     @GetMapping
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<UserDto> getUserInfo(JwtAuthenticationToken auth) {
+    public ResponseEntity<UserDto> getUserInfo() {
         return ResponseEntity
-                .ok()
-                .body(tokenService.getUser(auth));
+                .status(HttpStatus.OK)
+                .body(tokenService.getUser());
     }
 }

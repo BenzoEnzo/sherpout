@@ -1,1 +1,0 @@
-INSERT INTO test_table (name) VALUES ('Test 3');

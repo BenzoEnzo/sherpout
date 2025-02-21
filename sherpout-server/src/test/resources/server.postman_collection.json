@@ -29,6 +29,90 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Exercise",
+			"item": [
+				{
+					"name": "Create exercise",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": {\r\n    \"en\": \"Bench Press\",\r\n    \"pl\": \"Wyciskanie na ławce\"\r\n  },\r\n  \"description\": {\r\n    \"en\": \"A compound exercise for chest, shoulders, and triceps.\",\r\n    \"pl\": \"Ćwiczenie wielostawowe na klatkę piersiową, barki i tricepsy.\"\r\n  },\r\n  \"difficulty\": \"MEDIUM\",\r\n  \"targetMuscle\": \"MID_CHEST\",\r\n  \"supportMuscles\": [\"LOWER_CHEST\", \"FRONT_DELTS\"],\r\n  \"equipments\": [\"BARBELL\", \"BENCH\"],\r\n  \"cover\": {\r\n    \"imageData\": \"/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDAREAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe8A/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPwD/2Q==\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/exercise",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"exercise"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercise",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/exercises/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"exercises",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercises",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/exercises",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"exercises"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -36,7 +120,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwbzQ2dU5GOFFtdVp6TXIzVXh2N3BGT3hOVEFHaGlLRHRaQmFDdTVlVjZzIn0.eyJleHAiOjE3MzgzMzYzNjYsImlhdCI6MTczODMzNjA2NiwianRpIjoiNDYxNDE2Y2UtNGNmMi00OWI0LTkzZTMtZmRjMDIyNDc1YmI3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdC9yZWFsbXMvU2hlcnBvdXQiLCJzdWIiOiJmOnpnY29EYWZQUjZXRHBXbURRaUxoV2c6Z3VzdGF3Lndhc293c2tpQGdtYWlsLmNvbSIsInR5cCI6IkJlYXJlciIsImF6cCI6InNoZXJwb3V0LXJlc3QtYXBpIiwic2lkIjoiMTBmNDIwYzEtNmJhMi00ZmFhLTg4YzUtODE5ZDQ0N2FjYzQyIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLXNoZXJwb3V0Iiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiR3VzdGF3IFfEhXNvd3NraSIsImdyb3VwcyI6WyIvdXNlciJdLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJndXN0YXcud2Fzb3dza2lAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6Ikd1c3RhdyIsInV1aWQiOiIyYzdkNzlkMC03MDNlLTEwM2YtODQzOS00MThiNDgxYzg3ZTAiLCJmYW1pbHlfbmFtZSI6IlfEhXNvd3NraSIsImVtYWlsIjoiZ3VzdGF3Lndhc293c2tpQGdtYWlsLmNvbSJ9.Sqb_fu7sOhnfCorRMw9Sr0WJPjz4lYk5JV_eTvHuYg7eEoJuX3lxY7U8xwGFuHSrDlYsZ62Zw6XpYjKrY25XJ5qmH3Ru-uSGTKN28jCuB2aQl6sI8X0ilh1Evp-4dGu5DGm5SW2vk1cZMAASaEgbgH0DgiumiQ9Q9Hw0ViE39KligcVb6IGnU1f8olkzzxeZ44HG7WqCpWKYaR6KAskOtqMvh5WU3JRZ3bDwORcS7BmNtaMLHdrti4UCia0Y52AKEDQSQ-VJuy2nWfrxMeBecudUODtLq6z7XDa4-fgC9QTVamLLwd9ijudGSVPvw9szPXFahBII4FRIJfTNgBry1w",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzTWtmb3V4MXphdmIya21sdFhHQzliSXZwOHQ0ZzkxNW5yMGx5NHRMLWJ3In0.eyJleHAiOjE3Mzk5ODkyMzMsImlhdCI6MTczOTk4ODkzMywianRpIjoiMGUxNjQyZGQtZWM1Zi00ZGM1LWFjNWMtOTRlMWJhMzlmNDQ3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdC9yZWFsbXMvU2hlcnBvdXQiLCJzdWIiOiJmOnpnY29EYWZQUjZXRHBXbURRaUxoV2c6c2hlcnBvdXQtYWRtaW5AZ21haWwuY29tIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2hlcnBvdXQtcmVzdC1hcGkiLCJzaWQiOiJhMjdlNTk0Ny02YTU2LTRmZDgtYmQ3Ny1mYTFiZDA2MGNiOGIiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtc2hlcnBvdXQiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJBZG1pbiBBZG1pbiIsImdyb3VwcyI6WyIvYWRtaW4iXSwicHJlZmVycmVkX3VzZXJuYW1lIjoic2hlcnBvdXQtYWRtaW5AZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkFkbWluIiwidXVpZCI6IjhiM2I1YjAwLTdlODktMTAzZi05OWM5LWRiMWUyZGU3OGJlMyIsImZhbWlseV9uYW1lIjoiQWRtaW4iLCJlbWFpbCI6InNoZXJwb3V0LWFkbWluQGdtYWlsLmNvbSJ9.gwf2U8soqMSEF1opD6MD2WW3bDuWzdbJajbm8t_AHfT7546OcmtNBHoZEu2CMo5MxrDO1xP6lu2ZsnaiD-9SDtcCn7HKqBMD2iFElV3aOzldORPxgIE18tjvQ92jIGR7krMYkVHjrtK-kXasSZQfU3itf77LTWupahoCn-tKBiybqUepkCf5sS3CjgU1krui3wdex7IaR6AjoHNCwYA5sufCueaZgXp5Afn9wvNzOh_K4O6HbvjI8hkLU9Ik0iah7gSHOtPApMPrVuqPHW0T0pHwk_JdaS7b7sgmjIrEL8-CxfUOuT6bWOOaIDehpS9FHgp_xXSyduo6KoVjPpjXSw",
 				"type": "string"
 			}
 		]

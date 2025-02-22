@@ -4,5 +4,5 @@ CREATE TABLE record (
     value INTEGER NOT NULL,
     user_id UUID NOT NULL,
     exercise_id BIGINT NOT NULL,
-    CONSTRAINT fk_exercise FOREIGN KEY (exercise_id) REFERENCES exercise(id) ON DELETE CASCADE
+    CONSTRAINT exercise_record_fk FOREIGN KEY (exercise_id) REFERENCES exercise(id) ON DELETE CASCADE
 );

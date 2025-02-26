@@ -1,6 +1,6 @@
 package com.sherpout.server.error.handler;
 
-import com.sherpout.server.error.exception.SecurityByGroupException;
+import com.sherpout.server.error.exception.SecuredByGroupException;
 import com.sherpout.server.error.exception.SingleApiErrorException;
 import com.sherpout.server.error.model.ApiError;
 import org.springframework.http.HttpStatus;
@@ -18,9 +18,9 @@ public class SingleApiErrorExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(SecurityByGroupException.class)
+    @ExceptionHandler(SecuredByGroupException.class)
     @ResponseBody
     public ResponseEntity<ApiError> handleSecurityGroupException(ApiError apiError) {
-        return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(apiError, HttpStatus.FORBIDDEN);
     }
 }

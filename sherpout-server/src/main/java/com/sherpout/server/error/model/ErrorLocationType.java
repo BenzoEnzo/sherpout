@@ -9,6 +9,7 @@ public enum ErrorLocationType {
 
     PATH_PARAM("Path Parameter"),
     QUERY_PARAM("Query Parameter"),
+    HEADER_PARAM("Header Parameter"),
     BODY("Body"),
     FILE("File");
 

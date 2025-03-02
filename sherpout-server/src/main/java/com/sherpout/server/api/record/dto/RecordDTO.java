@@ -4,14 +4,15 @@ import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.ZonedDateTime;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
 public class RecordDTO {
     private Long id;
-    private ZonedDateTime date;
+    private LocalDateTime date;
     private Integer value;
     private UUID userId;
     private ExerciseDTO exercise;

@@ -4,7 +4,6 @@ import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,5 +14,6 @@ public class RecordDTO {
     private LocalDateTime date;
     private Integer value;
     private UUID userId;
+    private Long exerciseId;
     private ExerciseDTO exercise;
 }

@@ -1,6 +1,7 @@
 package com.sherpout.server.api.record.dto;
 
 import com.sherpout.server.api.exercise.dto.ExerciseSelectDTO;
+import com.sherpout.server.commons.validation.PastOrNow;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -16,6 +17,7 @@ public class RecordDTO {
     private Long id;
 
     @NotNull
+    @PastOrNow
     private LocalDateTime date;
 
     @NotNull

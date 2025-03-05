@@ -1,19 +1,29 @@
 package com.sherpout.server.api.record.dto;
 
-import com.sherpout.server.api.exercise.dto.ExerciseDTO;
+import com.sherpout.server.api.exercise.dto.ExerciseSelectDTO;
+import com.sherpout.server.commons.validation.PastOrNow;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class RecordDTO {
+    @Null
     private Long id;
+
+    @NotNull
+    @PastOrNow
     private LocalDateTime date;
+
+    @NotNull
     private Integer value;
-    private UUID userId;
-    private ExerciseDTO exercise;
+
+    @Valid
+    @NotNull
+    private ExerciseSelectDTO exercise;
 }

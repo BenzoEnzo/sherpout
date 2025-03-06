@@ -3,7 +3,12 @@ package com.sherpout.server.api.exercise.controller;
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.enumerated.MuscleCategory;
+import com.sherpout.server.api.exercise.dto.LikeNumberResponseDTO;
+import com.sherpout.server.api.exercise.logic.ExerciseLikeService;
 import com.sherpout.server.api.exercise.logic.ExerciseService;
+import com.sherpout.server.api.user.logic.TokenService;
+import com.sherpout.server.commons.dto.pagination.PageResponseDTO;
+import com.sherpout.server.commons.dto.pagination.PaginationDTO;
 import com.sherpout.server.config.security.group.SecuredByGroup;
 import com.sherpout.server.config.security.group.UserGroup;
 import jakarta.validation.Valid;
@@ -19,7 +24,9 @@ import java.util.Map;
 @RequestMapping("exercises")
 @RequiredArgsConstructor
 public class ExerciseController {
+    private final TokenService tokenService;
     private final ExerciseService exerciseService;
+    private final ExerciseLikeService exerciseLikeService;
 
     @PostMapping
     @SecuredByGroup(UserGroup.TRAINER)
@@ -43,5 +50,13 @@ public class ExerciseController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(exerciseService.getAllExercises());
+    }
+
+    @PutMapping("/{id}/toggle-like")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<LikeNumberResponseDTO> toggleLike(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(exerciseLikeService.toggleLike(id, tokenService.getUser().getId()));
     }
 }

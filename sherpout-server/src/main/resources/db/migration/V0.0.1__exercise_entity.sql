@@ -1,7 +1,7 @@
 CREATE TABLE image
 (
     id         bigserial PRIMARY KEY,
-    image_data bytea     NOT NULL
+    image_data oid     NOT NULL
 );
 
 CREATE TABLE exercise

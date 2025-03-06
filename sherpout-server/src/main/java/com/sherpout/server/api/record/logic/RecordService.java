@@ -20,4 +20,13 @@ public class RecordService {
         record.setUserId(tokenService.getUser().getId());
         return recordMapper.mapToDTO(recordRepository.save(record));
     }
+
+    public void deleteRecord(Long id) {
+        Record record = recordRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        if (record.getUserId().equals(tokenService.getUser().getId())) {
+            recordRepository.delete(record);
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
 }

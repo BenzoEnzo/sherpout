@@ -27,8 +27,9 @@ public class RecordController {
     @DeleteMapping("{id}")
     @SecuredByGroup(UserGroup.USER)
     public ResponseEntity<?> deleteRecord(@PathVariable Long id) {
+        recordService.deleteRecord(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
-                .body(null);
+                .build();
     }
 }

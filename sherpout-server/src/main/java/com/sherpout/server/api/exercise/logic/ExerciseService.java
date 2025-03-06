@@ -6,7 +6,7 @@ import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
 import com.sherpout.server.commons.dto.pagination.PageResponseDTO;
-import com.sherpout.server.commons.dto.pagination.PaginationDTO;
+import com.sherpout.server.commons.param.PaginationQueryParam;
 import com.sherpout.server.commons.service.PaginationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,7 +31,7 @@ public class ExerciseService {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    public PageResponseDTO<ExerciseListDTO> getAllExercises(PaginationDTO pagination) {
+    public PageResponseDTO<ExerciseListDTO> getAllExercises(PaginationQueryParam pagination) {
         PageRequest pageRequest = paginationService.getPageRequest(pagination);
         Page<Exercise> exercisesPage = exerciseRepository.findAll(pageRequest);
         return paginationService.mapToPage(exercisesPage.stream().map(exerciseMapper::mapToListDTO), exercisesPage);

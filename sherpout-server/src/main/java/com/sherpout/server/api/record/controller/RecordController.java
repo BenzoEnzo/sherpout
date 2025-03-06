@@ -30,9 +30,9 @@ public class RecordController {
 
     @GetMapping("history/{exerciseId}")
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<List<RecordHistoryDTO>> getRecordHistory(@PathVariable Long exerciseId, DateRangeQueryParam dateRange) {
+    public ResponseEntity<List<RecordHistoryDTO>> getRecordHistory(@PathVariable Long exerciseId, @Valid DateRangeQueryParam dateRange) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(null);
+                .body(recordService.getRecordHistory(exerciseId, dateRange));
     }
 }

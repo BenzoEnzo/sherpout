@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sherpout_mobile/pages/language/components/language_selector.dart';
+import 'package:sherpoutmobile/pages/language/components/language_selector.dart';
 
 import 'objects/language.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sherpout_mobile/sherpout_app.dart';
+import 'package:sherpoutmobile/sherpout_app.dart';
 
 
 void main() async {

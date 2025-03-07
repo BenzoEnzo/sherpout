@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sherpout_mobile/component/user/user_drawer_header.dart';
+import 'package:sherpoutmobile/component/user/user_drawer_header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RightSideMenu extends StatelessWidget {

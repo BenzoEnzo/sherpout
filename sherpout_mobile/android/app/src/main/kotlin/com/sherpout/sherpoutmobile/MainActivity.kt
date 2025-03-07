@@ -1,4 +1,4 @@
-package com.sherpout.sherpout_mobile
+package com.sherpout.sherpoutmobile
 
 import io.flutter.embedding.android.FlutterActivity
 

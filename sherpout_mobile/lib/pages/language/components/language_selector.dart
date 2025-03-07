@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../objects/language.dart';
 
@@ -17,7 +18,12 @@ class LanguageSelector extends StatelessWidget {
       onSelected: (value) async {
         if (value != null) {
           setLocale(value);
-          Navigator.pushReplacementNamed(context, '/dashboard');
+          final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+          String? token = await secureStorage.read(key: "access_token");
+          if (token != null) {
+            Navigator.pushReplacementNamed(context, '/dashboard');
+          }
+          Navigator.pushReplacementNamed(context, '/auth');
         }
       },
     );

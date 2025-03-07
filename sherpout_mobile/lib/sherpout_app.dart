@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sherpoutmobile/pages/auth/auth_page.dart';
 import 'package:sherpoutmobile/pages/dashboard/dashboard_page.dart';
 import 'package:sherpoutmobile/pages/language/objects/language.dart';
 import 'package:sherpoutmobile/pages/language/language_page.dart';
@@ -59,6 +60,7 @@ class _SherpoutAppState extends State<SherpoutApp> {
       initialRoute: widget.initialRoute,
       routes: {
         "/language": (context) => LanguagePage(setLocale: setLocale),
+        "/auth": (context) => AuthPage(),
         "/dashboard": (context) => DashboardPage(userName: "Jan"),
         "/accounts": (context) => AccountPage(),
         "/friends": (context) => FriendsPage(),

@@ -13,25 +13,6 @@ const String clientId = "mobile-app";
 const String redirectUrl = "com.sherpout.sherpoutmobile:/oauth2redirect";
 const String issuer = "http://192.168.100.45:8082/realms/Sherpout/";
 
-Future<void> login() async {
-  try {
-    final AuthorizationTokenResponse? result =
-        await appAuth.authorizeAndExchangeCode(
-      AuthorizationTokenRequest(clientId, redirectUrl,
-          issuer: issuer,
-          scopes: ['openid', 'profile', 'email'],
-          allowInsecureConnections: true),
-    );
-
-    if (result != null) {
-      await secureStorage.write(key: 'access_token', value: result.accessToken);
-      await secureStorage.write(key: 'id_token', value: result.idToken);
-    }
-  } catch (e) {
-    print("Błąd logowania: $e");
-  }
-}
-
 class DashboardPage extends StatelessWidget {
   final String userName;
   const DashboardPage({super.key, required this.userName});
@@ -81,7 +62,10 @@ class DashboardPage extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
+                final FlutterSecureStorage secureStorage = FlutterSecureStorage();
                 final prefs = await SharedPreferences.getInstance();
+                await secureStorage.delete(key: 'access_token');
+                await secureStorage.delete(key: 'id_token');
                 await prefs.clear();
               },
               child: Text('Clear shared preferences.'),

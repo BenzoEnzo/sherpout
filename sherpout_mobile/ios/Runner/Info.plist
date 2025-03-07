@@ -47,5 +47,17 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+
+		<key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>com.sherpout.sherpoutmobile</string> <!-- To musi pasować do redirect URI w Keycloak -->
+                </array>
+                <key>CFBundleURLName</key>
+                <string>com.sherpout.sherpoutmobile</string>
+            </dict>
+        </array>
 	</dict>
 </plist>

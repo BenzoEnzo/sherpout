@@ -28,6 +28,10 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        multiDexEnabled = true
+        manifestPlaceholders += [
+                'appAuthRedirectScheme': 'com.sherpout.sherpoutmobile'
+        ]
     }
 
     buildTypes {

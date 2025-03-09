@@ -15,7 +15,6 @@ class UserProvider with ChangeNotifier {
   UserDto? get userData => _user;
 
   Future<void> fetch() async {
-    //TODO notify listeners
     _apiClient.get('me').then((response) => _fetchUser(response));
   }
 

@@ -61,7 +61,7 @@ class _SherpoutAppState extends State<SherpoutApp> {
       routes: {
         "/language": (context) => LanguagePage(setLocale: setLocale),
         "/auth": (context) => AuthPage(),
-        "/dashboard": (context) => DashboardPage(userName: "Jan"),
+        "/dashboard": (context) => DashboardPage(),
         "/accounts": (context) => AccountPage(),
         "/friends": (context) => FriendsPage(),
         "/settings": (context) => SettingsPage(),

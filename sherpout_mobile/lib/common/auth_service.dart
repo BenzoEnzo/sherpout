@@ -38,4 +38,8 @@ class AuthService {
       print("Błąd logowania: $e");
     }
   }
+
+  Future<bool> isUserLoggedIn() {
+    return _secureStorage.read(key: 'access_key').then((key) => key != null);
+  }
 }

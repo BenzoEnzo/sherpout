@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_it/get_it.dart';
 
+import '../../../common/auth_service.dart';
 import '../objects/language.dart';
 
 class LanguageSelector extends StatelessWidget {
+  final AuthService _authService = GetIt.instance<AuthService>();
+
   final Function(Language) setLocale;
 
-  const LanguageSelector({super.key, required this.setLocale});
+  LanguageSelector({super.key, required this.setLocale});
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +18,20 @@ class LanguageSelector extends StatelessWidget {
       dropdownMenuEntries: Language.values
           .map((language) => DropdownMenuEntry(value: language, label: language.name))
           .toList(),
-      onSelected: (value) async {
-        if (value != null) {
-          setLocale(value);
-          final FlutterSecureStorage secureStorage = FlutterSecureStorage();
-          String? token = await secureStorage.read(key: "access_token");
-          if (token != null) {
-            Navigator.pushReplacementNamed(context, '/dashboard');
-          }
-          Navigator.pushReplacementNamed(context, '/auth');
-        }
-      },
+      onSelected: (value) => selectLanguage(context, value)
     );
+  }
+
+  Future<void> selectLanguage(BuildContext context, Language? value) async {
+    if (value == null) {
+      return;
+    }
+    setLocale(value);
+    bool loggedIn = await _authService.isUserLoggedIn();
+
+    if (!context.mounted) {
+      return;
+    }
+    Navigator.pushReplacementNamed(context, loggedIn ? '/dashboard' : '/auth');
   }
 }

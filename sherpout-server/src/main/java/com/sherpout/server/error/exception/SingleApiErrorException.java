@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 public class SingleApiErrorException extends RuntimeException {
     private final ApiError apiError;
+
     public SingleApiErrorException(ApiError.Builder builder) {
         apiError = builder.build();
     }

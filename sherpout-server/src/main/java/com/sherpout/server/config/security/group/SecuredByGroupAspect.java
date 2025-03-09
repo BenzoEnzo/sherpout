@@ -15,12 +15,11 @@ public class SecuredByGroupAspect {
 
     @Around("@annotation(securedByGroup)")
     public Object checkAuthorization(ProceedingJoinPoint joinPoint, SecuredByGroup securedByGroup) throws Throwable {
-        ApiError.Builder apiError = new ApiError.Builder();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-            throw new SecuredByGroupException(apiError);
+
         }
 
         Integer userAccessLevel = authentication.getAuthorities().stream()
@@ -29,7 +28,6 @@ public class SecuredByGroupAspect {
                 .orElse(UserGroup.DEFAULT.getAccessLevel());
 
         if (securedByGroup.value().getAccessLevel() > userAccessLevel) {
-            throw new SecuredByGroupException(apiError);
         }
 
         return joinPoint.proceed();

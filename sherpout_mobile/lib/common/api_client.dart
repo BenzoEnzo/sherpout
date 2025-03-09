@@ -3,22 +3,24 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiClient {
-  static final Dio _dio = Dio(BaseOptions(baseUrl: dotenv.env['API_BASE_URL']!))
-    ..interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        final secureStorage = FlutterSecureStorage();
-        final token = await secureStorage.read(key: 'access_token');
+  final Dio _dio;
+  final FlutterSecureStorage _secureStorage;
 
+  ApiClient(this._dio, this._secureStorage) {
+    _dio.options.baseUrl = dotenv.env['API_BASE_URL']!;
+    _dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        final token = await _secureStorage.read(key: 'access_token');
         if (token != null) {
           options.headers["Authorization"] = "Bearer $token";
         }
-
         options.headers["Content-Type"] = "application/json";
         return handler.next(options);
       },
     ));
+  }
 
-  static Future<Response> get(String endpoint) async {
-    return await _dio.get(endpoint);
+  Future<Response> get(String endpoint, Object? data, Map<String, dynamic>? queryParameters) async {
+    return await _dio.get(endpoint, data: data, queryParameters: queryParameters);
   }
 }

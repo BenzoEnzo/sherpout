@@ -1,8 +1,20 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sherpoutmobile/common/api_client.dart';
 import 'package:sherpoutmobile/sherpout_app.dart';
+import 'package:get_it/get_it.dart';
 
+final getIt = GetIt.instance;
+
+void configureDependencies() {
+  getIt.registerLazySingleton(() => Dio());
+  getIt.registerLazySingleton(() => FlutterSecureStorage());
+
+  getIt.registerLazySingleton(() => ApiClient(getIt<Dio>(), getIt<FlutterSecureStorage>()));
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +26,8 @@ void main() async {
   final Locale initialLocale = Locale(language ?? 'en');
 
   await dotenv.load(fileName: ".env");
+
+  configureDependencies();
 
   runApp(SherpoutApp(initialRoute: initialRoute, initialLocale: initialLocale));
 }

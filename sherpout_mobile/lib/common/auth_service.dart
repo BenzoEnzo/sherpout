@@ -2,16 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:sherpoutmobile/common/user_provider.dart';
 
-class AuthService {
-  final FlutterAppAuth _appAuth = FlutterAppAuth();
-  final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
+final getIt = GetIt.instance;
 
+class AuthService {
   final String clientId = dotenv.env['KEYCLOAK_CLIENT_ID']!;
   final String redirectUrl = dotenv.env['KEYCLOAK_REDIRECT_URL']!;
   final String issuer = dotenv.env['KEYCLOAK_URL']!;
+
+  final FlutterAppAuth _appAuth;
+  final FlutterSecureStorage _secureStorage;
+
+  AuthService(this._appAuth, this._secureStorage);
 
   Future<void> login(BuildContext context) async {
     try {
@@ -26,8 +31,8 @@ class AuthService {
       await _secureStorage.write(key: 'access_token', value: result.accessToken);
       await _secureStorage.write(key: 'id_token', value: result.idToken);
       if (context.mounted) {
-        Navigator.pushReplacementNamed(context, '/dashboard');
         Provider.of<UserProvider>(context, listen: false).fetch();
+        Navigator.pushReplacementNamed(context, '/dashboard');
       }
     } catch (e) {
       print("Błąd logowania: $e");

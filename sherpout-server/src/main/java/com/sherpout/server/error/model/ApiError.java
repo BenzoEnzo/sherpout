@@ -1,5 +1,6 @@
 package com.sherpout.server.error.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sherpout.server.commons.dto.TranslatedStringDTO;
 import lombok.*;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ public class ApiError {
     private final ErrorLocationType errorLocationType;
     private final ErrorMessage errorMessage;
     private final String location;
+    @JsonIgnore
     private final HttpStatus httpStatus;
 
     private ApiError(Builder builder) {
@@ -21,6 +23,10 @@ public class ApiError {
         this.errorMessage = builder.errorMessage;
         this.location = builder.location;
         this.httpStatus = builder.httpStatus;
+    }
+
+    public static ApiError.Builder builder(ErrorMessage errorMessage, HttpStatus httpStatus){
+        return new ApiError.Builder(errorMessage, httpStatus);
     }
 
     public static class Builder {
@@ -55,8 +61,8 @@ public class ApiError {
             translatedString = new TranslatedStringDTO();
 
             if (errorMessage != null) {
-                this.translatedString.setEn(fillPlaceholders(errorMessage.getEnglish(), textParams));
-                this.translatedString.setPl(fillPlaceholders(errorMessage.getPolish(), textParams));
+                translatedString.setEn(fillPlaceholders(errorMessage.getEnglish(), textParams));
+                translatedString.setPl(fillPlaceholders(errorMessage.getPolish(), textParams));
             }
             return new ApiError(this);
         }

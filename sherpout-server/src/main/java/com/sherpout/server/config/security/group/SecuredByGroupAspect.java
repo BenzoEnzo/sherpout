@@ -1,7 +1,6 @@
 package com.sherpout.server.config.security.group;
 
 import com.sherpout.server.error.exception.SecuredByGroupException;
-import com.sherpout.server.error.model.ApiError;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -19,7 +18,7 @@ public class SecuredByGroupAspect {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-
+            throw new SecuredByGroupException();
         }
 
         Integer userAccessLevel = authentication.getAuthorities().stream()
@@ -28,6 +27,7 @@ public class SecuredByGroupAspect {
                 .orElse(UserGroup.DEFAULT.getAccessLevel());
 
         if (securedByGroup.value().getAccessLevel() > userAccessLevel) {
+            throw new SecuredByGroupException();
         }
 
         return joinPoint.proceed();

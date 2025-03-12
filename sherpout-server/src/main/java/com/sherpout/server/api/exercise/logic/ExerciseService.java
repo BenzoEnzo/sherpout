@@ -8,6 +8,7 @@ import com.sherpout.server.api.exercise.repository.ExerciseRepository;
 import com.sherpout.server.commons.dto.pagination.PageResponseDTO;
 import com.sherpout.server.commons.dto.pagination.PaginationDTO;
 import com.sherpout.server.commons.service.PaginationService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +20,16 @@ public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseMapper exerciseMapper;
     private final PaginationService paginationService;
+
+    @Transactional
+    public ExerciseDTO updateExercise(ExerciseDTO updateRequest, Long id) {
+        Exercise exercise = exerciseRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+
+        exerciseMapper.mapToUpdateEntity(updateRequest,exercise);
+
+        return exerciseMapper.mapToDTO(exercise);
+    }
 
     public ExerciseDTO createExercise(ExerciseDTO dto) {
         Exercise exercise = exerciseRepository.save(exerciseMapper.mapToEntity(dto));

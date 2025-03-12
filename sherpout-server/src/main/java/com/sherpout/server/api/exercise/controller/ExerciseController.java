@@ -26,7 +26,7 @@ public class ExerciseController {
 
     @PutMapping("/{id}")
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<ExerciseDTO> updateExercise(@Valid @RequestBody ExerciseDTO exerciseDTO, @PathVariable Long id) {
+    public ResponseEntity<ExerciseDTO> updateExercise(@RequestBody ExerciseDTO exerciseDTO, @PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(exerciseService.updateExercise(exerciseDTO, id));

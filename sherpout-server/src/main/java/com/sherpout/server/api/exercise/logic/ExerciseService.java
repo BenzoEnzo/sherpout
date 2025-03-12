@@ -8,10 +8,15 @@ import com.sherpout.server.api.exercise.repository.ExerciseRepository;
 import com.sherpout.server.commons.dto.pagination.PageResponseDTO;
 import com.sherpout.server.commons.dto.pagination.PaginationDTO;
 import com.sherpout.server.commons.service.PaginationService;
+import com.sherpout.server.error.exception.SingleApiErrorException;
+import com.sherpout.server.error.model.ApiError;
+import com.sherpout.server.error.model.ErrorLocationType;
+import com.sherpout.server.error.model.ErrorMessage;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,9 +29,14 @@ public class ExerciseService {
     @Transactional
     public ExerciseDTO updateExercise(ExerciseDTO updateRequest, Long id) {
         Exercise exercise = exerciseRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new SingleApiErrorException(
+                        ApiError.builder(ErrorMessage.INVALID_INPUT, HttpStatus.NOT_FOUND)
+                                .withErrorLocationType(ErrorLocationType.PATH_PARAM)
+                                .withLocation("id")
+                                .withTextParam("name", "Exercise with id=" + id + " not found!")
+                ));
 
-        exerciseMapper.mapToUpdateEntity(updateRequest,exercise);
+        exerciseMapper.mapToUpdateEntity(updateRequest, exercise);
 
         return exerciseMapper.mapToDTO(exercise);
     }

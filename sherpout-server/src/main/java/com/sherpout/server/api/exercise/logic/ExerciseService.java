@@ -33,7 +33,7 @@ public class ExerciseService {
                         ApiError.builder(ErrorMessage.INVALID_INPUT, HttpStatus.NOT_FOUND)
                                 .withErrorLocationType(ErrorLocationType.PATH_PARAM)
                                 .withLocation("id")
-                                .withTextParam("name", "Exercise with id=" + id + " not found!")
+                                .withTextParam("name", "id: " + id)
                 ));
 
         exerciseMapper.mapToUpdateEntity(updateRequest, exercise);

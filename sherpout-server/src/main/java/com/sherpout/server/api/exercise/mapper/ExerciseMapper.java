@@ -21,8 +21,8 @@ public interface ExerciseMapper {
 
     ExerciseSelectDTO mapToSelectDTO(Exercise exercise);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void mapToUpdateEntity(ExerciseDTO dto, @MappingTarget Exercise exercise);
 
     @Mapping(target = "id", ignore = true)

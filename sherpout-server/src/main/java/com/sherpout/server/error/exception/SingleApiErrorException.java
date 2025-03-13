@@ -10,7 +10,7 @@ import lombok.Getter;
 public class SingleApiErrorException extends RuntimeException {
     private final ApiError apiError;
 
-    public SingleApiErrorException(ApiError.Builder builder) {
-        apiError = builder.build();
+    public SingleApiErrorException(ApiError.Builder apiError) {
+        this.apiError = apiError.build();
     }
 }

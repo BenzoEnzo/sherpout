@@ -1,5 +1,7 @@
 package com.sherpout.server.config.security;
 
+import com.sherpout.server.config.security.group.UserGroup;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,9 +13,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.security.oauth2.server.resource.authentication.JwtIssuerAuthenticationManagerResolver;
 import org.springframework.security.web.SecurityFilterChain;
-import com.sherpout.server.config.security.group.UserGroup;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +22,9 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
+    @Value("${security.oauth2.resourceserver.jwt.issuers")
+    private List<String> issuers;
+
     private final Map<String, AuthenticationManager> authenticationManagers = new HashMap<>();
 
     private final JwtIssuerAuthenticationManagerResolver authenticationManagerResolver =
@@ -29,10 +32,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        List<String> issuers = new ArrayList<>();
-        issuers.add("http://192.168.100.45:8082/realms/Sherpout");
-        issuers.add("http://localhost:8082/realms/Sherpout");
-
         issuers.forEach(issuer -> addManager(authenticationManagers, issuer));
 
         http.authorizeHttpRequests(authz -> authz.anyRequest().authenticated())

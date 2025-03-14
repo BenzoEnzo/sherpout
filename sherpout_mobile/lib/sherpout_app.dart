@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sherpout_mobile/pages/dashboard/dashboard_page.dart';
-import 'package:sherpout_mobile/pages/language/objects/language.dart';
-import 'package:sherpout_mobile/pages/language/language_page.dart';
+import 'package:sherpoutmobile/pages/auth/auth_page.dart';
+import 'package:sherpoutmobile/pages/dashboard/dashboard_page.dart';
+import 'package:sherpoutmobile/pages/language/objects/language.dart';
+import 'package:sherpoutmobile/pages/language/language_page.dart';
 
-import 'package:sherpout_mobile/pages/personal/account_page.dart';
-import 'package:sherpout_mobile/pages/personal/friends_page.dart';
-import 'package:sherpout_mobile/pages/personal/settings_page.dart';
+import 'package:sherpoutmobile/pages/personal/account_page.dart';
+import 'package:sherpoutmobile/pages/personal/friends_page.dart';
+import 'package:sherpoutmobile/pages/personal/settings_page.dart';
 
-import 'package:sherpout_mobile/pages/activity/exercises_page.dart';
-import 'package:sherpout_mobile/pages/activity/rankings_page.dart';
-import 'package:sherpout_mobile/pages/activity/records_page.dart';
-import 'package:sherpout_mobile/pages/activity/trainings_page.dart';
+import 'package:sherpoutmobile/pages/activity/exercises_page.dart';
+import 'package:sherpoutmobile/pages/activity/rankings_page.dart';
+import 'package:sherpoutmobile/pages/activity/records_page.dart';
+import 'package:sherpoutmobile/pages/activity/trainings_page.dart';
 
 import 'l10n/l10n.dart';
 
@@ -59,7 +60,8 @@ class _SherpoutAppState extends State<SherpoutApp> {
       initialRoute: widget.initialRoute,
       routes: {
         "/language": (context) => LanguagePage(setLocale: setLocale),
-        "/dashboard": (context) => DashboardPage(userName: "Jan"),
+        "/auth": (context) => AuthPage(),
+        "/dashboard": (context) => DashboardPage(),
         "/accounts": (context) => AccountPage(),
         "/friends": (context) => FriendsPage(),
         "/settings": (context) => SettingsPage(),

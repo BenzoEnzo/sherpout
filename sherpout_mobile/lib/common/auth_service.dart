@@ -30,8 +30,9 @@ class AuthService {
 
       await _secureStorage.write(key: 'access_token', value: result.accessToken);
       await _secureStorage.write(key: 'id_token', value: result.idToken);
+
       if (context.mounted) {
-        Provider.of<UserProvider>(context, listen: false).fetch();
+        await Provider.of<UserProvider>(context, listen: false).fetch();
         Navigator.pushReplacementNamed(context, '/dashboard');
       }
     } catch (e) {

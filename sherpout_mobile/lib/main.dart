@@ -38,6 +38,8 @@ String getInitialRoute(String? language, bool isUserLoggedIn) {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await dotenv.load(fileName: ".env");
+
   configureDependencies();
 
   final authService = getIt<AuthService>();
@@ -47,8 +49,6 @@ void main() async {
   final bool isUserLoggedIn = await authService.isUserLoggedIn();
 
   final Locale initialLocale = Locale(language ?? 'en');
-
-  await dotenv.load(fileName: ".env");
 
   runApp(
       ChangeNotifierProvider(

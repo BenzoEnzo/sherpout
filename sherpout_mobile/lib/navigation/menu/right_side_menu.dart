@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sherpoutmobile/component/user/user_drawer_header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:sherpoutmobile/component/user/user_drawer_header.dart';
+
+import '../../common/user_provider.dart';
 
 class RightSideMenu extends StatelessWidget {
 
@@ -8,6 +11,8 @@ class RightSideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
+
     return Drawer(
       elevation: 16.0,
       child: Container(
@@ -15,9 +20,9 @@ class RightSideMenu extends StatelessWidget {
         child: Column(
           children: [
             UserDrawerHeader(
-              name: "Jan",
-              lastName: "Pawel",
-              accountEmail: "janpaweldrugi@wybitnepolakes.pl"
+              name: userProvider.userData!.firstName,
+              lastName: userProvider.userData!.lastName,
+              accountEmail: userProvider.userData!.email
             ),
             ListTile(
               leading: Icon(Icons.account_circle),

@@ -79,6 +79,12 @@
             <version>2.4-M5-groovy-4.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>4.0.16</version>
+            <type>pom</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -95,6 +101,29 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                <testSources>
+                    <testSource>
+                        <directory>${project.basedir}/src/test/groovy</directory>
+                        <includes>
+                            <include>**/*.groovy</include>
+                        </includes>
+                    </testSource>
+                </testSources>
+            </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <testSourceDirectory>src/test/groovy</testSourceDirectory>
+                    <includes>
+                        <include>**/*Specification.groovy</include>
+                        <include>**/*Test.groovy</include>
+                    </includes>
+                </configuration>
             </plugin>
 
             <plugin>

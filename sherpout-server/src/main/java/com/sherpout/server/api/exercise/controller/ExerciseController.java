@@ -7,7 +7,7 @@ import com.sherpout.server.api.exercise.logic.ExerciseLikeService;
 import com.sherpout.server.api.exercise.logic.ExerciseService;
 import com.sherpout.server.api.user.logic.TokenService;
 import com.sherpout.server.commons.dto.pagination.PageResponseDTO;
-import com.sherpout.server.commons.dto.pagination.PaginationDTO;
+import com.sherpout.server.commons.param.PaginationQueryParam;
 import com.sherpout.server.config.security.group.SecuredByGroup;
 import com.sherpout.server.config.security.group.UserGroup;
 import jakarta.validation.Valid;
@@ -42,7 +42,7 @@ public class ExerciseController {
 
     @GetMapping
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<PageResponseDTO<ExerciseListDTO>> getExercises(PaginationDTO pagination) {
+    public ResponseEntity<PageResponseDTO<ExerciseListDTO>> getExercises(PaginationQueryParam pagination) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(exerciseService.getAllExercises(pagination));

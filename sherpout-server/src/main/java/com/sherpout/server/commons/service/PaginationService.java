@@ -1,7 +1,7 @@
 package com.sherpout.server.commons.service;
 
 import com.sherpout.server.commons.dto.pagination.PageResponseDTO;
-import com.sherpout.server.commons.dto.pagination.PaginationDTO;
+import com.sherpout.server.commons.param.PaginationQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 @Service
 public class PaginationService {
-    public PageRequest getPageRequest(PaginationDTO pagination) {
+    public PageRequest getPageRequest(PaginationQueryParam pagination) {
         int page = pagination.getPage() == null ? 0 : pagination.getPage();
         int size = pagination.getSize() == null ? 10 : pagination.getSize();
         return PageRequest.of(page, size);

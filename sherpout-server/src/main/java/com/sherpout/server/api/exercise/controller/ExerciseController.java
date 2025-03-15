@@ -24,8 +24,16 @@ public class ExerciseController {
     private final ExerciseService exerciseService;
     private final ExerciseLikeService exerciseLikeService;
 
+    @PutMapping("/{id}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<ExerciseDTO> updateExercise(@RequestBody ExerciseDTO exerciseDTO, @PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(exerciseService.updateExercise(exerciseDTO, id));
+    }
+
     @PostMapping
-    @SecuredByGroup(UserGroup.TRAINER)
+    @SecuredByGroup(UserGroup.USER)
     public ResponseEntity<ExerciseDTO> createExercise(@Valid @RequestBody ExerciseDTO exerciseDTO) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)

@@ -16,19 +16,19 @@ public class SingleApiErrorExceptionHandler {
 
     @ExceptionHandler(SingleApiErrorException.class)
     @ResponseBody
-    public ResponseEntity<ApiErrorResponseDTO> handleSingleApiErrorException(ApiError apiError) {
+    public ResponseEntity<ApiErrorResponseDTO> handleSingleApiErrorException(SingleApiErrorException ex) {
         return new ResponseEntity<>(ApiErrorResponseDTO.builder()
-                .apiErrorList(Collections.singletonList(apiError))
-                .httpStatus(apiError.getHttpStatus())
-                .build(), apiError.getHttpStatus());
+                .apiErrorList(Collections.singletonList(ex.getApiError()))
+                .httpStatus(ex.getApiError().getHttpStatus())
+                .build(), ex.getApiError().getHttpStatus());
     }
 
     @ExceptionHandler(SecuredByGroupException.class)
     @ResponseBody
-    public ResponseEntity<ApiErrorResponseDTO> handleSecurityGroupException(ApiError apiError) {
+    public ResponseEntity<ApiErrorResponseDTO> handleSecurityGroupException(SecuredByGroupException ex) {
         return new ResponseEntity<>(ApiErrorResponseDTO.builder()
-                .apiErrorList(Collections.singletonList(apiError))
-                .httpStatus(apiError.getHttpStatus())
-                .build(), apiError.getHttpStatus());
+                .apiErrorList(Collections.singletonList(ex.getApiError()))
+                .httpStatus(ex.getApiError().getHttpStatus())
+                .build(), ex.getApiError().getHttpStatus());
     }
 }

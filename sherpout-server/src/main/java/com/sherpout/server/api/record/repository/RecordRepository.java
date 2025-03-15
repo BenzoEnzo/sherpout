@@ -12,10 +12,15 @@ import java.util.UUID;
 @Repository
 public interface RecordRepository extends JpaRepository<Record, Long> {
     @Query(value = """
-        SELECT DISTINCT ON (r.exercise_id) r
-        FROM record r
-        WHERE r.user_id = :userId
-        ORDER BY r.exercise_id, r.value DESC, r.date DESC
+              SELECT DISTINCT ON (r.exercise_id)
+                       r.id             AS id,
+                       r.user_id        AS user_id,
+                       r.exercise_id    AS exercise_id,
+                       r.value          AS value,
+                       r.date           AS date
+                FROM record r
+                WHERE r.user_id = :userId
+                ORDER BY r.exercise_id, r.value DESC, r.date DESC
         """, nativeQuery = true)
     List<Record> findBestAndLatestRecordsForUser(@Param("userId") UUID userId);
 }

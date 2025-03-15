@@ -16,7 +16,6 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
         FROM record r
         WHERE r.user_id = :userId
         ORDER BY r.exercise_id, r.value DESC, r.date DESC
-        """,
-            nativeQuery = true)
+        """, nativeQuery = true)
     List<Record> findBestAndLatestRecordsForUser(@Param("userId") UUID userId);
 }

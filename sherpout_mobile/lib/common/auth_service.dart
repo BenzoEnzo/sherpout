@@ -28,19 +28,45 @@ class AuthService {
             allowInsecureConnections: true),
       );
 
-      await _secureStorage.write(key: 'access_token', value: result.accessToken);
-      await _secureStorage.write(key: 'id_token', value: result.idToken);
+      if (!context.mounted) return;
+      await _saveTokensAndFetchUser(context, result);
 
-      if (context.mounted) {
-        await Provider.of<UserProvider>(context, listen: false).fetch();
-        Navigator.pushReplacementNamed(context, '/dashboard');
-      }
+      if (!context.mounted) return;
+      Navigator.pushReplacementNamed(context, '/dashboard');
     } catch (e) {
       print("Błąd logowania: $e");
     }
   }
 
-  Future<bool> isUserLoggedIn() {
-    return _secureStorage.read(key: 'access_key').then((key) => key != null);
+  Future<void> refreshToken(BuildContext context) async {
+    try {
+      final TokenResponse result = await _appAuth.token(
+        TokenRequest(clientId, redirectUrl,
+            discoveryUrl: '$issuer/protocol/openid-connect/token',
+            refreshToken: await _secureStorage.read(key: 'refresh_token'),
+            scopes: ['openid', 'profile', 'email'],
+            allowInsecureConnections: true),
+      );
+
+      if (!context.mounted) return;
+      _saveTokensAndFetchUser(context, result);
+    } catch (e) {
+      print("Błąd odświeżania tokenu: $e");
+    }
   }
+
+  Future<void> _saveTokensAndFetchUser(BuildContext context, TokenResponse result) async {
+    await Future.wait([
+      _secureStorage.write(key: 'access_token', value: result.accessToken),
+      _secureStorage.write(key: 'id_token', value: result.idToken),
+      _secureStorage.write(key: 'refresh_token', value: result.refreshToken),
+    ]);
+
+    if (!context.mounted) return;
+    await Provider.of<UserProvider>(context, listen: false).fetch();
+  }
+
+  Future<bool> isUserLoggedIn() async {
+    final accessToken = await _secureStorage.read(key: 'access_token');
+    return accessToken != null;  }
 }

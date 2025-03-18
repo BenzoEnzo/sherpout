@@ -3,6 +3,9 @@ server:
   servlet:
     context-path: /api
 
+s3:
+  url:
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/sherpout

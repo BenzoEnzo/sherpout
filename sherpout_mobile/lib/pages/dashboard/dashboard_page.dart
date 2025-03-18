@@ -3,7 +3,6 @@ import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sherpoutmobile/navigation/menu/left_side_menu.dart';
 import 'package:sherpoutmobile/navigation/menu/right_side_menu.dart';
 
@@ -74,21 +73,18 @@ class DashboardPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () async {
-                final FlutterSecureStorage secureStorage = FlutterSecureStorage();
-                final prefs = await SharedPreferences.getInstance();
-                await secureStorage.delete(key: 'access_token');
-                await secureStorage.delete(key: 'id_token');
-                await prefs.clear();
-              },
-              child: Text('Clear shared preferences.'),
+              onPressed: () {},
+              child: Text('Test 1'),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () async {
-                userProvider.fetch();
-              },
-              child: Text('Refetch user.'),
+              onPressed: () {},
+              child: Text('Test 2'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Test 3'),
             ),
           ],
         ),

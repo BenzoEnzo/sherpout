@@ -6,8 +6,7 @@ import com.sherpout.server.api.exercise.dto.ExerciseSelectDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.commons.mapper.ImageMapper;
 import com.sherpout.server.commons.mapper.TranslatedStringMapper;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
 @Mapper(
         componentModel = "spring",
@@ -23,5 +22,11 @@ public interface ExerciseMapper {
     ExerciseSelectDTO mapToSelectDTO(Exercise exercise);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "likesNumber", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void mapToUpdateEntity(ExerciseDTO dto, @MappingTarget Exercise exercise);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "likesNumber", ignore = true)
     Exercise mapToEntity(ExerciseDTO dto);
 }

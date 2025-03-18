@@ -152,6 +152,57 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Record",
+			"item": [
+				{
+					"name": "Create records",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyNWFEdjNzREVWRGNBYkVRaEZJbkhWc3VpNkFaRkRrTzE0Vi0zODFqYlJRIn0.eyJleHAiOjE3NDIwNDQyMDgsImlhdCI6MTc0MjA0MzkwOCwianRpIjoiNTc3NTlhY2EtYTFjYy00ZDllLTkxODAtYjdiZWQ3ODNiZmU1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdC9yZWFsbXMvU2hlcnBvdXQiLCJzdWIiOiJmOnpnY29EYWZQUjZXRHBXbURRaUxoV2c6amFrdWIuYmFydHVzQGdtYWlsLmNvbSIsInR5cCI6IkJlYXJlciIsImF6cCI6InNoZXJwb3V0LXJlc3QtYXBpIiwic2lkIjoiYzJmZWFiMDAtNWUzNS00ZTg2LWI1MjQtNmJlNTYxZTdjYzI0IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLXNoZXJwb3V0Iiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiSmFrdWIgQmFydHXFmyIsImdyb3VwcyI6WyIvdHJhaW5lciJdLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqYWt1Yi5iYXJ0dXNAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6Ikpha3ViIiwidXVpZCI6ImY1ZmE5NzMyLThiZmMtMTAzZi04MjFjLWJmMjY0OGYzNDU5ZSIsImZhbWlseV9uYW1lIjoiQmFydHXFmyIsImVtYWlsIjoiamFrdWIuYmFydHVzQGdtYWlsLmNvbSJ9.cWUTmkrL6tHQQjrr0gzfFj43tsC_M_XaRhJ0PPDxV4CjCRDFUu9UCz-iZ23tQu1IDECNAARPeoYcJOGnXtECnigJx-bNqzXysYwlMVU_38b10bVgcHNbfdfIvGWHVcoUc4UIoPBSPS915Q0RgZpakRpW5dT-pTmU7wkgDAYPFq2aLIyN7Ip9-IvW8ftRi7-G7sKjxtNHwSrrYATyqbiyJKmuarB8CLoYF4E6k2x2D44viMBKqpI92ZA_vmw-C7X4QmJ-Hi38U_LxAIpteb1qaCPTDSMNztkIXZ4Y_XQoeITzvnQ5auo3EAIBVgKe8DfD3lTG_e48jUBLxBTOnjLJPA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"2025-03-10T10:35:00\",\r\n  \"value\": 2500,\r\n  \"exercise\": {\r\n    \"id\": 3\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/records",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get records",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {

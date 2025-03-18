@@ -31,7 +31,7 @@ class AuthService {
   Future<void> refreshToken() async {
     final TokenResponse result = await _appAuth.token(
       TokenRequest(clientId, redirectUrl,
-          discoveryUrl: '$issuer/protocol/openid-connect/token',
+          discoveryUrl: '$issuer/.well-known/openid-configuration',
           refreshToken: await _secureStorage.read(key: 'refresh_token'),
           scopes: ['openid', 'profile', 'email'],
           allowInsecureConnections: true),
@@ -50,6 +50,9 @@ class AuthService {
 
   Future<bool> isUserLoggedIn() async {
     final accessToken = await _secureStorage.read(key: 'access_token');
-    return accessToken != null;
+    final idToken = await _secureStorage.read(key: 'access_token');
+    final refreshToken = await _secureStorage.read(key: 'access_token');
+
+    return accessToken != null && idToken != null && refreshToken != null;
   }
 }

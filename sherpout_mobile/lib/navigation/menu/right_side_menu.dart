@@ -45,6 +45,13 @@ class RightSideMenu extends StatelessWidget {
                 Navigator.pushNamed(context, "/settings");
               },
             ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text(AppLocalizations.of(context)!.logOut),
+              onTap: () {
+                // Navigator.pushNamed(context, "/settings");
+              },
+            ),
           ],
         ),
       ),

@@ -20,6 +20,18 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
 
+    if (userProvider.userData == null) {
+      userProvider.fetch();
+      return Container(
+        color: Colors.blue[50],
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(top: 12.0),
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation(Colors.blue),
+        ),
+      );
+    }
+
     return Scaffold(
       drawer: LeftSideMenu(),
       endDrawer: RightSideMenu(),
@@ -70,6 +82,13 @@ class DashboardPage extends StatelessWidget {
                 await prefs.clear();
               },
               child: Text('Clear shared preferences.'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () async {
+                userProvider.fetch();
+              },
+              child: Text('Refetch user.'),
             ),
           ],
         ),

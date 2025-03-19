@@ -20,9 +20,9 @@ void configureDependencies() {
   getIt.registerLazySingleton(() => FlutterAppAuth());
 
   getIt.registerLazySingleton(() =>
-      ApiClient(getIt<Dio>(), getIt<FlutterSecureStorage>()));
-  getIt.registerLazySingleton(() =>
       AuthService(getIt<FlutterAppAuth>(), getIt<FlutterSecureStorage>()));
+  getIt.registerLazySingleton(() =>
+      ApiClient(getIt<Dio>(), getIt<FlutterSecureStorage>(), getIt<AuthService>()));
 }
 
 String getInitialRoute(String? language, bool isUserLoggedIn) {

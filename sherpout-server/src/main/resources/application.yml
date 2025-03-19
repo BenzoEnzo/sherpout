@@ -30,6 +30,4 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:8082/realms/Sherpout/protocol/openid-connect/certs
-          issuers:
-            - "http://192.168.100.45:8082/realms/Sherpout"
-            - "http://localhost:8082/realms/Sherpout"
+          issuers: http://192.168.100.45:8082/realms/Sherpout, http://localhost:8082/realms/Sherpout

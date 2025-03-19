@@ -35,4 +35,13 @@ public class RecordController {
                 .status(HttpStatus.OK)
                 .body(recordService.getRecordHistory(exerciseId, dateRange));
     }
+
+    @DeleteMapping("{id}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<?> deleteRecord(@PathVariable Long id) {
+        recordService.deleteRecord(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
 }

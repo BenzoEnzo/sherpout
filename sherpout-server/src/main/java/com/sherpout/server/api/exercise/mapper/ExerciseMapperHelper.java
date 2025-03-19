@@ -3,6 +3,8 @@ package com.sherpout.server.api.exercise.mapper;
 import com.sherpout.server.api.exercise.dto.ExerciseSelectDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
+import com.sherpout.server.error.exception.UnableToFindExerciseException;
+import com.sherpout.server.error.model.ErrorLocationType;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,6 @@ public class ExerciseMapperHelper {
         }
         return exerciseRepository
                 .findById(dto.getId())
-                .orElseThrow(IllegalAccessError::new);
+                .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.BODY, "exercise/id", dto.getId()));
     }
 }

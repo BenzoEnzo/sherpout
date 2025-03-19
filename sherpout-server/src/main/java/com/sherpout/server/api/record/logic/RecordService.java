@@ -9,6 +9,10 @@ import com.sherpout.server.api.record.mapper.RecordMapper;
 import com.sherpout.server.api.record.repository.RecordRepository;
 import com.sherpout.server.api.user.logic.TokenService;
 import com.sherpout.server.commons.param.DateRangeQueryParam;
+import com.sherpout.server.error.exception.AccessForbiddenException;
+import com.sherpout.server.error.exception.UnableToFindExerciseException;
+import com.sherpout.server.error.exception.UnableToFindRecordException;
+import com.sherpout.server.error.model.ErrorLocationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +36,23 @@ public class RecordService {
     public List<RecordHistoryDTO> getRecordHistory(Long exerciseId, DateRangeQueryParam dateRange) {
         return exerciseRepository.findById(exerciseId)
                 .map(exercise -> getRecordHistoryBetweenDates(exercise, dateRange.getFrom(), dateRange.getTo()))
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "exerciseId", exerciseId));
     }
 
     private List<RecordHistoryDTO> getRecordHistoryBetweenDates(Exercise exercise, LocalDateTime from, LocalDateTime to) {
         return recordRepository.findAllByExerciseAndDateBetweenOrderByDateDesc(exercise, from, to).stream()
                 .map(recordMapper::mapToHistoryDTO)
                 .toList();
+    }
+
+    public void deleteRecord(Long id) {
+        Record record = recordRepository.findById(id)
+                .orElseThrow(() -> new UnableToFindRecordException(ErrorLocationType.PATH_PARAM, id));
+
+        if (record.getUserId().equals(tokenService.getUser().getId())) {
+            recordRepository.delete(record);
+        } else {
+            throw new AccessForbiddenException();
+        }
     }
 }

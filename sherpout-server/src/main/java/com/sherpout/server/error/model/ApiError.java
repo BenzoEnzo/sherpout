@@ -34,7 +34,7 @@ public class ApiError {
         private ErrorLocationType errorLocationType;
         private final HttpStatus httpStatus;
         private String location;
-        private final Map<String, String> textParams = new HashMap<>();
+        private final Map<String, Object> textParams = new HashMap<>();
         private TranslatedStringDTO translatedString;
 
         public Builder(ErrorMessage errorMessage, HttpStatus httpStatus) {
@@ -52,7 +52,7 @@ public class ApiError {
             return this;
         }
 
-        public Builder withTextParam(String key, String value) {
+        public Builder withTextParam(String key, Object value) {
             this.textParams.put(key, value);
             return this;
         }
@@ -67,15 +67,15 @@ public class ApiError {
             return new ApiError(this);
         }
 
-        private String fillPlaceholders(String message, Map<String, String> placeholders) {
+        private String fillPlaceholders(String message, Map<String, Object> placeholders) {
             if (placeholders == null) {
                 return message;
             }
             String result = message;
 
-            for (Map.Entry<String, String> entry : placeholders.entrySet()) {
+            for (Map.Entry<String, Object> entry : placeholders.entrySet()) {
                 String placeholder = "{{" + entry.getKey() + "}}";
-                result = result.replace(placeholder, entry.getValue());
+                result = result.replace(placeholder, String.valueOf(entry.getValue()));
             }
 
             return result;

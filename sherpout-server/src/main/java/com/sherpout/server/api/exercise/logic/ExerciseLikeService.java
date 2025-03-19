@@ -5,6 +5,8 @@ import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.entity.ExerciseLike;
 import com.sherpout.server.api.exercise.repository.ExerciseLikeRepository;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
+import com.sherpout.server.error.exception.UnableToFindExerciseException;
+import com.sherpout.server.error.model.ErrorLocationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +23,7 @@ public class ExerciseLikeService {
     public LikeNumberResponseDTO toggleLike(Long exerciseId, UUID userId) {
         return exerciseRepository.findById(exerciseId)
                 .map(exercise -> new LikeNumberResponseDTO(toggleLikeExercise(exercise, userId)))
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", exerciseId));
     }
 
     private Integer toggleLikeExercise(Exercise exercise, UUID userId) {

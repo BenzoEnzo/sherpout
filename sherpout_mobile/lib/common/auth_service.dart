@@ -13,8 +13,9 @@ class AuthService {
 
   final FlutterAppAuth _appAuth;
   final FlutterSecureStorage _secureStorage;
+  final GlobalKey<NavigatorState> _navigatorKey;
 
-  AuthService(this._appAuth, this._secureStorage);
+  AuthService(this._appAuth, this._secureStorage, this._navigatorKey);
 
   Future<void> login(BuildContext context) async {
     final AuthorizationTokenResponse result =
@@ -22,22 +23,38 @@ class AuthService {
       AuthorizationTokenRequest(clientId, redirectUrl,
           issuer: issuer,
           scopes: ['openid', 'profile', 'email'],
-          allowInsecureConnections: true),
+          promptValues: ['login'],
+          allowInsecureConnections: true
+      ),
     );
 
     await _saveTokens(result);
   }
 
   Future<void> refreshToken() async {
-    final TokenResponse result = await _appAuth.token(
-      TokenRequest(clientId, redirectUrl,
-          discoveryUrl: '$issuer/.well-known/openid-configuration',
-          refreshToken: await _secureStorage.read(key: 'refresh_token'),
-          scopes: ['openid', 'profile', 'email'],
-          allowInsecureConnections: true),
-    );
+    try {
+      final TokenResponse result = await _appAuth.token(
+        TokenRequest(clientId, redirectUrl,
+            discoveryUrl: '$issuer/.well-known/openid-configuration',
+            refreshToken: await _secureStorage.read(key: 'refresh_token'),
+            scopes: ['openid', 'profile', 'email'],
+            allowInsecureConnections: true),
+      );
 
-    _saveTokens(result);
+      _saveTokens(result);
+    } catch (e) {
+      logout();
+    }
+  }
+
+  Future<void> logout() async {
+    await Future.wait([
+      _secureStorage.delete(key: 'access_token'),
+      _secureStorage.delete(key: 'id_token'),
+      _secureStorage.delete(key: 'refresh_token'),
+    ]);
+
+    _navigatorKey.currentState?.pushNamedAndRemoveUntil('/auth', (route) => false);
   }
 
   Future<void> _saveTokens(TokenResponse result) async {

@@ -3,6 +3,7 @@ package com.sherpout.server.api.exercise.controller;
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.dto.LikeNumberResponseDTO;
+import com.sherpout.server.api.exercise.enumerated.MuscleCategory;
 import com.sherpout.server.api.exercise.logic.ExerciseLikeService;
 import com.sherpout.server.api.exercise.logic.ExerciseService;
 import com.sherpout.server.api.user.logic.TokenService;
@@ -15,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("exercises")
@@ -50,10 +54,10 @@ public class ExerciseController {
 
     @GetMapping
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<PageResponseDTO<ExerciseListDTO>> getExercises(PaginationQueryParam pagination) {
+    public ResponseEntity<Map<MuscleCategory, List<ExerciseListDTO>>> getExercises() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(exerciseService.getAllExercises(pagination));
+                .body(exerciseService.getAllExercises());
     }
 
     @PutMapping("/{id}/toggle-like")

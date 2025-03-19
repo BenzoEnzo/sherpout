@@ -1,13 +1,18 @@
 package com.sherpout.server.api.record.controller;
 
 import com.sherpout.server.api.record.dto.RecordDTO;
+import com.sherpout.server.api.record.dto.RecordHistoryDTO;
 import com.sherpout.server.api.record.logic.RecordService;
+import com.sherpout.server.commons.param.DateRangeQueryParam;
 import com.sherpout.server.config.security.group.SecuredByGroup;
 import com.sherpout.server.config.security.group.UserGroup;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,6 +27,14 @@ public class RecordController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(recordService.createRecord(request));
+    }
+
+    @GetMapping("history/{exerciseId}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<List<RecordHistoryDTO>> getRecordHistory(@PathVariable Long exerciseId, @Valid DateRangeQueryParam dateRange) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(recordService.getRecordHistory(exerciseId, dateRange));
     }
 
     @DeleteMapping("{id}")

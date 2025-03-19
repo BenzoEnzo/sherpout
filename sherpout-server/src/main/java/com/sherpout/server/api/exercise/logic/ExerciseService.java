@@ -6,13 +6,10 @@ import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.enumerated.MuscleCategory;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
-import com.sherpout.server.error.exception.SingleApiErrorException;
-import com.sherpout.server.error.model.ApiError;
+import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.model.ErrorLocationType;
-import com.sherpout.server.error.model.ErrorMessage;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,12 +25,7 @@ public class ExerciseService {
     @Transactional
     public ExerciseDTO updateExercise(ExerciseDTO updateRequest, Long id) {
         Exercise exercise = exerciseRepository.findById(id)
-                .orElseThrow(() -> new SingleApiErrorException(
-                        ApiError.builder(ErrorMessage.INVALID_INPUT, HttpStatus.NOT_FOUND)
-                                .withErrorLocationType(ErrorLocationType.PATH_PARAM)
-                                .withLocation("id")
-                                .withTextParam("name", "id: " + id)
-                ));
+                .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
 
         exerciseMapper.mapToUpdateEntity(updateRequest, exercise);
 
@@ -48,7 +40,7 @@ public class ExerciseService {
     public ExerciseDTO getExerciseById(Long id) {
         return exerciseRepository.findById(id)
                 .map(exerciseMapper::mapToDTO)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
     }
 
     public Map<MuscleCategory, List<ExerciseListDTO>> getAllExercises() {

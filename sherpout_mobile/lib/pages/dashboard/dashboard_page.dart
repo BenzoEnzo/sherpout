@@ -86,6 +86,13 @@ class DashboardPage extends StatelessWidget {
               onPressed: () {},
               child: Text('Test 3'),
             ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () async {
+                userProvider.fetch();
+              },
+              child: Text('Refetch user.'),
+            ),
           ],
         ),
       ),

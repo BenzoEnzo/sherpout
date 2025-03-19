@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -24,7 +25,10 @@ class AuthService {
           issuer: issuer,
           scopes: ['openid', 'profile', 'email'],
           promptValues: ['login'],
-          allowInsecureConnections: true
+          allowInsecureConnections: true,
+          additionalParameters: {
+            'ui_locales': AppLocalizations.of(context)!.localeName,
+          },
       ),
     );
 

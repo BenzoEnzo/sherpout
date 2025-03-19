@@ -204,6 +204,96 @@
       "optionalClientScopes": []
     },
     {
+      "id": "8374e7f2-af3f-4f04-8b26-7ddea37adbdb",
+      "clientId": "mobile-app",
+      "name": "Mobile app",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "com.sherpout.sherpoutmobile:/oauth2redirect"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "realm_client": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "frontchannel.logout.session.required": "true",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "display.on.consent.screen": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "20b38a3a-a9bc-41c1-ae01-8ef8cccbea5b",
+          "name": "uuid",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "false",
+            "userinfo.token.claim": "false",
+            "user.attribute": "ldap_uuid",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "uuid",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "088d10bc-2ea9-42d4-8d3e-62c6c98df1ea",
+          "name": "groups",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "consentRequired": false,
+          "config": {
+            "full.path": "true",
+            "introspection.token.claim": "false",
+            "userinfo.token.claim": "true",
+            "multivalued": "true",
+            "id.token.claim": "false",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "groups"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "roles",
+        "profile",
+        "basic",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "organization",
+        "microprofile-jwt"
+      ]
+    },
+    {
       "id": "fa0c2c01-b2da-4bec-9e10-b4dc13ee5c0f",
       "clientId": "realm-management",
       "name": "${client_realm-management}",
@@ -1182,14 +1272,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-user-property-mapper",
             "oidc-full-name-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
+            "saml-user-attribute-mapper",
+            "saml-user-property-mapper",
             "oidc-usermodel-attribute-mapper",
             "saml-role-list-mapper",
             "oidc-usermodel-property-mapper",
             "oidc-address-mapper",
-            "saml-user-attribute-mapper"
+            "oidc-sha256-pairwise-sub-mapper"
           ]
         }
       },
@@ -1201,14 +1291,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-address-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
-            "saml-user-property-mapper",
             "oidc-usermodel-property-mapper",
             "oidc-full-name-mapper",
             "oidc-usermodel-attribute-mapper",
-            "saml-role-list-mapper",
-            "saml-user-attribute-mapper"
+            "oidc-sha256-pairwise-sub-mapper",
+            "saml-user-attribute-mapper",
+            "saml-user-property-mapper",
+            "oidc-address-mapper",
+            "saml-role-list-mapper"
           ]
         }
       }
@@ -1232,10 +1322,10 @@
                 "is.mandatory.in.ldap": [
                   "true"
                 ],
-                "always.read.value.from.ldap": [
+                "read.only": [
                   "false"
                 ],
-                "read.only": [
+                "always.read.value.from.ldap": [
                   "false"
                 ],
                 "user.model.attribute": [
@@ -1281,11 +1371,11 @@
                 "is.mandatory.in.ldap": [
                   "true"
                 ],
-                "always.read.value.from.ldap": [
-                  "true"
-                ],
                 "read.only": [
                   "false"
+                ],
+                "always.read.value.from.ldap": [
+                  "true"
                 ],
                 "user.model.attribute": [
                   "lastName"
@@ -1336,23 +1426,23 @@
                 "membership.ldap.attribute": [
                   "member"
                 ],
-                "membership.user.ldap.attribute": [
-                  "uid"
+                "preserve.group.inheritance": [
+                  "false"
                 ],
                 "ignore.missing.groups": [
                   "false"
                 ],
-                "preserve.group.inheritance": [
-                  "false"
+                "membership.user.ldap.attribute": [
+                  "uid"
+                ],
+                "memberof.ldap.attribute": [
+                  "memberOf"
                 ],
                 "group.object.classes": [
                   "groupOfNames"
                 ],
                 "groups.dn": [
                   "ou=groups,dc=sherpout,dc=com"
-                ],
-                "memberof.ldap.attribute": [
-                  "memberOf"
                 ],
                 "drop.non.existing.groups.during.sync": [
                   "false"
@@ -1400,11 +1490,11 @@
           "startTls": [
             "false"
           ],
-          "usersDn": [
-            "ou=users,dc=sherpout,dc=com"
-          ],
           "connectionPooling": [
             "true"
+          ],
+          "usersDn": [
+            "ou=users,dc=sherpout,dc=com"
           ],
           "cachePolicy": [
             "DEFAULT"

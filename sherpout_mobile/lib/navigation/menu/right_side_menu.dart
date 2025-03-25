@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:sherpoutmobile/component/user/user_drawer_header.dart';
 
+import '../../common/auth_service.dart';
 import '../../common/user_provider.dart';
 
 class RightSideMenu extends StatelessWidget {
@@ -12,6 +14,7 @@ class RightSideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
+    final AuthService _authService = GetIt.instance<AuthService>();
 
     return Drawer(
       elevation: 16.0,
@@ -43,6 +46,13 @@ class RightSideMenu extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.settings),
               onTap: () {
                 Navigator.pushNamed(context, "/settings");
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text(AppLocalizations.of(context)!.logOut),
+              onTap: () {
+                _authService.logout();
               },
             ),
           ],

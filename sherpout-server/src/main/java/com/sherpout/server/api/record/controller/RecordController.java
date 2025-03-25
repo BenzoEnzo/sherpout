@@ -26,6 +26,23 @@ public class RecordController {
                 .body(recordService.createRecord(request));
     }
 
+    @GetMapping("history/{exerciseId}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<List<RecordHistoryDTO>> getRecordHistory(@PathVariable Long exerciseId, @Valid DateRangeQueryParam dateRange) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(recordService.getRecordHistory(exerciseId, dateRange));
+    }
+
+    @DeleteMapping("{id}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<?> deleteRecord(@PathVariable Long id) {
+        recordService.deleteRecord(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
+
     @GetMapping
     @SecuredByGroup(UserGroup.USER)
     public ResponseEntity<List<RecordDTO>> getRecords() {

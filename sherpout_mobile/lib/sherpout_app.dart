@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sherpoutmobile/main.dart';
 import 'package:sherpoutmobile/pages/auth/auth_page.dart';
 import 'package:sherpoutmobile/pages/dashboard/dashboard_page.dart';
 import 'package:sherpoutmobile/pages/language/objects/language.dart';
@@ -21,11 +22,13 @@ import 'l10n/l10n.dart';
 class SherpoutApp extends StatefulWidget {
   final String initialRoute;
   final Locale initialLocale;
+  final GlobalKey<NavigatorState> navigatorKey;
 
   const SherpoutApp({
     super.key,
     required this.initialRoute,
-    required this.initialLocale
+    required this.initialLocale,
+    required this.navigatorKey
   });
 
   @override
@@ -57,6 +60,7 @@ class _SherpoutAppState extends State<SherpoutApp> {
         scaffoldBackgroundColor: Colors.blue[50],
       ),
 
+      navigatorKey: navigatorKey,
       initialRoute: widget.initialRoute,
       routes: {
         "/language": (context) => LanguagePage(setLocale: setLocale),

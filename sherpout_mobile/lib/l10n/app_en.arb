@@ -8,5 +8,6 @@
     "trainings": "Trainings",
     "account": "Account",
     "rankings": "Rankings",
-    "loginOrRegister": "Log in or register"
+    "loginOrRegister": "Log in or register",
+    "logOut": "Log out"
 }

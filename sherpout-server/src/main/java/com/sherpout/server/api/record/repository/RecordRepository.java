@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @Repository
 public interface RecordRepository extends JpaRepository<Record, Long> {
+    List<Record> findAllByExerciseAndDateBetweenOrderByDateDesc(Exercise exercise, LocalDateTime start, LocalDateTime end);
     @Query(value = """
             SELECT DISTINCT ON (r.exercise_id)
                      r.id             AS id,

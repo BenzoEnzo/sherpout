@@ -26,6 +26,6 @@ public class BaseEnumConverter<E extends Enum<E> & BaseEnum> implements Attribut
                 return enumConstant;
             }
         }
-        throw new IllegalArgumentException("Nieznane id enum: " + dbData);
+        throw new IllegalArgumentException("Unknown enum id: " + dbData);
     }
 }

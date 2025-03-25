@@ -3,8 +3,6 @@ import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
-import 'package:sherpoutmobile/common/user_provider.dart';
 
 final getIt = GetIt.instance;
 
@@ -15,32 +13,63 @@ class AuthService {
 
   final FlutterAppAuth _appAuth;
   final FlutterSecureStorage _secureStorage;
+  final GlobalKey<NavigatorState> _navigatorKey;
 
-  AuthService(this._appAuth, this._secureStorage);
+  AuthService(this._appAuth, this._secureStorage, this._navigatorKey);
 
   Future<void> login(BuildContext context) async {
+    final AuthorizationTokenResponse result =
+        await _appAuth.authorizeAndExchangeCode(
+      AuthorizationTokenRequest(clientId, redirectUrl,
+          issuer: issuer,
+          scopes: ['openid', 'profile', 'email'],
+          promptValues: ['login'],
+          allowInsecureConnections: true
+      ),
+    );
+
+    await _saveTokens(result);
+  }
+
+  Future<void> refreshToken() async {
     try {
-      final AuthorizationTokenResponse result =
-          await _appAuth.authorizeAndExchangeCode(
-        AuthorizationTokenRequest(clientId, redirectUrl,
-            issuer: issuer,
+      final TokenResponse result = await _appAuth.token(
+        TokenRequest(clientId, redirectUrl,
+            discoveryUrl: '$issuer/.well-known/openid-configuration',
+            refreshToken: await _secureStorage.read(key: 'refresh_token'),
             scopes: ['openid', 'profile', 'email'],
             allowInsecureConnections: true),
       );
 
-      await _secureStorage.write(key: 'access_token', value: result.accessToken);
-      await _secureStorage.write(key: 'id_token', value: result.idToken);
-
-      if (context.mounted) {
-        await Provider.of<UserProvider>(context, listen: false).fetch();
-        Navigator.pushReplacementNamed(context, '/dashboard');
-      }
+      _saveTokens(result);
     } catch (e) {
-      print("Błąd logowania: $e");
+      logout();
     }
   }
 
-  Future<bool> isUserLoggedIn() {
-    return _secureStorage.read(key: 'access_key').then((key) => key != null);
+  Future<void> logout() async {
+    await Future.wait([
+      _secureStorage.delete(key: 'access_token'),
+      _secureStorage.delete(key: 'id_token'),
+      _secureStorage.delete(key: 'refresh_token'),
+    ]);
+
+    _navigatorKey.currentState?.pushNamedAndRemoveUntil('/auth', (route) => false);
+  }
+
+  Future<void> _saveTokens(TokenResponse result) async {
+    await Future.wait([
+      _secureStorage.write(key: 'access_token', value: result.accessToken),
+      _secureStorage.write(key: 'id_token', value: result.idToken),
+      _secureStorage.write(key: 'refresh_token', value: result.refreshToken),
+    ]);
+  }
+
+  Future<bool> isUserLoggedIn() async {
+    final accessToken = await _secureStorage.read(key: 'access_token');
+    final idToken = await _secureStorage.read(key: 'access_token');
+    final refreshToken = await _secureStorage.read(key: 'access_token');
+
+    return accessToken != null && idToken != null && refreshToken != null;
   }
 }

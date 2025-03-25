@@ -12,6 +12,7 @@ import 'package:get_it/get_it.dart';
 
 import 'common/user_provider.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final getIt = GetIt.instance;
 
 void configureDependencies() {
@@ -20,9 +21,9 @@ void configureDependencies() {
   getIt.registerLazySingleton(() => FlutterAppAuth());
 
   getIt.registerLazySingleton(() =>
-      ApiClient(getIt<Dio>(), getIt<FlutterSecureStorage>()));
+      AuthService(getIt<FlutterAppAuth>(), getIt<FlutterSecureStorage>(), navigatorKey));
   getIt.registerLazySingleton(() =>
-      AuthService(getIt<FlutterAppAuth>(), getIt<FlutterSecureStorage>()));
+      ApiClient(getIt<Dio>(), getIt<FlutterSecureStorage>(), getIt<AuthService>()));
 }
 
 String getInitialRoute(String? language, bool isUserLoggedIn) {
@@ -50,9 +51,12 @@ void main() async {
 
   final Locale initialLocale = Locale(language ?? 'en');
 
-  runApp(
-      ChangeNotifierProvider(
-        create: (context) => UserProvider(),
-        child: SherpoutApp(initialRoute: getInitialRoute(language, isUserLoggedIn), initialLocale: initialLocale),
-      ));
+  runApp(ChangeNotifierProvider(
+    create: (context) => UserProvider(),
+    child: SherpoutApp(
+      initialRoute: getInitialRoute(language, isUserLoggedIn),
+      initialLocale: initialLocale,
+      navigatorKey: navigatorKey,
+    ),
+  ));
 }

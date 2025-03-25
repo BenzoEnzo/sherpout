@@ -43,11 +43,7 @@ public class ExerciseDTO {
     @Null
     private Integer likesNumber;
 
-    @Valid
-    @NotNull
     private ImageDTO cover;
 
-    @Valid
-    @Size(max = 3)
     private List<ImageDTO> images;
 }

@@ -1,11 +1,17 @@
 package com.sherpout.server.api.record.logic;
 
 import com.sherpout.server.api.exercise.entity.Exercise;
+import com.sherpout.server.api.exercise.repository.ExerciseRepository;
 import com.sherpout.server.api.record.dto.RecordDTO;
+import com.sherpout.server.api.record.dto.RecordHistoryDTO;
 import com.sherpout.server.api.record.entity.Record;
 import com.sherpout.server.api.record.mapper.RecordMapper;
 import com.sherpout.server.api.record.repository.RecordRepository;
 import com.sherpout.server.api.user.logic.TokenService;
+import com.sherpout.server.commons.param.DateRangeQueryParam;
+import com.sherpout.server.error.exception.AccessForbiddenException;
+import com.sherpout.server.error.exception.UnableToFindExerciseException;
+import com.sherpout.server.error.exception.UnableToFindRecordException;
 import com.sherpout.server.error.model.ErrorLocationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

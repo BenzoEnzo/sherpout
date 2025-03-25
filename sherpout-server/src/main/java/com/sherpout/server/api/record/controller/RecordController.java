@@ -1,7 +1,9 @@
 package com.sherpout.server.api.record.controller;
 
 import com.sherpout.server.api.record.dto.RecordDTO;
+import com.sherpout.server.api.record.dto.RecordHistoryDTO;
 import com.sherpout.server.api.record.logic.RecordService;
+import com.sherpout.server.commons.param.DateRangeQueryParam;
 import com.sherpout.server.config.security.group.SecuredByGroup;
 import com.sherpout.server.config.security.group.UserGroup;
 import jakarta.validation.Valid;

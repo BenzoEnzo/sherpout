@@ -3,7 +3,6 @@ import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sherpoutmobile/navigation/menu/left_side_menu.dart';
 import 'package:sherpoutmobile/navigation/menu/right_side_menu.dart';
 
@@ -19,6 +18,18 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
+
+    if (userProvider.userData == null) {
+      userProvider.fetch();
+      return Container(
+        color: Colors.blue[50],
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(top: 12.0),
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation(Colors.blue),
+        ),
+      );
+    }
 
     return Scaffold(
       drawer: LeftSideMenu(),
@@ -62,14 +73,25 @@ class DashboardPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
+              onPressed: () {},
+              child: Text('Test 1'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Test 2'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Test 3'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
               onPressed: () async {
-                final FlutterSecureStorage secureStorage = FlutterSecureStorage();
-                final prefs = await SharedPreferences.getInstance();
-                await secureStorage.delete(key: 'access_token');
-                await secureStorage.delete(key: 'id_token');
-                await prefs.clear();
+                userProvider.fetch();
               },
-              child: Text('Clear shared preferences.'),
+              child: Text('Refetch user.'),
             ),
           ],
         ),

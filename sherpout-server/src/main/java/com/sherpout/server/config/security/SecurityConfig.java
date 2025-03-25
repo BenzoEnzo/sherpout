@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-    @Value("${security.oauth2.resourceserver.jwt.issuers")
+    @Value("${spring.security.oauth2.resourceserver.jwt.issuers}")
     private List<String> issuers;
 
     private final Map<String, AuthenticationManager> authenticationManagers = new HashMap<>();

@@ -1,4 +1,4 @@
-package com.sherpout.server.external.storage.config;
+package com.sherpout.server.external.storage;
 
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Value;

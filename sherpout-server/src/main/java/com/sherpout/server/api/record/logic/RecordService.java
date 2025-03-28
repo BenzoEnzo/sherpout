@@ -27,10 +27,17 @@ public class RecordService {
     private final ExerciseRepository exerciseRepository;
     private final RecordMapper recordMapper;
 
-    public RecordDTO createRecord(RecordDTO dto) {
+    public RecordDTO createRecord(RecordDTO dto){
         Record record = recordMapper.mapToEntity(dto);
         record.setUserId(tokenService.getUser().getId());
         return recordMapper.mapToDTO(recordRepository.save(record));
+    }
+
+    public List<RecordDTO> getRecords(){
+        return recordRepository.findBestAndLatestRecordsForUser(tokenService.getUser().getId())
+                .stream()
+                .map(recordMapper::mapToDTO)
+                .toList();
     }
 
     public List<RecordHistoryDTO> getRecordHistory(Long exerciseId, DateRangeQueryParam dateRange) {

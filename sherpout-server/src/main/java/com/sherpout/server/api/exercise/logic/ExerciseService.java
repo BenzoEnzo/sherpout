@@ -26,30 +26,20 @@ public class ExerciseService {
     private final ExerciseMapper exerciseMapper;
 
     @Transactional
-    public ExerciseDTO updateExercise(ExerciseDTO updateRequest, Long id, List<MultipartFile> files) {
+    public ExerciseDTO updateExercise(ExerciseDTO exerciseDTO, Long id, List<MultipartFile> files) {
         Exercise exercise = exerciseRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
 
-        if(files != null) {
-            List<ImageDTO> uploadedFiles = storageService.uploadFiles(updateRequest.getName().getEn(), files);
-            updateRequest.setCover(uploadedFiles.getFirst());
-            updateRequest.setImages(uploadedFiles);
-        }
-
-        exerciseMapper.mapToUpdateEntity(updateRequest, exercise);
+        configureFileSettings(files, exerciseDTO);
+        exerciseMapper.mapToUpdateEntity(exerciseDTO, exercise);
 
         return exerciseMapper.mapToDTO(exercise);
     }
 
     @Transactional
-    public ExerciseDTO createExercise(ExerciseDTO dto, List<MultipartFile> files) {
-        if(files != null) {
-            List<ImageDTO> uploadedFiles = storageService.uploadFiles(dto.getName().getEn(), files);
-            dto.setCover(uploadedFiles.getFirst());
-            dto.setImages(uploadedFiles);
-        }
-
-        Exercise exercise = exerciseMapper.mapToEntity(dto);
+    public ExerciseDTO createExercise(ExerciseDTO exerciseDTO, List<MultipartFile> files) {
+        configureFileSettings(files, exerciseDTO);
+        Exercise exercise = exerciseMapper.mapToEntity(exerciseDTO);
 
         return exerciseMapper.mapToDTO(exerciseRepository.save(exercise));
     }
@@ -66,5 +56,13 @@ public class ExerciseService {
                         exercise -> exercise.getTargetMuscle().getCategory(),
                         Collectors.mapping(exerciseMapper::mapToListDTO, Collectors.toList())
                 ));
+    }
+
+    private void configureFileSettings(List<MultipartFile> files, ExerciseDTO dto){
+        if(files != null && files.isEmpty()) {
+            List<ImageDTO> uploadedFiles = storageService.uploadFiles(String.valueOf(dto.getId()), files);
+            dto.setCover(uploadedFiles.getFirst());
+            dto.setImages(uploadedFiles);
+        }
     }
 }

@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 class SearchInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+    return Center(
           child: TextField(
             decoration: InputDecoration(
               hintText: 'Value',
@@ -23,8 +20,6 @@ class SearchInput extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
     );
   }
 }

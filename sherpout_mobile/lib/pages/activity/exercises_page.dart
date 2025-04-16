@@ -12,15 +12,25 @@ class ExercisesPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.exercises),
       ),
-      body: Padding(
+      body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-          child: Column(
-            spacing: 16.0,
             children: [
               ExercisesFilterButton(),
+              SizedBox(height: 16),
               SearchInput(),
+              SizedBox(height: 16),
+              ...List.generate(10, (index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Container(
+                    height: 100,
+                    color: Colors.redAccent,
+                    child: Center(child: Text("Box ${index + 1}")),
+                  ),
+                );
+              }),
             ],
-          )),
+          ),
     );
   }
 }

@@ -19,9 +19,9 @@ class _ExercisesFilterButtonState extends State<ExercisesFilterButton> {
         borderRadius: BorderRadius.circular(30),
         selectedColor: Colors.white,
         color: Colors.blue,
-        fillColor: Colors.blue,
-        borderColor: Colors.blue,
-        selectedBorderColor: Colors.blue,
+        fillColor: const Color(0xff4B7FD2),
+        borderColor: const Color(0xffADC5EB),
+        selectedBorderColor: const Color(0xff4B7FD2),
         constraints: BoxConstraints.expand(width: constraints.maxWidth / 2 - 2),
         isSelected: isSelected,
         onPressed: (int index) {
@@ -32,8 +32,8 @@ class _ExercisesFilterButtonState extends State<ExercisesFilterButton> {
           });
         },
         children: [
-          Text('Sort by likes'),
-          Text('Sort by popularity'),
+          Text('Sort by likes', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          Text('Sort by popularity', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
         ],
       );
     });

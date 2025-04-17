@@ -8,15 +8,15 @@ class SearchInput extends StatelessWidget {
           child: TextField(
             decoration: InputDecoration(
               hintText: 'Value',
-              prefixIcon: Icon(Icons.search, color: Colors.blue),
+              prefixIcon: Icon(Icons.search, color: const Color(0xffADC5EB),),
               contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(color: Colors.blue.shade100, width: 1.5),
+                borderSide: BorderSide(color: const Color(0xffADC5EB), width: 2),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(color: Colors.blue, width: 1.5),
+                borderSide: BorderSide(color: const Color(0xff4B7FD2), width: 2),
               ),
             ),
           ),

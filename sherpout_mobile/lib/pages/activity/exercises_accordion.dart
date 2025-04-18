@@ -29,6 +29,7 @@ class _ExercisesAccordionState extends State<ExercisesAccordion> {
       contentBorderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
       contentBackgroundColor: Colors.white,
       expandedTitleBackgroundColor: const Color(0xffADC5EB),
+      contentPadding: const EdgeInsets.all(0),
       margin: EdgeInsets.all(0),
       titleChild: Text(
         'Muscle category',
@@ -36,9 +37,19 @@ class _ExercisesAccordionState extends State<ExercisesAccordion> {
       ),
       contentChild: Column(
           children: List.generate(3, (index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: ExerciseListItem(),
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ExerciseListItem(),
+                ),
+                if (index < 2)
+                  Divider(
+                    color: const Color(0xffADC5EB),
+                    thickness: 1.0,
+                    height: 0.0,
+                  ),
+              ],
             );
           }),
       ),

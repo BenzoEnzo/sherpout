@@ -1,7 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
+import 'package:sherpoutmobile/common/string_extension.dart';
 
 class ExerciseListItem extends StatelessWidget {
+  final ExerciseListDto exercise;
+
+  const ExerciseListItem({
+    super.key,
+    required this.exercise,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -15,7 +24,7 @@ class ExerciseListItem extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                "HARD",
+                exercise.difficulty.name.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -39,9 +48,9 @@ class ExerciseListItem extends StatelessWidget {
           child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Exercise name", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
-              Text("Muscle 1, Muscle 2", style: TextStyle(fontSize: 18)),
-              Text("Muscle 3", style: TextStyle(fontSize: 16)),
+              Text(exercise.name.en, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
+              Text(exercise.targetMuscle.en.capitalize(), style: TextStyle(fontSize: 18)),
+              Text(exercise.supportMuscles!.map((muscle) => muscle.en.capitalize()).join(', '), style: TextStyle(fontSize: 16)),
             ],
           ),
         ),

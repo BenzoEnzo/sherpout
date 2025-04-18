@@ -1,7 +1,7 @@
 enum ExerciseDifficulty {
-  user,
-  trainer,
-  admin;
+  easy,
+  medium,
+  hard;
 
   static ExerciseDifficulty? fromName(String name) {
     return ExerciseDifficulty.values.firstWhere(

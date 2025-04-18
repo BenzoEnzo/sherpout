@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/accordion/gf_accordion.dart';
+import 'package:sherpoutmobile/common/dto/exercise_difficulty.dart';
+import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
+import 'package:sherpoutmobile/common/dto/muscle.dart';
+import 'package:sherpoutmobile/common/dto/translated_string_dto.dart';
 import 'package:sherpoutmobile/pages/activity/exercise_list_item.dart';
 
 class ExercisesAccordion extends StatefulWidget {
@@ -12,6 +16,15 @@ class ExercisesAccordion extends StatefulWidget {
 
 class _ExercisesAccordionState extends State<ExercisesAccordion> {
   bool isExpanded = false;
+
+  final ExerciseListDto exercise = ExerciseListDto(
+    id: 1, 
+    name: TranslatedStringDto(en: 'Barbell squat', pl: 'Przysiad ze sztangą'),
+    difficulty: ExerciseDifficulty.hard,
+    targetMuscle: Muscle.calves,
+    supportMuscles: {Muscle.upperAbs, Muscle.upperChest},
+    likesNumber: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +54,7 @@ class _ExercisesAccordionState extends State<ExercisesAccordion> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ExerciseListItem(),
+                  child: ExerciseListItem(exercise: exercise),
                 ),
                 if (index < 2)
                   Divider(

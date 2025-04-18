@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/accordion/gf_accordion.dart';
-import 'package:sherpoutmobile/common/dto/exercise_difficulty.dart';
 import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
-import 'package:sherpoutmobile/common/dto/muscle.dart';
-import 'package:sherpoutmobile/common/dto/translated_string_dto.dart';
+import 'package:sherpoutmobile/common/dto/muscle_category.dart';
+import 'package:sherpoutmobile/common/string_extension.dart';
 import 'package:sherpoutmobile/pages/activity/exercise_list_item.dart';
 
 class ExercisesAccordion extends StatefulWidget {
-  const ExercisesAccordion({super.key});
+  final MuscleCategory category;
+  final List<ExerciseListDto> exercises;
+
+  const ExercisesAccordion({super.key, required this.category, required this.exercises});
 
   @override
   _ExercisesAccordionState createState() => _ExercisesAccordionState();
@@ -16,15 +17,6 @@ class ExercisesAccordion extends StatefulWidget {
 
 class _ExercisesAccordionState extends State<ExercisesAccordion> {
   bool isExpanded = false;
-
-  final ExerciseListDto exercise = ExerciseListDto(
-    id: 1, 
-    name: TranslatedStringDto(en: 'Barbell squat', pl: 'Przysiad ze sztangą'),
-    difficulty: ExerciseDifficulty.hard,
-    targetMuscle: Muscle.calves,
-    supportMuscles: {Muscle.upperAbs, Muscle.upperChest},
-    likesNumber: 0,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -45,26 +37,28 @@ class _ExercisesAccordionState extends State<ExercisesAccordion> {
       contentPadding: const EdgeInsets.all(0),
       margin: EdgeInsets.all(0),
       titleChild: Text(
-        'Muscle category',
+        widget.category.en.capitalize(),
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
       ),
       contentChild: Column(
-          children: List.generate(3, (index) {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ExerciseListItem(exercise: exercise),
+        children: List.generate(widget.exercises.length, (index) {
+          final exercise = widget.exercises[index];
+
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ExerciseListItem(exercise: exercise),
+              ),
+              if (index < widget.exercises.length - 1)
+                Divider(
+                  color: const Color(0xffADC5EB),
+                  thickness: 1.0,
+                  height: 0.0,
                 ),
-                if (index < 2)
-                  Divider(
-                    color: const Color(0xffADC5EB),
-                    thickness: 1.0,
-                    height: 0.0,
-                  ),
-              ],
-            );
-          }),
+            ],
+          );
+        }),
       ),
     );
   }

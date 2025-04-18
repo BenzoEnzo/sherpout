@@ -7,7 +7,7 @@ class SearchInput extends StatelessWidget {
     return Center(
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Value',
+              hintText: 'Search exercises or muscles',
               prefixIcon: Icon(Icons.search, color: const Color(0xffADC5EB),),
               contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
               enabledBorder: OutlineInputBorder(

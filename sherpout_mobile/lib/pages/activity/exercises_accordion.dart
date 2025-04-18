@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/accordion/gf_accordion.dart';
+import 'package:sherpoutmobile/pages/activity/exercise_list_item.dart';
 
 class ExercisesAccordion extends StatefulWidget {
   const ExercisesAccordion({super.key});
@@ -33,7 +34,14 @@ class _ExercisesAccordionState extends State<ExercisesAccordion> {
         'Muscle category',
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
       ),
-      content: 'GetFlutter is an open source library that comes with pre-build 1000+ UI components.',
+      contentChild: Column(
+          children: List.generate(3, (index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: ExerciseListItem(),
+            );
+          }),
+      ),
     );
   }
 }

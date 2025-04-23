@@ -3,6 +3,14 @@ server:
   servlet:
     context-path: /api
 
+minio:
+  url: http://localhost:9000
+  access:
+    name: Xjbrg8rZVQpSWzjtRQI7
+    secret: GC5HjRA6xRMK7abijPZXna8LYY5IyZsB7tSv55jL
+  bucket:
+    name: sherpout
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5435/sherpout
@@ -29,8 +37,5 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8082/realms/Sherpout/protocol/openid-connect/certs
+          jwk-set-uri: http://localhost/realms/Sherpout/protocol/openid-connect/certs
           issuers: http://192.168.56.1:8082/realms/Sherpout, http://localhost:8082/realms/Sherpout
-
-
-          ## AKTUALNIE TOKEN DOSTEPNY NA http://localhost/rest-auth/protocol/openid-connect/token

@@ -44,4 +44,12 @@ public class RecordController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
+
+    @GetMapping
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<List<RecordDTO>> getRecords() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(recordService.getRecords());
+    }
 }

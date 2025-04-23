@@ -1,9 +1,7 @@
 package com.sherpout.server.external.storage;
 
-import com.sherpout.server.commons.dto.ImageDTO;
-import com.sherpout.server.error.exception.SingleApiErrorException;
-import com.sherpout.server.error.model.ApiError;
-import com.sherpout.server.error.model.ErrorLocationType;
+import com.sherpout.server.commons.entity.Image;
+import com.sherpout.server.error.exception.FileException;
 import com.sherpout.server.error.model.ErrorMessage;
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
@@ -11,11 +9,9 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,18 +22,16 @@ public class StorageService {
     @Value("${minio.bucket.name}")
     private String bucketName;
 
-    public List<ImageDTO> uploadFiles(String dirName, List<MultipartFile> files) {
-        List<ImageDTO> images = new ArrayList<>();
-
-        for (MultipartFile mf : files) {
-            String path = dirName.concat("/").concat(mf.getOriginalFilename());
-            uploadFile(path, mf);
-            ImageDTO img = new ImageDTO();
-            img.setImagePath(path);
-            images.add(img);
-        }
-
-        return images;
+    public List<Image> uploadFiles(String dirName, List<MultipartFile> files) {
+        return files.stream()
+                .map(mf -> {
+                    String path = dirName + "/" + mf.getOriginalFilename();
+                    uploadFile(path, mf);
+                    Image img = new Image();
+                    img.setImagePath(path);
+                    return img;
+                })
+                .toList();
     }
 
     private void uploadFile(String objectName, MultipartFile file) {
@@ -52,9 +46,7 @@ public class StorageService {
                             .contentType(file.getContentType())
                             .build());
         } catch (Exception e) {
-            throw new SingleApiErrorException(
-                    ApiError.builder(ErrorMessage.INTERNAL_ERROR, HttpStatus.INTERNAL_SERVER_ERROR)
-                            .withErrorLocationType(ErrorLocationType.FILE));
+            throw new FileException(ErrorMessage.FILE_STORAGE_ERROR);
         }
     }
 }

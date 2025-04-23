@@ -6,7 +6,7 @@ import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.enumerated.MuscleCategory;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
-import com.sherpout.server.commons.dto.ImageDTO;
+import com.sherpout.server.commons.entity.Image;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.model.ErrorLocationType;
 import com.sherpout.server.external.storage.StorageService;
@@ -30,7 +30,7 @@ public class ExerciseService {
         Exercise exercise = exerciseRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
 
-        configureFileSettings(files, exerciseDTO);
+        configureFileSettings(files, exercise);
         exerciseMapper.mapToUpdateEntity(exerciseDTO, exercise);
 
         return exerciseMapper.mapToDTO(exercise);
@@ -38,10 +38,11 @@ public class ExerciseService {
 
     @Transactional
     public ExerciseDTO createExercise(ExerciseDTO exerciseDTO, List<MultipartFile> files) {
-        configureFileSettings(files, exerciseDTO);
         Exercise exercise = exerciseMapper.mapToEntity(exerciseDTO);
+        Exercise managed = exerciseRepository.save(exercise);
+        configureFileSettings(files, managed);
 
-        return exerciseMapper.mapToDTO(exerciseRepository.save(exercise));
+        return exerciseMapper.mapToDTO(managed);
     }
 
     public ExerciseDTO getExerciseById(Long id) {
@@ -58,11 +59,11 @@ public class ExerciseService {
                 ));
     }
 
-    private void configureFileSettings(List<MultipartFile> files, ExerciseDTO dto){
-        if(files != null && files.isEmpty()) {
-            List<ImageDTO> uploadedFiles = storageService.uploadFiles(String.valueOf(dto.getId()), files);
-            dto.setCover(uploadedFiles.getFirst());
-            dto.setImages(uploadedFiles);
+    private void configureFileSettings(List<MultipartFile> files, Exercise exercise){
+        if(files != null && !files.isEmpty()) {
+            List<Image> uploadedFiles = storageService.uploadFiles(String.valueOf(exercise.getId()), files);
+            exercise.setCover(uploadedFiles.getFirst());
+            exercise.setImages(uploadedFiles);
         }
     }
 }

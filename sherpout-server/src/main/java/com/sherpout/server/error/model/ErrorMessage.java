@@ -15,7 +15,9 @@ public enum ErrorMessage {
     INTERNAL_ERROR(
             "Internal server error",
             "Błąd serwera"),
-
+    FILE_STORAGE_ERROR(
+            "Unable to upload files to the bucket",
+            "Nie można dodać plików do bucketu"),
     EXERCISE_UNABLE_TO_FIND_BY_ID(
             "Unable to find exercise with id: {{id}}",
             "Nie można znaleźć ćwiczenia o identyfikatorze: {{id}}"),

@@ -1,0 +1,1 @@
+CREATE INDEX idx_user_id_exercise_id_value_id_date ON Record(user_id, exercise_id, value, date);

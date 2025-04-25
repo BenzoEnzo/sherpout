@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -28,18 +29,21 @@ public class ExerciseController {
 
     @PutMapping("/{id}")
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<ExerciseDTO> updateExercise(@RequestBody ExerciseDTO exerciseDTO, @PathVariable Long id) {
+    public ResponseEntity<ExerciseDTO> updateExercise(@RequestBody @RequestPart("data") ExerciseDTO exerciseDTO,
+                                                      @PathVariable Long id,
+                                                      @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(exerciseService.updateExercise(exerciseDTO, id));
+                .body(exerciseService.updateExercise(exerciseDTO, id, files));
     }
 
     @PostMapping
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<ExerciseDTO> createExercise(@Valid @RequestBody ExerciseDTO exerciseDTO) {
+    public ResponseEntity<ExerciseDTO> createExercise(@Valid @RequestPart("data") ExerciseDTO exerciseDTO,
+                                                      @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(exerciseService.createExercise(exerciseDTO));
+                .body(exerciseService.createExercise(exerciseDTO, files));
     }
 
     @GetMapping("/{id}")

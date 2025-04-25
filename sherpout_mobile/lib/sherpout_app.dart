@@ -57,7 +57,7 @@ class _SherpoutAppState extends State<SherpoutApp> {
     return MaterialApp(
       title: "Sherpout App",
       theme: ThemeData(
-        // scaffoldBackgroundColor: Colors.blue[50],
+        scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           backgroundColor: const Color(0xff4B7FD2),
           foregroundColor: Colors.white,

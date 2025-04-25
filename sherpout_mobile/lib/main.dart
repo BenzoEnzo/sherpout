@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sherpoutmobile/common/api_client.dart';
 import 'package:sherpoutmobile/common/auth_service.dart';
+import 'package:sherpoutmobile/pages/activity/exercise_service.dart';
 import 'package:sherpoutmobile/sherpout_app.dart';
 import 'package:get_it/get_it.dart';
 
@@ -24,6 +25,8 @@ void configureDependencies() {
       AuthService(getIt<FlutterAppAuth>(), getIt<FlutterSecureStorage>(), navigatorKey));
   getIt.registerLazySingleton(() =>
       ApiClient(getIt<Dio>(), getIt<FlutterSecureStorage>(), getIt<AuthService>()));
+
+  getIt.registerLazySingleton(() => ExerciseService(getIt<ApiClient>()));
 }
 
 String getInitialRoute(String? language, bool isUserLoggedIn) {

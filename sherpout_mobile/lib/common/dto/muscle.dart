@@ -34,7 +34,7 @@ enum Muscle {
 
   static Muscle? fromName(String name) {
     return Muscle.values.firstWhere(
-          (e) => e.name.toLowerCase() == name.toLowerCase(),
+          (e) => e.name.toUpperCase() == name.replaceAll("_", ""),
     );
   }
 }

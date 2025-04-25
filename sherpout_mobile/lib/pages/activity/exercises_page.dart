@@ -9,6 +9,8 @@ import 'package:sherpoutmobile/pages/activity/exercises_accordion.dart';
 import 'package:sherpoutmobile/pages/activity/exercises_filter_button.dart';
 import 'package:sherpoutmobile/pages/activity/search_input.dart';
 
+import '../../component/debouncer.dart';
+
 class ExercisesPage extends StatefulWidget {
   const ExercisesPage({super.key});
 
@@ -19,7 +21,10 @@ class ExercisesPage extends StatefulWidget {
 class _ExercisesPageState extends State<ExercisesPage> {
   final ExerciseService _exerciseService = GetIt.instance<ExerciseService>();
 
-  Map<MuscleCategory, List<ExerciseListDto>>? _exerciseMap;
+  final _debouncer = Debouncer(delay: Duration(milliseconds: 300));
+
+  List<ExerciseListDto> _exercises = [];
+  String _searchQuery = '';
   bool _isLoading = true;
   String? _error;
 
@@ -33,9 +38,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
     try {
       final exercises = await _exerciseService.getAll();
 
-      final grouped = _groupExercisesByCategory(exercises);
       setState(() {
-        _exerciseMap = grouped;
+        _exercises = exercises;
         _isLoading = false;
       });
     } catch (e) {
@@ -46,17 +50,18 @@ class _ExercisesPageState extends State<ExercisesPage> {
     }
   }
 
-  Map<MuscleCategory, List<ExerciseListDto>> _groupExercisesByCategory(List<ExerciseListDto> exercises) {
-    final map = <MuscleCategory, List<ExerciseListDto>>{};
-    for (final ex in exercises) {
-      final cat = ex.targetMuscle.category;
-      map.putIfAbsent(cat, () => []).add(ex);
-    }
-    return map;
+  void _onSearchChanged(String value) {
+    _debouncer.run(() {
+      setState(() {
+        _searchQuery = value;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final groupedExercises = _groupExercises(_filterExercises(_exercises));
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.exercises),
@@ -69,9 +74,12 @@ class _ExercisesPageState extends State<ExercisesPage> {
             children: [
               ExercisesFilterButton(),
               SizedBox(height: 16),
-              SearchInput(),
+              SearchInput(
+                  onChanged: _onSearchChanged,
+                  hint: AppLocalizations.of(context)!.searchExercises
+              ),
               SizedBox(height: 16),
-              ...?_exerciseMap?.entries.map((entry) {
+              ...groupedExercises.entries.map((entry) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: ExercisesAccordion(
@@ -84,5 +92,22 @@ class _ExercisesPageState extends State<ExercisesPage> {
           ),
       )
     );
+  }
+
+  Map<MuscleCategory, List<ExerciseListDto>> _groupExercises(List<ExerciseListDto> exercises) {
+    final map = <MuscleCategory, List<ExerciseListDto>>{};
+    for (final ex in exercises) {
+      final cat = ex.targetMuscle.category;
+      map.putIfAbsent(cat, () => []).add(ex);
+    }
+    return map;
+  }
+
+  List<ExerciseListDto> _filterExercises(List<ExerciseListDto> exercises) {
+    if (_searchQuery.isEmpty) return exercises;
+    return exercises.where((ex) {
+      final query = _searchQuery.toLowerCase();
+      return ex.name.en.toLowerCase().contains(query) || ex.name.pl.toLowerCase().contains(query);
+    }).toList();
   }
 }

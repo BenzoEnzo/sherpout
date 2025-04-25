@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExercisesFilterButton extends StatefulWidget {
   @override
@@ -30,8 +31,12 @@ class _ExercisesFilterButtonState extends State<ExercisesFilterButton> {
           });
         },
         children: [
-          Text('Sort by likes', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-          Text('Sort by popularity', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          Text(AppLocalizations.of(context)!.sortByLikes,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)
+          ),
+          Text(AppLocalizations.of(context)!.sortByPopularity,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)
+          ),
         ],
       );
     });

@@ -18,7 +18,7 @@ class ExerciseDifficultyLabel extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          difficulty.name.toUpperCase(),
+          difficulty.localized(context).toUpperCase(),
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,

@@ -19,12 +19,17 @@ class ExerciseSummary extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(name.en,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
-        Text(targetMuscle.en.capitalize(), style: TextStyle(fontSize: 18)),
+        Text(name.localized(context),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)
+        ),
+        Text(targetMuscle.localized(context).capitalize(),
+            style: TextStyle(fontSize: 18)
+        ),
         if (supportMuscles != null)
           Text(
-              supportMuscles!.map((muscle) => muscle.en.capitalize()).join(', '),
+              supportMuscles!
+                  .map((muscle) => muscle.localized(context).capitalize())
+                  .join(', '),
               style: TextStyle(fontSize: 16)),
       ],
     );

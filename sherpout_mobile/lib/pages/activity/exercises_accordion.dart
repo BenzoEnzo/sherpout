@@ -37,7 +37,7 @@ class _ExercisesAccordionState extends State<ExercisesAccordion> {
       contentPadding: const EdgeInsets.all(0),
       margin: EdgeInsets.all(0),
       titleChild: Text(
-        widget.category.en.capitalize(),
+        widget.category.localized(context).capitalize(),
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
       ),
       contentChild: Column(

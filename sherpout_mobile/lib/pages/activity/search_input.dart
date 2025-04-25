@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchInput extends StatelessWidget {
   @override
@@ -7,7 +8,7 @@ class SearchInput extends StatelessWidget {
     return Center(
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Search exercises or muscles',
+              hintText: AppLocalizations.of(context)!.searchExercises,
               prefixIcon: Icon(Icons.search, color: const Color(0xffADC5EB),),
               contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
               enabledBorder: OutlineInputBorder(

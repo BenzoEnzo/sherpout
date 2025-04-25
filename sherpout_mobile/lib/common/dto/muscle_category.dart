@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 enum MuscleCategory {
   chest('chest', 'klata'),
   back('back', 'plecy'),
@@ -15,5 +17,16 @@ enum MuscleCategory {
     return MuscleCategory.values.firstWhere(
       (e) => e.name.toLowerCase() == name.toLowerCase(),
     );
+  }
+
+  String localized(BuildContext context) {
+    final lang = Localizations.localeOf(context).languageCode;
+    switch (lang) {
+      case 'pl':
+        return pl;
+      case 'en':
+      default:
+        return en;
+    }
   }
 }

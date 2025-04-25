@@ -34,7 +34,7 @@ class ExerciseListDto {
           .whereType<Muscle>()
           .toSet(),
       likesNumber: json['likesNumber'] as int,
-      cover: json['cover'] != null ? ImageDto.fromJson(json['cover']) : null,
+      // cover: json['cover'] != null ? ImageDto.fromJson(json['cover']) : null,
     );
   }
 }

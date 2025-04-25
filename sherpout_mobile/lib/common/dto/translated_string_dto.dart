@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class TranslatedStringDto {
   final String en;
   final String pl;
@@ -12,5 +14,16 @@ class TranslatedStringDto {
       en: json['en'] as String,
       pl: json['pl'] as String,
     );
+  }
+
+  String localized(BuildContext context) {
+    final lang = Localizations.localeOf(context).languageCode;
+    switch (lang) {
+      case 'pl':
+        return pl;
+      case 'en':
+      default:
+        return en;
+    }
   }
 }

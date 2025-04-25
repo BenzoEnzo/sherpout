@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'muscle_category.dart';
 
 enum Muscle {
@@ -36,5 +38,16 @@ enum Muscle {
     return Muscle.values.firstWhere(
           (e) => e.name.toUpperCase() == name.replaceAll("_", ""),
     );
+  }
+
+  String localized(BuildContext context) {
+    final lang = Localizations.localeOf(context).languageCode;
+    switch (lang) {
+      case 'pl':
+        return pl;
+      case 'en':
+      default:
+        return en;
+    }
   }
 }

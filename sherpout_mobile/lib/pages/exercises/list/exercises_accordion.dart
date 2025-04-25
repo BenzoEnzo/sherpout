@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/components/accordion/gf_accordion.dart';
 import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
 import 'package:sherpoutmobile/common/dto/muscle_category.dart';
-import 'package:sherpoutmobile/common/string_extension.dart';
-import 'package:sherpoutmobile/pages/activity/exercise_list_item.dart';
+import 'package:sherpoutmobile/common/extensions/string_extension.dart';
+
+import 'exercise_list_item.dart';
 
 class ExercisesAccordion extends StatefulWidget {
   final MuscleCategory category;

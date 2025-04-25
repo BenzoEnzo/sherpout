@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ExercisesFilterButton extends StatefulWidget {
+class ExercisesSortButton extends StatefulWidget {
   @override
-  _ExercisesFilterButtonState createState() => _ExercisesFilterButtonState();
+  _ExercisesSortButtonState createState() => _ExercisesSortButtonState();
 }
 
-class _ExercisesFilterButtonState extends State<ExercisesFilterButton> {
+class _ExercisesSortButtonState extends State<ExercisesSortButton> {
   List<bool> isSelected = [true, false];
 
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sherpoutmobile/common/dto/muscle.dart';
 import 'package:sherpoutmobile/common/dto/translated_string_dto.dart';
-import 'package:sherpoutmobile/common/string_extension.dart';
+import 'package:sherpoutmobile/common/extensions/string_extension.dart';
 
 class ExerciseSummary extends StatelessWidget {
   final TranslatedStringDto name;

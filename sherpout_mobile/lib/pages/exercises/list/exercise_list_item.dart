@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
-import 'package:sherpoutmobile/pages/activity/exercise_cover.dart';
-import 'package:sherpoutmobile/pages/activity/exercise_summary.dart';
+
+import 'exercise_cover.dart';
+import 'exercise_summary.dart';
 
 class ExerciseListItem extends StatelessWidget {
   final ExerciseListDto exercise;

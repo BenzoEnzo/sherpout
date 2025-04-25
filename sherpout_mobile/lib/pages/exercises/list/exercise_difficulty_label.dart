@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/dto/exercise_difficulty.dart';
+import '../../../../common/dto/exercise_difficulty.dart';
 
 class ExerciseDifficultyLabel extends StatelessWidget {
   final ExerciseDifficulty difficulty;

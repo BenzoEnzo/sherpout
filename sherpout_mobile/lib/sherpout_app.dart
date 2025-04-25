@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sherpoutmobile/main.dart';
 import 'package:sherpoutmobile/pages/auth/auth_page.dart';
 import 'package:sherpoutmobile/pages/dashboard/dashboard_page.dart';
+import 'package:sherpoutmobile/pages/exercises/list/exercises_page.dart';
 import 'package:sherpoutmobile/pages/language/objects/language.dart';
 import 'package:sherpoutmobile/pages/language/language_page.dart';
 
@@ -12,7 +13,6 @@ import 'package:sherpoutmobile/pages/personal/account_page.dart';
 import 'package:sherpoutmobile/pages/personal/friends_page.dart';
 import 'package:sherpoutmobile/pages/personal/settings_page.dart';
 
-import 'package:sherpoutmobile/pages/activity/exercises_page.dart';
 import 'package:sherpoutmobile/pages/activity/rankings_page.dart';
 import 'package:sherpoutmobile/pages/activity/records_page.dart';
 import 'package:sherpoutmobile/pages/activity/trainings_page.dart';

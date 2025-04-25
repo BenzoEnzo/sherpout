@@ -3,13 +3,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
 import 'package:sherpoutmobile/common/dto/muscle_category.dart';
-import 'package:sherpoutmobile/component/loading_component.dart';
-import 'package:sherpoutmobile/pages/activity/exercise_service.dart';
-import 'package:sherpoutmobile/pages/activity/exercises_accordion.dart';
-import 'package:sherpoutmobile/pages/activity/exercises_filter_button.dart';
-import 'package:sherpoutmobile/pages/activity/search_input.dart';
+import 'package:sherpoutmobile/common/components/loading_component.dart';
 
-import '../../component/debouncer.dart';
+import '../../../../common/components/debouncer.dart';
+import '../../../../services/exercise_service.dart';
+import '../../../common/components/search_input.dart';
+import 'exercises_accordion.dart';
+import 'exercises_sort_button.dart';
 
 class ExercisesPage extends StatefulWidget {
   const ExercisesPage({super.key});
@@ -72,7 +72,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             children: [
-              ExercisesFilterButton(),
+              ExercisesSortButton(),
               SizedBox(height: 16),
               SearchInput(
                   onChanged: _onSearchChanged,

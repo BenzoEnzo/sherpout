@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/dto/exercise_difficulty.dart';
-import 'package:sherpoutmobile/pages/activity/exercise_difficulty_label.dart';
+
+import 'exercise_difficulty_label.dart';
 
 class ExerciseCover extends StatelessWidget {
   final ExerciseDifficulty difficulty;

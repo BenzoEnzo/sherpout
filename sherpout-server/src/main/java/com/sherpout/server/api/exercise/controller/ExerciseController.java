@@ -3,7 +3,6 @@ package com.sherpout.server.api.exercise.controller;
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.dto.LikeNumberResponseDTO;
-import com.sherpout.server.api.exercise.enumerated.MuscleCategory;
 import com.sherpout.server.api.exercise.logic.ExerciseLikeService;
 import com.sherpout.server.api.exercise.logic.ExerciseService;
 import com.sherpout.server.api.user.logic.TokenService;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("exercises")
@@ -29,9 +27,11 @@ public class ExerciseController {
 
     @PutMapping("/{id}")
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<ExerciseDTO> updateExercise(@RequestBody @RequestPart("data") ExerciseDTO exerciseDTO,
-                                                      @PathVariable Long id,
-                                                      @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+    public ResponseEntity<ExerciseDTO> updateExercise(
+            @RequestBody @RequestPart("data") ExerciseDTO exerciseDTO,
+            @PathVariable Long id,
+            @RequestPart(value = "files", required = false) List<MultipartFile> files
+    ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(exerciseService.updateExercise(exerciseDTO, id, files));
@@ -39,8 +39,10 @@ public class ExerciseController {
 
     @PostMapping
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<ExerciseDTO> createExercise(@Valid @RequestPart("data") ExerciseDTO exerciseDTO,
-                                                      @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+    public ResponseEntity<ExerciseDTO> createExercise(
+            @Valid @RequestPart("data") ExerciseDTO exerciseDTO,
+            @RequestPart(value = "files", required = false) List<MultipartFile> files
+    ) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(exerciseService.createExercise(exerciseDTO, files));
@@ -56,7 +58,7 @@ public class ExerciseController {
 
     @GetMapping
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<Map<MuscleCategory, List<ExerciseListDTO>>> getExercises() {
+    public ResponseEntity<List<ExerciseListDTO>> getExercises() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(exerciseService.getAllExercises());

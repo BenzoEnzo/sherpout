@@ -9,5 +9,8 @@
     "account": "Account",
     "rankings": "Rankings",
     "loginOrRegister": "Log in or register",
-    "logOut": "Log out"
+    "logOut": "Log out",
+    "sortByLikes": "Sort by likes",
+    "sortByPopularity": "Sort by popularity",
+    "searchExercises": "Search exercises"
 }

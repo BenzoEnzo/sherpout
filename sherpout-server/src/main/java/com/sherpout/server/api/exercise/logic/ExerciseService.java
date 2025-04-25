@@ -3,7 +3,6 @@ package com.sherpout.server.api.exercise.logic;
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
-import com.sherpout.server.api.exercise.enumerated.MuscleCategory;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
 import com.sherpout.server.commons.entity.Image;
@@ -14,9 +13,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -51,12 +49,10 @@ public class ExerciseService {
                 .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
     }
 
-    public Map<MuscleCategory, List<ExerciseListDTO>> getAllExercises() {
+    public List<ExerciseListDTO> getAllExercises() {
         return exerciseRepository.findAll().stream()
-                .collect(Collectors.groupingBy(
-                        exercise -> exercise.getTargetMuscle().getCategory(),
-                        Collectors.mapping(exerciseMapper::mapToListDTO, Collectors.toList())
-                ));
+                .map(exerciseMapper::mapToListDTO)
+                .toList();
     }
 
     private void configureFileSettings(List<MultipartFile> files, Exercise exercise){

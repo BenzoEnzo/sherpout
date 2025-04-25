@@ -9,5 +9,8 @@
     "account": "Konto",
     "rankings": "Rankingi",
     "loginOrRegister": "Zaloguj się lub zarejestruj",
-    "logOut": "Wyloguj się"
+    "logOut": "Wyloguj się",
+    "sortByLikes": "Sortuj wg polubień",
+    "sortByPopularity": "Sortuj wg popularności",
+    "searchExercises": "Wyszukaj ćwiczenia"
 }

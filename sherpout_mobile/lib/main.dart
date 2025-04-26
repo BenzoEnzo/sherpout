@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sherpoutmobile/common/api_client.dart';
 import 'package:sherpoutmobile/common/auth_service.dart';
 import 'package:sherpoutmobile/services/exercise_service.dart';
 import 'package:sherpoutmobile/sherpout_app.dart';
-import 'package:get_it/get_it.dart';
 
 import 'common/user_provider.dart';
 

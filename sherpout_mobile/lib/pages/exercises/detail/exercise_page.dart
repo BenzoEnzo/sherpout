@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/exercise_dto.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common/components/loading_component.dart';
 import '../../../services/exercise_service.dart';
+import '../list/exercise_summary.dart';
 
 class ExercisePage extends StatefulWidget {
   final int id;
@@ -16,17 +16,20 @@ class ExercisePage extends StatefulWidget {
   State<ExercisePage> createState() => _ExercisePageState();
 }
 
-class _ExercisePageState extends State<ExercisePage> {
+class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderStateMixin {
   final ExerciseService _exerciseService = GetIt.instance<ExerciseService>();
 
   ExerciseDto? _exercise;
   bool _isLoading = true;
   String? _error;
 
+  late TabController tabController;
+
   @override
   void initState() {
     super.initState();
     _loadExercise();
+    tabController = TabController(length: 3, vsync: this);
   }
 
   Future<void> _loadExercise() async {
@@ -39,7 +42,7 @@ class _ExercisePageState extends State<ExercisePage> {
       });
     } catch (e) {
       setState(() {
-        _error = 'Błąd ładowania ćwiczenia: $e';
+        _error = 'Błąd ładowania ćwiczeniaa: $e';
         _isLoading = false;
       });
     }
@@ -54,9 +57,37 @@ class _ExercisePageState extends State<ExercisePage> {
         body: LoadingComponent(
           isLoading: _isLoading,
           error: _error,
-          child: Center(
-            child: Text(_exercise?.name.localized(context) ?? ""),
-          )
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                ExerciseSummary(name: _exercise!.name, targetMuscle: _exercise!.targetMuscle),
+                    SizedBox(height: 16),
+                    TabBar(
+                      controller: tabController,
+                      tabs: [
+                        Tab(icon: Icon(Icons.home), text: "Descriptionn"),
+                        Tab(icon: Icon(Icons.star), text: "Equipment"),
+                        Tab(icon: Icon(Icons.settings), text: "Media"),
+                      ],
+                      indicatorColor: const Color(0xff4B7FD2),
+                      labelColor: const Color(0xff4B7FD2),
+                      unselectedLabelColor: Colors.black,
+                    ),
+                Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      Text(_exercise?.description?.en ?? ""),
+                      Text('Zawartość Taba 2'),
+                      Text('Zawartość Taba 3'),
+                    ],
+                  ),
+                ),
+                  ],
+
+            )
+        )
         )
     );
   }

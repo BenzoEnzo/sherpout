@@ -5,7 +5,7 @@ import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
-import com.sherpout.server.commons.entity.Image;
+import com.sherpout.server.api.image.entity.Image;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.model.ErrorLocationType;
 import com.sherpout.server.external.storage.StorageService;

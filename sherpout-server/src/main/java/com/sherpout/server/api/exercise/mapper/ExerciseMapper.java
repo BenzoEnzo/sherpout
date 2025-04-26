@@ -4,7 +4,7 @@ import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseSelectDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
-import com.sherpout.server.commons.mapper.ImageMapper;
+import com.sherpout.server.api.image.mapper.ImageMapper;
 import com.sherpout.server.commons.mapper.TranslatedStringMapper;
 import org.mapstruct.*;
 

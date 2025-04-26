@@ -1,6 +1,6 @@
 package com.sherpout.server.external.storage;
 
-import com.sherpout.server.commons.entity.Image;
+import com.sherpout.server.api.image.entity.Image;
 import com.sherpout.server.error.exception.FileException;
 import com.sherpout.server.error.model.ErrorMessage;
 import io.minio.BucketExistsArgs;

@@ -1,5 +1,6 @@
 package com.sherpout.server.api.image.logic;
 
+import com.sherpout.server.api.image.dto.ImageDTO;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;
 import io.minio.errors.*;
@@ -20,14 +21,13 @@ public class ImageService {
     @Value("${minio.bucket.name}")
     private String bucketName;
 
-    public String getPresignedUrl(String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        return minioClient.getPresignedObjectUrl(
+    public ImageDTO getPresignedUrl(String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        return new ImageDTO(minioClient.getPresignedObjectUrl(
                 GetPresignedObjectUrlArgs.builder()
                         .method(Method.GET)
                         .bucket(bucketName)
                         .object(objectName)
                         .expiry(15, TimeUnit.MINUTES)
-                        .build()
-        );
+                        .build()));
     }
 }

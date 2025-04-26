@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
 
 import 'exercise_cover.dart';
@@ -14,18 +15,23 @@ class ExerciseListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ExerciseCover(difficulty: exercise.difficulty),
-        SizedBox(width: 16),
-        Expanded(
-          child: ExerciseSummary(
-              name: exercise.name,
-              targetMuscle: exercise.targetMuscle,
-              supportMuscles: exercise.supportMuscles),
-        ),
-        Icon(Icons.chevron_right)
-      ],
-    );
+    return InkWell(
+        onTap: () {
+          context.push('/exercise/${exercise.id}');
+        },
+        child: Row(
+          children: [
+            ExerciseCover(difficulty: exercise.difficulty),
+            SizedBox(width: 16),
+            Expanded(
+              child: ExerciseSummary(
+                  name: exercise.name,
+                  targetMuscle: exercise.targetMuscle,
+                  supportMuscles: exercise.supportMuscles
+              ),
+            ),
+            Icon(Icons.chevron_right)
+          ],
+        ));
   }
 }

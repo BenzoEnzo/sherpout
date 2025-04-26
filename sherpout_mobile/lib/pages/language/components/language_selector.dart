@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common/auth_service.dart';
 import '../objects/language.dart';
@@ -32,6 +33,6 @@ class LanguageSelector extends StatelessWidget {
     if (!context.mounted) {
       return;
     }
-    Navigator.pushReplacementNamed(context, loggedIn ? '/dashboard' : '/auth');
+    context.go(loggedIn ? '/dashboard' : '/auth');
   }
 }

@@ -8,7 +8,9 @@ import '../../../common/components/loading_component.dart';
 import '../../../services/exercise_service.dart';
 
 class ExercisePage extends StatefulWidget {
-  const ExercisePage({super.key});
+  final int id;
+
+  const ExercisePage({super.key, required this.id});
 
   @override
   State<ExercisePage> createState() => _ExercisePageState();
@@ -29,10 +31,7 @@ class _ExercisePageState extends State<ExercisePage> {
 
   Future<void> _loadExercise() async {
     try {
-      final String idParam = ModalRoute.of(context)?.settings.name?.split('/').last ?? '';
-      final exerciseId = int.tryParse(idParam) ?? 0;
-
-      final exercise = await _exerciseService.getById(exerciseId);
+      final exercise = await _exerciseService.getById(widget.id);
 
       setState(() {
         _exercise = exercise;
@@ -56,7 +55,7 @@ class _ExercisePageState extends State<ExercisePage> {
           isLoading: _isLoading,
           error: _error,
           child: Center(
-            child: Text(_exercise!.name.localized(context)),
+            child: Text(_exercise?.name.localized(context) ?? ""),
           )
         )
     );

@@ -12,5 +12,6 @@
     "logOut": "Log out",
     "sortByLikes": "Sort by likes",
     "sortByPopularity": "Sort by popularity",
-    "searchExercises": "Search exercises"
+    "searchExercises": "Search exercises",
+    "addNewRecord": "Add new"
 }

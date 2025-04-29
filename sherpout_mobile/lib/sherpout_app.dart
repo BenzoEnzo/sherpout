@@ -14,7 +14,7 @@ import 'package:sherpoutmobile/pages/personal/friends_page.dart';
 import 'package:sherpoutmobile/pages/personal/settings_page.dart';
 
 import 'package:sherpoutmobile/pages/activity/rankings_page.dart';
-import 'package:sherpoutmobile/pages/activity/records_page.dart';
+import 'package:sherpoutmobile/pages/records/list/records_page.dart';
 import 'package:sherpoutmobile/pages/activity/trainings_page.dart';
 
 import 'l10n/l10n.dart';

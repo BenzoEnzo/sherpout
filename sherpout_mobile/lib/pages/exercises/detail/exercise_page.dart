@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/exercise_dto.dart';
+import 'package:sherpoutmobile/pages/exercises/detail/exercise_equipment_item.dart';
 
 import '../../../common/components/loading_component.dart';
 import '../../../services/exercise_service.dart';
@@ -79,13 +80,22 @@ class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderSt
                     controller: tabController,
                     children: [
                       Text(_exercise?.description?.en ?? ""),
-                      Text('Zawartość Taba 2'),
+                    Expanded(child: ListView(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                      children: [
+                        ..._exercise?.equipments?.map((equipment) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: ExerciseEquipmentItem(equipment),
+                          );
+                        }) ?? [],
+                      ],
+                    ),),
                       Text('Zawartość Taba 3'),
                     ],
                   ),
                 ),
                   ],
-
             )
         )
         )

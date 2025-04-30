@@ -22,7 +22,8 @@ class ExerciseCover extends StatelessWidget {
     final ImageService imageService = GetIt.instance.get<ImageService>();
     return Column(
       children: [
-        ExerciseDifficultyLabel(difficulty: difficulty!),
+        if (difficulty != null)
+          ExerciseDifficultyLabel(difficulty: difficulty!),
         ClipRRect(
           borderRadius: const BorderRadius.vertical(bottom: Radius.circular(8)),
           child: SizedBox(

@@ -38,15 +38,8 @@ class RecordItem extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  width: 60,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: ExerciseCover(
-                      objectName: record.exercise.cover!.imagePath),
+                ExerciseCover(
+                  objectName: record.exercise.cover!.imagePath,
                 ),
                 const SizedBox(width: 12),
                 Expanded(

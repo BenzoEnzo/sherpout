@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +25,10 @@ public class StorageService {
 
     public List<Image> uploadFiles(String dirName, List<MultipartFile> files) {
         return files.stream()
-                .map(mf -> {
-                    String path = dirName + "/" + mf.getOriginalFilename();
-                    uploadFile(path, mf);
+                .map(file -> {
+                    String fileName = file.getOriginalFilename();
+                    String path = dirName + "/" + UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
+                    uploadFile(path, file);
                     Image img = new Image();
                     img.setImagePath(path);
                     return img;
@@ -36,8 +38,7 @@ public class StorageService {
 
     private void uploadFile(String objectName, MultipartFile file) {
         try {
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
-            if (!found) {
+            if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
             }
             minioClient.putObject(

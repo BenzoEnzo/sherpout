@@ -12,5 +12,6 @@
     "logOut": "Wyloguj się",
     "sortByLikes": "Sortuj wg polubień",
     "sortByPopularity": "Sortuj wg popularności",
-    "searchExercises": "Wyszukaj ćwiczenia"
+    "searchExercises": "Wyszukaj ćwiczenia",
+    "addNewRecord": "Dodaj nowy"
 }

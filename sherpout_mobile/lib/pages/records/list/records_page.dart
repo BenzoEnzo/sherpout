@@ -49,7 +49,8 @@ class _RecordsPageState extends State<RecordsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.records),
+        title: Text(AppLocalizations.of(context)!.records,
+          style: const TextStyle(fontWeight: FontWeight.w700)),
       ),
       body: LoadingComponent(
         isLoading: _isLoading,

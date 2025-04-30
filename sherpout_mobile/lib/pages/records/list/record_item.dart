@@ -26,7 +26,7 @@ class RecordItem extends StatelessWidget {
         border: Border.all(color: const Color(0xffADC5EB), width: 1),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ExerciseCover(objectName: objectName),
           const SizedBox(width: 12),
@@ -40,6 +40,8 @@ class RecordItem extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(width: 8),
+          const Icon(Icons.chevron_right),
         ],
       ),
     );
@@ -52,20 +54,10 @@ class _HeaderRow extends StatelessWidget {
   const _HeaderRow({required this.exerciseName});
 
   @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Expanded(
-            child: Text(
-              exerciseName,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(fontSize: 14, fontWeight: FontWeight.w700),
-            ),
-          ),
-          const Icon(Icons.chevron_right),
-        ],
+  Widget build(BuildContext context) => Text(
+        exerciseName,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
       );
 }
 
@@ -78,7 +70,7 @@ class _FooterRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          const Icon(Icons.calendar_today, size: 40, color: Colors.black12),
+          const Icon(Icons.calendar_today, size: 20, color: Colors.black),
           const SizedBox(width: 6),
           Text(
             formattedDate,
@@ -88,7 +80,7 @@ class _FooterRow extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          const SizedBox(width: 12),
+          const Spacer(),
           Container(
             width: 68,
             height: 68,

@@ -85,10 +85,17 @@ class _FooterRow extends StatelessWidget {
             width: 68,
             height: 68,
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-              border: Border.all(color: Colors.amber, width: 2),
-            ),
+                shape: BoxShape.circle,
+                color: Colors.white,
+                border: Border.all(color: Colors.amber, width: 2),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.20),
+                    blurRadius: 6,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 2),
+                  ),
+                ]),
             alignment: Alignment.center,
             child: Text(
               '$kg kg',

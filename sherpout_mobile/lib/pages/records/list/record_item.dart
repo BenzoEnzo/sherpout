@@ -13,75 +13,101 @@ class RecordItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final exerciseName = record.exercise.name?.localized(context) ?? '';
+    final exerciseName = record.exercise.name!.localized(context);
     final formattedDate = DateFormat('dd.MM.yyyy').format(record.date);
+    final objectName = record.exercise.cover!.imagePath;
 
-    return Card(
-      color: Colors.white,
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              exerciseName,
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xffADC5EB), width: 1),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ExerciseCover(objectName: objectName),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ExerciseCover(
-                  objectName: record.exercise.cover!.imagePath,
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Row(
-                    children: [
-                      const Icon(Icons.calendar_today,
-                          size: 40, color: Colors.black12),
-                      const SizedBox(width: 6),
-                      Text(formattedDate,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          )),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Container(
-                  width: 68,
-                  height: 68,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.amber, width: 2),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '${record.value} kg',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                _HeaderRow(exerciseName: exerciseName),
+                const SizedBox(height: 8),
+                _FooterRow(formattedDate: formattedDate, kg: record.value),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
+}
+
+class _HeaderRow extends StatelessWidget {
+  final String exerciseName;
+
+  const _HeaderRow({required this.exerciseName});
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: Text(
+              exerciseName,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontSize: 14, fontWeight: FontWeight.w700),
+            ),
+          ),
+          const Icon(Icons.chevron_right),
+        ],
+      );
+}
+
+class _FooterRow extends StatelessWidget {
+  final String formattedDate;
+  final num kg;
+
+  const _FooterRow({required this.formattedDate, required this.kg});
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          const Icon(Icons.calendar_today, size: 40, color: Colors.black12),
+          const SizedBox(width: 6),
+          Text(
+            formattedDate,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Container(
+            width: 68,
+            height: 68,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+              border: Border.all(color: Colors.amber, width: 2),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              '$kg kg',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
+      );
 }

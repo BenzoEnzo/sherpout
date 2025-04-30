@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
-import 'exercise_cover.dart';
+import 'exercise_cover_with_difficulty.dart';
 import 'exercise_summary.dart';
 
 class ExerciseListItem extends StatelessWidget {
@@ -15,7 +15,7 @@ class ExerciseListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ExerciseCover(
+        ExerciseCoverWithDifficulty(
             difficulty: exercise.difficulty,
             objectName: exercise.cover!.imagePath,
         ),

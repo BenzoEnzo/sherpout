@@ -23,6 +23,6 @@ public class ImageController {
     @SecuredByGroup(UserGroup.USER)
     public ResponseEntity<ImageDTO> getImageUrl(
             @RequestParam String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        return ResponseEntity.ok(imageService.getPresignedUrl(objectName));
+        return ResponseEntity.ok(imageService.getImageUrl(objectName));
     }
 }

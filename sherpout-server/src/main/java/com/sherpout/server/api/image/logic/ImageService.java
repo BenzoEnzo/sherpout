@@ -21,7 +21,7 @@ public class ImageService {
     @Value("${minio.bucket.name}")
     private String bucketName;
 
-    public ImageDTO getPresignedUrl(String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public ImageDTO getImageUrl(String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         return new ImageDTO(minioClient.getPresignedObjectUrl(
                 GetPresignedObjectUrlArgs.builder()
                         .method(Method.GET)

@@ -8,12 +8,12 @@ import 'package:sherpoutmobile/common/dto/image_dto.dart';
 import 'exercise_difficulty_label.dart';
 
 class ExerciseCover extends StatelessWidget {
-  final ExerciseDifficulty difficulty;
+  final ExerciseDifficulty? difficulty;
   final String objectName;
 
   const ExerciseCover({
     super.key,
-    required this.difficulty,
+    this.difficulty,
     required this.objectName,
   });
 
@@ -22,7 +22,7 @@ class ExerciseCover extends StatelessWidget {
     final ImageService imageService = GetIt.instance.get<ImageService>();
     return Column(
       children: [
-        ExerciseDifficultyLabel(difficulty: difficulty),
+        ExerciseDifficultyLabel(difficulty: difficulty!),
         ClipRRect(
           borderRadius: const BorderRadius.vertical(bottom: Radius.circular(8)),
           child: SizedBox(

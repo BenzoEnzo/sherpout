@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
+import '../../exercises/list/exercise_cover.dart';
 
 class RecordItem extends StatelessWidget {
   final RecordDTO record;
@@ -28,8 +29,7 @@ class RecordItem extends StatelessWidget {
             Text(
               exerciseName,
               textAlign: TextAlign.center,
-              style: Theme
-                  .of(context)
+              style: Theme.of(context)
                   .textTheme
                   .titleMedium
                   ?.copyWith(fontWeight: FontWeight.bold),
@@ -45,8 +45,8 @@ class RecordItem extends StatelessWidget {
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(Icons.fitness_center,
-                      size: 24, color: Colors.black54),
+                  child: ExerciseCover(
+                      objectName: record.exercise.cover!.imagePath),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -55,14 +55,12 @@ class RecordItem extends StatelessWidget {
                       const Icon(Icons.calendar_today,
                           size: 40, color: Colors.black12),
                       const SizedBox(width: 6),
-                      Text(
-                        formattedDate,
+                      Text(formattedDate,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
-                          )
-                      ),
+                          )),
                     ],
                   ),
                 ),

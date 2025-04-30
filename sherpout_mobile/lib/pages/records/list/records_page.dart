@@ -43,8 +43,7 @@ class _RecordsPageState extends State<RecordsPage> {
     }
   }
 
-  void _onAddNew() {
-  }
+  void _onAddNew() {}
 
   @override
   Widget build(BuildContext context) {
@@ -68,5 +67,3 @@ class _RecordsPageState extends State<RecordsPage> {
     );
   }
 }
-
-

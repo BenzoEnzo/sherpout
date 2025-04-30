@@ -12,6 +12,7 @@ class ImageService {
       'images/url',
       queryParameters: {'objectName': objectName},
     );
+    print(response.data);
     return ImageDto.fromJson(response.data as Map<String, dynamic>);
   }
 }

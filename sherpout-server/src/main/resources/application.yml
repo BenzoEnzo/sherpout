@@ -4,7 +4,7 @@ server:
     context-path: /api
 
 minio:
-  url: http://localhost:9000
+  url: http://192.168.232.34:9000
   access:
     name: Xjbrg8rZVQpSWzjtRQI7
     secret: GC5HjRA6xRMK7abijPZXna8LYY5IyZsB7tSv55jL
@@ -38,4 +38,4 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost/realms/Sherpout/protocol/openid-connect/certs
-          issuers: http://192.168.56.1:8082/realms/Sherpout, http://localhost:8082/realms/Sherpout
+          issuers: http://192.168.232.34:8082/realms/Sherpout, http://localhost:8082/realms/Sherpout

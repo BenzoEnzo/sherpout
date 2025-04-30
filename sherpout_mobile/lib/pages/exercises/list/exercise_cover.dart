@@ -12,10 +12,10 @@ class ExerciseCover extends StatelessWidget {
   final String objectName;
 
   const ExerciseCover({
-    Key? key,
+    super.key,
     required this.difficulty,
     required this.objectName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

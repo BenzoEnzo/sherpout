@@ -11,4 +11,11 @@ public class FileException extends SingleApiErrorException {
                 .withErrorLocationType(ErrorLocationType.FILE)
         );
     }
+
+    public FileException(ErrorMessage errorMessage, String name) {
+        super(ApiError.builder(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR)
+                .withErrorLocationType(ErrorLocationType.FILE)
+                .withTextParam("name", name)
+        );
+    }
 }

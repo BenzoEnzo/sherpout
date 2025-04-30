@@ -24,16 +24,16 @@ public class StorageService {
     private String bucketName;
 
     public List<Image> uploadFiles(String dirName, List<MultipartFile> files) {
-        return files.stream()
-                .map(file -> {
-                    String fileName = file.getOriginalFilename();
-                    String path = dirName + "/" + UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
-                    uploadFile(path, file);
-                    Image img = new Image();
-                    img.setImagePath(path);
-                    return img;
-                })
-                .toList();
+        return files.stream().map(file -> transformFileToImage(dirName,file)).toList();
+    }
+
+    private Image transformFileToImage(String dirName, MultipartFile file){
+        String fileName = file.getOriginalFilename();
+        String path = dirName + "/" + UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
+        uploadFile(path, file);
+        Image img = new Image();
+        img.setImagePath(path);
+        return img;
     }
 
     private void uploadFile(String objectName, MultipartFile file) {

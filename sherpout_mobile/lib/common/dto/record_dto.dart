@@ -18,7 +18,7 @@ class RecordDTO {
       id: json['id'] != null ? json['id'] as int : null,
       date: DateTime.parse(json['date'] as String),
       value: json['value'] as int,
-      exercise: ExerciseSelectDTO.fromJson(json['exercise'] as Map<String, dynamic>),
+      exercise: ExerciseSelectDTO.fromJson(json['exercise']),
     );
   }
 }

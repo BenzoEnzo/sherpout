@@ -13,13 +13,10 @@ class NewRecordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPressed,
-      icon: const Icon(
-          Icons.add,
-          color: Colors.white
-      ),
+      icon: const Icon(Icons.add, color: Colors.white),
       label: Text(
-          AppLocalizations.of(context)!.addNewRecord,
-          style: const TextStyle(
+        AppLocalizations.of(context)!.addNewRecord,
+        style: const TextStyle(
           fontSize: 16,
           color: Colors.white,
         ),

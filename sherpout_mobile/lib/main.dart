@@ -9,6 +9,7 @@ import 'package:sherpoutmobile/common/api_client.dart';
 import 'package:sherpoutmobile/common/auth_service.dart';
 import 'package:sherpoutmobile/services/exercise_service.dart';
 import 'package:sherpoutmobile/services/record_service.dart';
+import 'package:sherpoutmobile/services/image_service.dart';
 import 'package:sherpoutmobile/sherpout_app.dart';
 import 'package:get_it/get_it.dart';
 
@@ -29,6 +30,7 @@ void configureDependencies() {
 
   getIt.registerLazySingleton(() => ExerciseService(getIt<ApiClient>()));
   getIt.registerLazySingleton(() => RecordService(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => ImageService(getIt<ApiClient>()));
 }
 
 String getInitialRoute(String? language, bool isUserLoggedIn) {

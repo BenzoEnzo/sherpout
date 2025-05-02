@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/components/loading_component.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
-import 'package:sherpoutmobile/pages/records/list/record_item.dart';
+import 'package:sherpoutmobile/pages/records/list/record_list_item.dart';
 import 'package:sherpoutmobile/services/record_service.dart';
 
 import 'new_record_button.dart';
@@ -43,14 +43,14 @@ class _RecordsPageState extends State<RecordsPage> {
     }
   }
 
-  void _onAddNew() {
-  }
+  void _onAddNew() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.records),
+        title: Text(AppLocalizations.of(context)!.records,
+          style: const TextStyle(fontWeight: FontWeight.w700)),
       ),
       body: LoadingComponent(
         isLoading: _isLoading,
@@ -68,5 +68,3 @@ class _RecordsPageState extends State<RecordsPage> {
     );
   }
 }
-
-

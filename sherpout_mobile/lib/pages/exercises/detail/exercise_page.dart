@@ -3,9 +3,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/exercise_dto.dart';
 import 'package:sherpoutmobile/pages/exercises/detail/exercise_equipment_item.dart';
+import 'package:sherpoutmobile/pages/exercises/detail/exercise_media_carousel.dart';
 
 import '../../../common/components/loading_component.dart';
+import '../../../common/components/sherpout_page.dart';
 import '../../../services/exercise_service.dart';
+import '../list/exercise_cover.dart';
 import '../list/exercise_summary.dart';
 
 class ExercisePage extends StatefulWidget {
@@ -58,46 +61,59 @@ class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderSt
         body: LoadingComponent(
           isLoading: _isLoading,
           error: _error,
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: [
-                ExerciseSummary(name: _exercise!.name, targetMuscle: _exercise!.targetMuscle),
-                    SizedBox(height: 16),
-                    TabBar(
-                      controller: tabController,
-                      tabs: [
-                        Tab(icon: Icon(Icons.home), text: "Descriptionn"),
-                        Tab(icon: Icon(Icons.star), text: "Equipment"),
-                        Tab(icon: Icon(Icons.settings), text: "Media"),
-                      ],
-                      indicatorColor: const Color(0xff4B7FD2),
-                      labelColor: const Color(0xff4B7FD2),
-                      unselectedLabelColor: Colors.black,
-                    ),
-                Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    children: [
-                      Text(_exercise?.description?.en ?? ""),
-                    Expanded(child: ListView(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+          child: SherpoutPage(
+              child: Column(
+                children: [
+                  Row(
                       children: [
-                        ..._exercise?.equipments?.map((equipment) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: ExerciseEquipmentItem(equipment),
-                          );
-                        }) ?? [],
-                      ],
-                    ),),
-                      Text('Zawartość Taba 3'),
-                    ],
+                        ExerciseCover(difficulty: _exercise!.difficulty),
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: ExerciseSummary(
+                              name: _exercise!.name,
+                              targetMuscle: _exercise!.targetMuscle,
+                              supportMuscles: _exercise!.supportMuscles
+                          ),
+                        )
+                      ]
+
                   ),
-                ),
-                  ],
-            )
-        )
+                  SizedBox(height: 16),
+                  TabBar(
+                    controller: tabController,
+                    labelStyle: TextStyle(fontSize: 16),
+                    tabs: [
+                      Tab(icon: Icon(Icons.home), text: "Description"),
+                      Tab(icon: Icon(Icons.star), text: "Equipment"),
+                      Tab(icon: Icon(Icons.settings), text: "Media"),
+                    ],
+                    indicatorColor: const Color(0xff4B7FD2),
+                    labelColor: const Color(0xff4B7FD2),
+                    unselectedLabelColor: Colors.black,
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      controller: tabController,
+                      children: [
+                        Text(_exercise?.description?.en ?? ""),
+                        Expanded(child: ListView(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                          children: [
+                            ..._exercise?.equipments?.map((equipment) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: ExerciseEquipmentItem(equipment),
+                              );
+                            }) ?? [],
+                          ],
+                        ),),
+                        Expanded(child: ExerciseMediaCarousel())
+                      ],
+                    ),
+                  ),
+                ],
+              )
+          )
         )
     );
   }

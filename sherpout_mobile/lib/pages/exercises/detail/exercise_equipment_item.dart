@@ -11,12 +11,20 @@ class ExerciseEquipmentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(Icons.icecream_outlined),
-        Text(equipment.localized(context).capitalize())
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xffADC5EB), ),
+      ),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Row(
+            children: [
+              Icon(Icons.icecream_outlined, size: 40),
+              Text(equipment.localized(context).capitalize(), style: TextStyle(fontSize: 20),)
+            ],
+          ),
+        )
     );
   }
-  
 }

@@ -95,9 +95,14 @@ class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderSt
                     child: TabBarView(
                       controller: tabController,
                       children: [
-                        Text(_exercise?.description?.en ?? ""),
+                        Padding(
+                          padding: EdgeInsets.only(top: 16.0),
+                          child: Text(_exercise?.description?.en ?? "",
+                              style: TextStyle(fontSize: 16)
+                          )
+                        ),
                         Expanded(child: ListView(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                          padding: const EdgeInsets.only(top: 16.0),
                           children: [
                             ..._exercise?.equipments?.map((equipment) {
                               return Padding(
@@ -107,7 +112,11 @@ class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderSt
                             }) ?? [],
                           ],
                         ),),
-                        Expanded(child: ExerciseMediaCarousel())
+                        Expanded(child: Padding(
+                            padding: EdgeInsets.only(top:16.0),
+                            child: ExerciseMediaCarousel()
+                        )
+                        )
                       ],
                     ),
                   ),

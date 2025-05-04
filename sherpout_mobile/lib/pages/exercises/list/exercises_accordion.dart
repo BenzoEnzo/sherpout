@@ -4,6 +4,7 @@ import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
 import 'package:sherpoutmobile/common/dto/muscle_category.dart';
 import 'package:sherpoutmobile/common/extensions/string_extension.dart';
 
+import '../../../common/theme/app_colors.dart';
 import 'exercise_list_item.dart';
 
 class ExercisesAccordion extends StatefulWidget {
@@ -30,11 +31,12 @@ class _ExercisesAccordionState extends State<ExercisesAccordion> {
       titleBorderRadius: isExpanded
           ? const BorderRadius.vertical(top: Radius.circular(16))
           : const BorderRadius.all(Radius.circular(16)),
-      contentBorder: Border.all(color: const Color(0xffADC5EB)),
-      titleBorder: Border.all(color: const Color(0xffADC5EB)),
+      contentBorder: Border.all(color: AppColors.secondary),
+      titleBorder: Border.all(color: AppColors.secondary),
       contentBorderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
-      contentBackgroundColor: Colors.white,
-      expandedTitleBackgroundColor: const Color(0xffADC5EB),
+      contentBackgroundColor: AppColors.background,
+      collapsedTitleBackgroundColor: AppColors.background,
+      expandedTitleBackgroundColor: AppColors.secondary,
       contentPadding: const EdgeInsets.all(0),
       margin: EdgeInsets.all(0),
       titleChild: Text(

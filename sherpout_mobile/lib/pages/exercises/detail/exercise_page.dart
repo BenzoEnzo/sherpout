@@ -9,6 +9,7 @@ import 'package:sherpoutmobile/pages/exercises/list/exercise_cover_with_difficul
 
 import '../../../common/components/loading_component.dart';
 import '../../../common/components/sherpout_page.dart';
+import '../../../common/theme/app_colors.dart';
 import '../../../services/exercise_service.dart';
 import '../list/exercise_summary.dart';
 
@@ -91,8 +92,8 @@ class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderSt
                       Tab(icon: Icon(Icons.star, size: 24), text: "Equipment"),
                       Tab(icon: Icon(Icons.settings, size: 24), text: "Media"),
                     ],
-                    indicatorColor: const Color(0xff4B7FD2),
-                    labelColor: const Color(0xff4B7FD2),
+                    indicatorColor: AppColors.primary,
+                    labelColor: AppColors.primary,
                     unselectedLabelColor: Colors.black,
                   ),
                   Expanded(

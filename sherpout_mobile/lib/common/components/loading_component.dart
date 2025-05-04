@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart';
+
 class LoadingComponent extends StatelessWidget {
   final bool isLoading;
   final String? error;
@@ -20,7 +22,7 @@ class LoadingComponent extends StatelessWidget {
     }
 
     if (error != null) {
-      return Center(child: Text(error!, style: const TextStyle(color: Colors.red)));
+      return Center(child: Text(error!, style: const TextStyle(color: AppColors.redAccent)));
     }
 
     return child;

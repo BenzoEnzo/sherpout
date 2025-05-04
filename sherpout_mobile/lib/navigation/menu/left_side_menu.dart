@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../common/theme/app_colors.dart';
+
 class LeftSideMenu extends StatelessWidget {
 
   const LeftSideMenu({super.key});
@@ -16,10 +18,10 @@ class LeftSideMenu extends StatelessWidget {
             height: 100.0,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: AppColors.primary,
             ),
             child: Text('Sherpout Menu',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: AppColors.surface, fontSize: 20),
                 ),
           ),
           ListTile(

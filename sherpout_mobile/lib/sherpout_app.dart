@@ -16,6 +16,7 @@ import 'package:sherpoutmobile/pages/personal/account_page.dart';
 import 'package:sherpoutmobile/pages/personal/friends_page.dart';
 import 'package:sherpoutmobile/pages/personal/settings_page.dart';
 
+import 'common/theme/app_colors.dart';
 import 'l10n/l10n.dart';
 
 class SherpoutApp extends StatefulWidget {
@@ -112,10 +113,10 @@ class _SherpoutAppState extends State<SherpoutApp> {
     return MaterialApp.router(
       title: "Sherpout App",
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: AppColors.background,
         appBarTheme: AppBarTheme(
-          backgroundColor: const Color(0xff4B7FD2),
-          foregroundColor: Colors.white,
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.background,
         ),
       ),
       routerConfig: _router(),

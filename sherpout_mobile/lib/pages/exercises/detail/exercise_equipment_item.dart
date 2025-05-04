@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/dto/exercise_equipment.dart';
 import 'package:sherpoutmobile/common/extensions/string_extension.dart';
+import 'package:sherpoutmobile/common/theme/app_colors.dart';
 
 class ExerciseEquipmentItem extends StatelessWidget {
   final ExerciseEquipment equipment;
@@ -14,7 +15,7 @@ class ExerciseEquipmentItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xffADC5EB), ),
+        border: Border.all(color: AppColors.secondary),
       ),
         child: Padding(
           padding: EdgeInsets.all(8),

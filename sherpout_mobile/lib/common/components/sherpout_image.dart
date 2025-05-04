@@ -6,6 +6,7 @@ import 'package:sherpoutmobile/common/dto/image_dto.dart';
 
 import '../../services/image_service.dart';
 import '../dto/image_url_dto.dart';
+import '../theme/app_colors.dart';
 
 class SherpoutImage extends StatelessWidget {
   final ImageDto image;
@@ -23,7 +24,7 @@ class SherpoutImage extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError || snapshot.data == null) {
-          return const Center(child: Icon(Icons.image, color: Colors.grey));
+          return const Center(child: Icon(Icons.image, color: AppColors.secondary));
         }
         return CachedNetworkImage(
           imageUrl: snapshot.data!.url,

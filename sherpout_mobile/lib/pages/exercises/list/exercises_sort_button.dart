@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sherpoutmobile/common/theme/app_colors.dart';
+import 'package:sherpoutmobile/common/theme/app_typography.dart';
 
 class ExercisesSortButton extends StatefulWidget {
   @override
@@ -33,10 +34,10 @@ class _ExercisesSortButtonState extends State<ExercisesSortButton> {
         },
         children: [
           Text(AppLocalizations.of(context)!.sortByLikes,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)
+              style: AppTypography.buttonMedium
           ),
           Text(AppLocalizations.of(context)!.sortByPopularity,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)
+              style: AppTypography.buttonMedium
           ),
         ],
       );

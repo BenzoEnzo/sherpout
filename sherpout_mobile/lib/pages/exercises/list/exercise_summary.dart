@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:sherpoutmobile/common/dto/muscle.dart';
 import 'package:sherpoutmobile/common/dto/translated_string_dto.dart';
 import 'package:sherpoutmobile/common/extensions/string_extension.dart';
+import 'package:sherpoutmobile/common/theme/app_typography.dart';
 
 class ExerciseSummary extends StatelessWidget {
   final TranslatedStringDto name;
@@ -19,18 +20,14 @@ class ExerciseSummary extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(name.localized(context),
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)
-        ),
-        Text(targetMuscle.localized(context).capitalize(),
-            style: TextStyle(fontSize: 18)
-        ),
+        Text(name.localized(context), style: AppTypography.titleLarge),
+        Text(targetMuscle.localized(context).capitalize(), style: AppTypography.bodyMedium),
         if (supportMuscles != null)
           Text(
               supportMuscles!
                   .map((muscle) => muscle.localized(context).capitalize())
                   .join(', '),
-              style: TextStyle(fontSize: 16)),
+              style: AppTypography.bodySmall),
       ],
     );
   }

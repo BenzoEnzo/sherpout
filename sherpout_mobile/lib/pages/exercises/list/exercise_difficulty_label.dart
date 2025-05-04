@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sherpoutmobile/common/theme/app_typography.dart';
 
 import '../../../../common/dto/exercise_difficulty.dart';
 import '../../../common/theme/app_colors.dart';
@@ -21,11 +22,7 @@ class ExerciseDifficultyLabel extends StatelessWidget {
         child: Text(
           difficulty.localized(context).toUpperCase(),
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: AppTypography.difficultyLabel
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:getwidget/components/accordion/gf_accordion.dart';
 import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
 import 'package:sherpoutmobile/common/dto/muscle_category.dart';
 import 'package:sherpoutmobile/common/extensions/string_extension.dart';
+import 'package:sherpoutmobile/common/theme/app_typography.dart';
 
 import '../../../common/theme/app_colors.dart';
 import 'exercise_list_item.dart';
@@ -41,7 +42,7 @@ class _ExercisesAccordionState extends State<ExercisesAccordion> {
       margin: EdgeInsets.all(0),
       titleChild: Text(
         widget.category.localized(context).capitalize(),
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+        style: AppTypography.titleLarge,
       ),
       contentChild: Column(
         children: List.generate(widget.exercises.length, (index) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/dto/exercise_equipment.dart';
 import 'package:sherpoutmobile/common/extensions/string_extension.dart';
 import 'package:sherpoutmobile/common/theme/app_colors.dart';
+import 'package:sherpoutmobile/common/theme/app_typography.dart';
 
 class ExerciseEquipmentItem extends StatelessWidget {
   final ExerciseEquipment equipment;
@@ -21,8 +22,9 @@ class ExerciseEquipmentItem extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: Row(
             children: [
-              Icon(Icons.icecream_outlined, size: 40),
-              Text(equipment.localized(context).capitalize(), style: TextStyle(fontSize: 20),)
+              Icon(Icons.icecream_outlined, size: 32),
+              Text(equipment.localized(context).capitalize(),
+                  style: AppTypography.bodyMedium)
             ],
           ),
         )

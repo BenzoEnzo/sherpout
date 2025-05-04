@@ -18,6 +18,9 @@ public enum ErrorMessage {
     FILE_STORAGE_ERROR(
             "Unable to upload files to the bucket",
             "Nie można dodać plików do bucketu"),
+    IMAGE_FETCH_ERROR(
+            "Unable to fetch image from bucket with name: {{name}}",
+            "Nie można pobrać zdjęcia z bucketu o nazwie: {{name}}"),
     EXERCISE_UNABLE_TO_FIND_BY_ID(
             "Unable to find exercise with id: {{id}}",
             "Nie można znaleźć ćwiczenia o identyfikatorze: {{id}}"),

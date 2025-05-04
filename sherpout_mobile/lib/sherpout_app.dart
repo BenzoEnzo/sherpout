@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sherpoutmobile/pages/activity/rankings_page.dart';
-import 'package:sherpoutmobile/pages/activity/records_page.dart';
+import 'package:sherpoutmobile/pages/records/list/records_page.dart';
 import 'package:sherpoutmobile/pages/activity/trainings_page.dart';
 import 'package:sherpoutmobile/pages/auth/auth_page.dart';
 import 'package:sherpoutmobile/pages/dashboard/dashboard_page.dart';

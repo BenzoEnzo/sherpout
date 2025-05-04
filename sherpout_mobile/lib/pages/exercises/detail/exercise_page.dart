@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/exercise_dto.dart';
-import 'package:sherpoutmobile/pages/exercises/detail/exercise_equipment_item.dart';
+import 'package:sherpoutmobile/pages/exercises/detail/exercise_description.dart';
+import 'package:sherpoutmobile/pages/exercises/detail/exercise_equipment_list.dart';
 import 'package:sherpoutmobile/pages/exercises/detail/exercise_media_carousel.dart';
 import 'package:sherpoutmobile/pages/exercises/list/exercise_cover_with_difficulty.dart';
 
@@ -86,9 +87,9 @@ class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderSt
                     controller: tabController,
                     labelStyle: TextStyle(fontSize: 16),
                     tabs: [
-                      Tab(icon: Icon(Icons.home), text: "Description"),
-                      Tab(icon: Icon(Icons.star), text: "Equipment"),
-                      Tab(icon: Icon(Icons.settings), text: "Media"),
+                      Tab(icon: Icon(Icons.home, size: 24), text: "Description"),
+                      Tab(icon: Icon(Icons.star, size: 24), text: "Equipment"),
+                      Tab(icon: Icon(Icons.settings, size: 24), text: "Media"),
                     ],
                     indicatorColor: const Color(0xff4B7FD2),
                     labelColor: const Color(0xff4B7FD2),
@@ -100,21 +101,10 @@ class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderSt
                       children: [
                         Padding(
                           padding: EdgeInsets.only(top: 16.0),
-                          child: Text(_exercise?.description?.en ?? "",
-                              style: TextStyle(fontSize: 16)
-                          )
+                          child: ExerciseDescription(description: _exercise!.description!)
                         ),
-                        Expanded(child: ListView(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          children: [
-                            ..._exercise?.equipments?.map((equipment) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 16.0),
-                                child: ExerciseEquipmentItem(equipment),
-                              );
-                            }) ?? [],
-                          ],
-                        ),),
+                        Expanded(child: ExerciseEquipmentList(equipments: _exercise!.equipments!)
+                        ),
                         Expanded(child: Padding(
                             padding: EdgeInsets.only(top:16.0),
                             child: ExerciseMediaCarousel()

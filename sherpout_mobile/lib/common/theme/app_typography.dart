@@ -22,7 +22,7 @@ class AppTypography {
   );
 
   static TextStyle bodyLarge = TextStyle(
-    fontSize: 16,
+    fontSize: 20,
     color: AppColors.text,
   );
 

@@ -14,20 +14,24 @@ class ExerciseEquipmentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.secondary),
       ),
-        child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Row(
-            children: [
-              Icon(Icons.icecream_outlined, size: 32),
-              Text(equipment.localized(context).capitalize(),
-                  style: AppTypography.bodyMedium)
-            ],
-          ),
-        )
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(Icons.icecream_outlined, size: 40, color: AppColors.text),
+          const SizedBox(height: 8),
+          Text(
+            equipment.localized(context).capitalize(),
+            style: AppTypography.titleMedium.copyWith(color: AppColors.text),
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
     );
   }
 }

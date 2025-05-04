@@ -10,16 +10,15 @@ class ExerciseEquipmentList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.only(top: 16.0),
-      children: [
-        ...equipments.map((equipment) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: ExerciseEquipmentItem(equipment),
-          );
-        }),
-      ],
+    return GridView.count(
+      padding: const EdgeInsets.all(16.0),
+      crossAxisCount: 2,
+      crossAxisSpacing: 16.0,
+      mainAxisSpacing: 16.0,
+      childAspectRatio: 1.2,
+      children: equipments.map((equipment) {
+        return ExerciseEquipmentItem(equipment);
+      }).toList(),
     );
   }
 }

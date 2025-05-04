@@ -34,7 +34,7 @@ class ExerciseDto {
     return ExerciseDto(
       id: json['id'] as int,
       name: TranslatedStringDto.fromJson(json['name']),
-      description: TranslatedStringDto.fromJson(json['name']),
+      description: TranslatedStringDto.fromJson(json['description']),
       difficulty: ExerciseDifficulty.fromName(json['difficulty'])!,
       targetMuscle: Muscle.fromName(json['targetMuscle'])!,
       supportMuscles: (json['supportMuscles'] as List?)

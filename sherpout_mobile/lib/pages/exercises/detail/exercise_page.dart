@@ -88,13 +88,14 @@ class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderSt
                     controller: tabController,
                     labelStyle: TextStyle(fontSize: 16),
                     tabs: [
-                      Tab(icon: Icon(Icons.home, size: 24), text: "Description"),
-                      Tab(icon: Icon(Icons.star, size: 24), text: "Equipment"),
-                      Tab(icon: Icon(Icons.settings, size: 24), text: "Media"),
+                      Tab(icon: Icon(Icons.info_outline, size: 24), text: "Description"),
+                      Tab(icon: Icon(Icons.backpack_outlined, size: 24), text: "Equipment"),
+                      Tab(icon: Icon(Icons.image, size: 24), text: "Media"),
                     ],
+                    dividerColor: AppColors.secondary,
                     indicatorColor: AppColors.primary,
                     labelColor: AppColors.primary,
-                    unselectedLabelColor: Colors.black,
+                    unselectedLabelColor: AppColors.secondary,
                   ),
                   Expanded(
                     child: TabBarView(

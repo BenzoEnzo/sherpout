@@ -1,13 +1,13 @@
 class ImageDto {
-  final String imagePath;
+  final String name;
 
   ImageDto({
-    required this.imagePath,
+    required this.name,
   });
 
   factory ImageDto.fromJson(Map<String, dynamic> json) {
     return ImageDto(
-      imagePath: json['imagePath'] as String,
+      name: json['name'] as String,
     );
   }
 }

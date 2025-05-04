@@ -20,7 +20,10 @@ class ExerciseListItem extends StatelessWidget {
         },
         child: Row(
           children: [
-            ExerciseCoverWithDifficulty(difficulty: exercise.difficulty),
+            ExerciseCoverWithDifficulty(
+              difficulty: exercise.difficulty,
+              cover: exercise.cover
+            ),
             SizedBox(width: 16),
             Expanded(
               child: ExerciseSummary(

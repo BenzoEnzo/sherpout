@@ -4,11 +4,11 @@ import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/exercise_dto.dart';
 import 'package:sherpoutmobile/pages/exercises/detail/exercise_equipment_item.dart';
 import 'package:sherpoutmobile/pages/exercises/detail/exercise_media_carousel.dart';
+import 'package:sherpoutmobile/pages/exercises/list/exercise_cover_with_difficulty.dart';
 
 import '../../../common/components/loading_component.dart';
 import '../../../common/components/sherpout_page.dart';
 import '../../../services/exercise_service.dart';
-import '../list/exercise_cover.dart';
 import '../list/exercise_summary.dart';
 
 class ExercisePage extends StatefulWidget {
@@ -66,7 +66,10 @@ class _ExercisePageState extends State<ExercisePage> with SingleTickerProviderSt
                 children: [
                   Row(
                       children: [
-                        ExerciseCover(difficulty: _exercise!.difficulty),
+                        ExerciseCoverWithDifficulty(
+                            difficulty: _exercise!.difficulty,
+                            cover: _exercise!.cover
+                        ),
                         SizedBox(width: 16),
                         Expanded(
                           child: ExerciseSummary(

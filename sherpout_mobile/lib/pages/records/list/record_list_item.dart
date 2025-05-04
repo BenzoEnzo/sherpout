@@ -15,9 +15,8 @@ class RecordItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final exerciseName = record.exercise.name!.localized(context);
+    final exerciseName = record.exercise.name.localized(context);
     final formattedDate = DateFormat('dd.MM.yyyy').format(record.date);
-    final objectName = record.exercise.cover!.imagePath;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -30,7 +29,7 @@ class RecordItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ExerciseCover(objectName: objectName),
+          ExerciseCover(cover: record.exercise.cover),
           const SizedBox(width: 12),
           Expanded(
             child: Column(

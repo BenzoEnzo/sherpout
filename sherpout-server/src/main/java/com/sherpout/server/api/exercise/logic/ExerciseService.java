@@ -6,6 +6,8 @@ import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
 import com.sherpout.server.api.image.entity.Image;
+import com.sherpout.server.api.image.logic.ImageService;
+import com.sherpout.server.api.image.mapper.ImageMapper;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.model.ErrorLocationType;
 import com.sherpout.server.external.storage.StorageService;
@@ -21,12 +23,20 @@ import java.util.List;
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final StorageService storageService;
+    private final ImageService imageService;
+    private final ImageMapper imageMapper;
     private final ExerciseMapper exerciseMapper;
 
     @Transactional
     public ExerciseDTO updateExercise(ExerciseDTO exerciseDTO, Long id, List<MultipartFile> files) {
         Exercise exercise = exerciseRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
+
+        exercise.getImages()
+                .removeAll(imageService.deleteImagesFromBucket(exerciseDTO.getImages())
+                        .stream()
+                        .map(imageMapper::mapToEntity)
+                        .toList());
 
         configureFileSettings(files, exercise);
         exerciseMapper.mapToUpdateEntity(exerciseDTO, exercise);
@@ -62,4 +72,6 @@ public class ExerciseService {
             exercise.setImages(uploadedFiles);
         }
     }
+
+
 }

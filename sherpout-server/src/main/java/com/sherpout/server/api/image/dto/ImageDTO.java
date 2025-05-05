@@ -11,4 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ImageDTO {
     private String imagePath;
+    private boolean toDelete = false;
+
+    public ImageDTO(String imagePath) {
+        this.imagePath = imagePath;
+    }
 }

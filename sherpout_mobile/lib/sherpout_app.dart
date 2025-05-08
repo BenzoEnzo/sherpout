@@ -4,11 +4,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sherpoutmobile/pages/activity/rankings_page.dart';
+import 'package:sherpoutmobile/pages/exercises/detail/exercise_detail_page.dart';
 import 'package:sherpoutmobile/pages/records/list/records_page.dart';
 import 'package:sherpoutmobile/pages/activity/trainings_page.dart';
 import 'package:sherpoutmobile/pages/auth/auth_page.dart';
 import 'package:sherpoutmobile/pages/dashboard/dashboard_page.dart';
-import 'package:sherpoutmobile/pages/exercises/detail/exercise_page.dart';
 import 'package:sherpoutmobile/pages/exercises/list/exercises_page.dart';
 import 'package:sherpoutmobile/pages/language/language_page.dart';
 import 'package:sherpoutmobile/pages/language/objects/language.dart';
@@ -89,7 +89,7 @@ class _SherpoutAppState extends State<SherpoutApp> {
           path: '/exercise/:id',
           builder: (context, state) {
             final exerciseId = int.parse(state.pathParameters['id']!);
-            return ExercisePage(id: exerciseId);
+            return ExerciseDetailPage(id: exerciseId);
           },
         ),
         GoRoute(

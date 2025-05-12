@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sherpoutmobile/common/api_client.dart';
 import 'package:sherpoutmobile/common/auth_service.dart';
+import 'package:sherpoutmobile/common/navigation_service.dart';
 import 'package:sherpoutmobile/services/exercise_service.dart';
 import 'package:sherpoutmobile/services/record_service.dart';
 import 'package:sherpoutmobile/services/image_service.dart';
@@ -22,9 +23,10 @@ void configureDependencies() {
   getIt.registerLazySingleton(() => Dio());
   getIt.registerLazySingleton(() => FlutterSecureStorage());
   getIt.registerLazySingleton(() => FlutterAppAuth());
+  getIt.registerLazySingleton(() => NavigationService(navigatorKey));
 
   getIt.registerLazySingleton(() =>
-      AuthService(getIt<FlutterAppAuth>(), getIt<FlutterSecureStorage>(), navigatorKey));
+      AuthService(getIt<FlutterAppAuth>(), getIt<FlutterSecureStorage>(), getIt<NavigationService>()));
   getIt.registerLazySingleton(() =>
       ApiClient(getIt<Dio>(), getIt<FlutterSecureStorage>(), getIt<AuthService>()));
 

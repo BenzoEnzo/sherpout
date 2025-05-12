@@ -15,7 +15,7 @@ class RightSideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
-    final AuthService _authService = GetIt.instance<AuthService>();
+    final AuthService authService = GetIt.instance<AuthService>();
 
     return Drawer(
       elevation: 16.0,
@@ -53,7 +53,7 @@ class RightSideMenu extends StatelessWidget {
               leading: Icon(Icons.logout),
               title: Text(AppLocalizations.of(context)!.logOut),
               onTap: () {
-                _authService.logout();
+                authService.logout();
               },
             ),
           ],

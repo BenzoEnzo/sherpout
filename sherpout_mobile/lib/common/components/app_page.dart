@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SherpoutPage extends StatelessWidget {
+class AppPage extends StatelessWidget {
   final Widget child;
 
-  const SherpoutPage({super.key, required this.child});
+  const AppPage({super.key, required this.child});
   
   @override
   Widget build(BuildContext context) {

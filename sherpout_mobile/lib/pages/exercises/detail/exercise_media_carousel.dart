@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sherpoutmobile/common/components/sherpout_image.dart';
+import 'package:sherpoutmobile/common/components/app_image.dart';
 import 'package:sherpoutmobile/common/dto/image_dto.dart';
 
 class ExerciseMediaCarousel extends StatefulWidget {
@@ -33,13 +33,12 @@ class _ExerciseMediaCarouselState extends State<ExerciseMediaCarousel> {
         ),
         children:
           widget.images.map((image) {
-            return SherpoutImage(image: image);
+            return AppImage(image: image);
           }).toList(),
     );
   }
 
   Dialog _showDialog(int index) {
-    print("jebe twoja stara");
     return Dialog(
       backgroundColor: Colors.grey,
       insetPadding: EdgeInsets.zero,
@@ -47,7 +46,7 @@ class _ExerciseMediaCarouselState extends State<ExerciseMediaCarousel> {
         children: [
           Center(
             child: InteractiveViewer(
-                child: SherpoutImage(image: widget.images.elementAt(index))
+                child: AppImage(image: widget.images.elementAt(index))
             ),
           ),
           Positioned(

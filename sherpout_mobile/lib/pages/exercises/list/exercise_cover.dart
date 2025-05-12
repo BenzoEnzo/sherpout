@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sherpoutmobile/common/components/sherpout_image.dart';
+import 'package:sherpoutmobile/common/components/app_image.dart';
 import 'package:sherpoutmobile/common/dto/image_dto.dart';
 
 class ExerciseCover extends StatelessWidget {
@@ -21,7 +21,7 @@ class ExerciseCover extends StatelessWidget {
               height: 72,
               child: cover == null
                   ? const Center(child: Icon(Icons.image, color: Colors.red))
-                  : SherpoutImage(image: cover!)),
+                  : AppImage(image: cover!)),
         ),
       ],
     );

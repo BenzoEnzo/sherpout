@@ -8,10 +8,10 @@ import '../../services/image_service.dart';
 import '../dto/image_url_dto.dart';
 import '../theme/app_colors.dart';
 
-class SherpoutImage extends StatelessWidget {
+class AppImage extends StatelessWidget {
   final ImageDto image;
 
-  const SherpoutImage({super.key, required this.image});
+  const AppImage({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {

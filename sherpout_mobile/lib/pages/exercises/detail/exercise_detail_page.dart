@@ -5,7 +5,7 @@ import 'package:sherpoutmobile/common/dto/exercise_dto.dart';
 import 'package:sherpoutmobile/pages/exercises/detail/exercise_detail.dart';
 
 import '../../../common/components/loading_component.dart';
-import '../../../common/components/sherpout_page.dart';
+import '../../../common/components/app_page.dart';
 import '../../../services/exercise_service.dart';
 
 class ExerciseDetailPage extends StatefulWidget {
@@ -56,7 +56,7 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> with SingleTick
           isLoading: _isLoading,
           error: _error,
           child: _exercise != null
-              ? SherpoutPage(child: ExerciseDetail(exercise: _exercise!))
+              ? AppPage(child: ExerciseDetail(exercise: _exercise!))
               : null
         )
     );

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sherpoutmobile/pages/records/list/record_weight_circle.dart';
+
+import '../../../common/theme/app_typography.dart';
 
 class RecordListItemFooter extends StatelessWidget {
   final String formattedDate;
@@ -8,44 +11,16 @@ class RecordListItemFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      const Icon(Icons.calendar_today, size: 20, color: Colors.black),
-      const SizedBox(width: 6),
-      Text(
-        formattedDate,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
+      Row(
+        children: [
+          const Icon(Icons.calendar_today, size: 24, color: Colors.black),
+          const SizedBox(width: 8),
+          Text(formattedDate, style: AppTypography.bodyLarge),
+        ],
       ),
-      const Spacer(),
-      Container(
-        width: 68,
-        height: 68,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-            border: Border.all(color: Colors.amber, width: 2),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.20),
-                blurRadius: 6,
-                spreadRadius: 1,
-                offset: const Offset(0, 2),
-              ),
-            ]),
-        alignment: Alignment.center,
-        child: Text(
-          '$weight kg',
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-      ),
+      RecordWeightCircle(weight: weight),
     ],
   );
 }

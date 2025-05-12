@@ -16,33 +16,30 @@ class RecordItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final exerciseName = record.exercise.name.localized(context);
     final formattedDate = DateFormat('dd.MM.yyyy').format(record.date);
 
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        // color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.secondary, width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ExerciseCover(cover: record.exercise.cover),
-          const SizedBox(width: 12),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RecordListItemHeader(exerciseName: exerciseName),
-                const SizedBox(height: 8),
+                RecordListItemHeader(exerciseName: record.exercise.name),
+                // const SizedBox(height: 8),
                 RecordListItemFooter(formattedDate: formattedDate, weight: record.value),
               ],
             ),
           ),
-          const SizedBox(width: 8),
           const Icon(Icons.chevron_right),
         ],
       ),

@@ -11,8 +11,8 @@ class RecordWeightCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 68,
-      height: 68,
+      width: 72,
+      height: 72,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: AppColors.background,

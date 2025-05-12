@@ -36,6 +36,7 @@ class SherpoutApp extends StatefulWidget {
 }
 
 class _SherpoutAppState extends State<SherpoutApp> {
+  late final GoRouter _router = _buildRouter();
   late Locale _locale;
 
   @override
@@ -52,7 +53,7 @@ class _SherpoutAppState extends State<SherpoutApp> {
     });
   }
 
-  GoRouter _router() {
+  GoRouter _buildRouter() {
     return GoRouter(
       initialLocation: widget.initialRoute,
       navigatorKey: widget.navigatorKey,
@@ -119,7 +120,7 @@ class _SherpoutAppState extends State<SherpoutApp> {
           foregroundColor: AppColors.background,
         ),
       ),
-      routerConfig: _router(),
+      routerConfig: _router,
 
       supportedLocales: L10n.all,
       locale: _locale,

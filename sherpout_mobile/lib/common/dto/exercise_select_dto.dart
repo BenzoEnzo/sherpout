@@ -6,7 +6,6 @@ class ExerciseSelectDTO {
   final TranslatedStringDto name;
   final ImageDto? cover;
 
-
   ExerciseSelectDTO({
     required this.id,
     required this.name,
@@ -19,5 +18,11 @@ class ExerciseSelectDTO {
       name: TranslatedStringDto.fromJson(json['name'] as Map<String, dynamic>),
       cover: json['cover'] != null ? ImageDto.fromJson(json['cover']) : null,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+    };
   }
 }

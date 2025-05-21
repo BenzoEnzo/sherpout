@@ -39,4 +39,13 @@ class ApiClient {
     return await _dio.get(endpoint,
         data: data, queryParameters: queryParameters);
   }
+
+  Future<Response> post(String endpoint,
+      {Object? data, Map<String, dynamic>? queryParameters}) async {
+    return await _dio.post(
+      endpoint,
+      data: data,
+      queryParameters: queryParameters,
+    );
+  }
 }

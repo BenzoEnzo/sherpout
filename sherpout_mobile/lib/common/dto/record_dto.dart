@@ -21,4 +21,13 @@ class RecordDTO {
       exercise: ExerciseSelectDTO.fromJson(json['exercise']),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      if (id != null) 'id': id,
+      if (date != null) 'date': date!.toIso8601String(),
+      if (value != null) 'value': value,
+      if (exercise != null) 'exercise': exercise!.toJson(),
+    };
+  }
 }

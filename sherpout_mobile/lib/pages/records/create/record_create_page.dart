@@ -10,10 +10,13 @@ class RecordCreatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Create new exercise"),
-      ),
-      body: AppPage(child: RecordForm(record: RecordDTO())),
-    );
+        appBar: AppBar(
+          title: Text("Create new exercise"),
+        ),
+        body: AppPage(
+          child: Center(
+            child: RecordForm(record: RecordDTO()),
+          ),
+        ));
   }
 }

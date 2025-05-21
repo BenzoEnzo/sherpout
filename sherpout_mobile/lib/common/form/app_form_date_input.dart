@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 class AppFormDateInput<T> extends StatelessWidget {
   final T dto;
   final String label;
+  final bool isRequired;
   final DateTime? Function(T dto) getValue;
   final void Function(T dto, DateTime value) setValue;
   final DateTime? firstDate;
@@ -14,6 +15,7 @@ class AppFormDateInput<T> extends StatelessWidget {
     super.key,
     required this.dto,
     required this.label,
+    required this.isRequired,
     required this.getValue,
     required this.setValue,
     this.firstDate,
@@ -39,7 +41,7 @@ class AppFormDateInput<T> extends StatelessWidget {
         suffixIcon: const Icon(Icons.calendar_today),
       ),
       readOnly: true,
-      // validator: validator,
+      validator: _validate,
       onTap: () async {
         final picked = await showDatePicker(
           context: context,
@@ -54,5 +56,12 @@ class AppFormDateInput<T> extends StatelessWidget {
         }
       },
     );
+  }
+
+  String? _validate(String? value) {
+    if (isRequired && (value == null || value.isEmpty)) {
+      return "This field is required.";
+    }
+    return null;
   }
 }

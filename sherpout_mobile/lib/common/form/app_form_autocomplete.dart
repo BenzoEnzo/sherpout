@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
   final DTO dto;
   final List<T> options;
-  final String labelText;
+  final String label;
   final bool isRequired;
 
   final T? Function(DTO dto) getValue;
@@ -16,7 +15,7 @@ class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
       {super.key,
       required this.dto,
       required this.options,
-      required this.labelText,
+      required this.label,
       required this.isRequired,
       required this.getValue,
       required this.setValue,
@@ -45,15 +44,9 @@ class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
           controller: textEditingController,
           focusNode: focusNode,
           decoration: InputDecoration(
-            labelText: labelText,
-            border: const OutlineInputBorder(),
+            labelText: label,
           ),
-          validator: (value) {
-            if (isRequired && (value?.isEmpty ?? true)) {
-              return 'This field is required';
-            }
-            return null;
-          },
+          validator: _validate,
           onEditingComplete: onEditingComplete,
         );
       },
@@ -76,5 +69,12 @@ class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
         );
       },
     );
+  }
+
+  String? _validate(String? value) {
+    if (isRequired && (value?.isEmpty ?? true)) {
+      return 'This field is required';
+    }
+    return null;
   }
 }

@@ -9,7 +9,7 @@ import lombok.Getter;
 public enum ExerciseDifficulty implements BaseEnum {
     EASY(1),
     MEDIUM(2),
-    HAR(3);
+    HARD(3);
 
     private final Integer id;
 }

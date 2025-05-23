@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sherpoutmobile/common/theme/app_typography.dart';
 
 import '../../../../common/dto/exercise_difficulty.dart';
+import '../../../common/theme/app_colors.dart';
 
 class ExerciseDifficultyLabel extends StatelessWidget {
   final ExerciseDifficulty difficulty;
@@ -20,11 +22,7 @@ class ExerciseDifficultyLabel extends StatelessWidget {
         child: Text(
           difficulty.localized(context).toUpperCase(),
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: AppTypography.difficultyLabel
         ),
       ),
     );
@@ -33,11 +31,11 @@ class ExerciseDifficultyLabel extends StatelessWidget {
   Color _getColor() {
     switch (difficulty) {
       case ExerciseDifficulty.easy:
-        return const Color(0xff35C944);
+        return AppColors.greenAccent;
       case ExerciseDifficulty.medium:
-        return const Color(0xffC9A435);
+        return AppColors.yellowAccent;
       case ExerciseDifficulty.hard:
-        return const Color(0xffC94935);
+        return AppColors.redAccent;
     }
   }
 }

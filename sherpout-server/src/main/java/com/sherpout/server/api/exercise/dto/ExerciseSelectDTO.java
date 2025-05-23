@@ -11,6 +11,6 @@ import lombok.Setter;
 public class ExerciseSelectDTO {
     @NotNull
     private Long id;
-    private ImageDTO cover;
     private TranslatedStringDTO name;
+    private ImageDTO cover;
 }

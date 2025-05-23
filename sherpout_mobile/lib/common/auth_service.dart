@@ -3,6 +3,7 @@ import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sherpoutmobile/common/navigation_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -13,9 +14,9 @@ class AuthService {
 
   final FlutterAppAuth _appAuth;
   final FlutterSecureStorage _secureStorage;
-  final GlobalKey<NavigatorState> _navigatorKey;
+  final NavigationService _navigationService;
 
-  AuthService(this._appAuth, this._secureStorage, this._navigatorKey);
+  AuthService(this._appAuth, this._secureStorage, this._navigationService);
 
   Future<void> login(BuildContext context) async {
     final AuthorizationTokenResponse result =
@@ -54,7 +55,7 @@ class AuthService {
       _secureStorage.delete(key: 'refresh_token'),
     ]);
 
-    _navigatorKey.currentState?.pushNamedAndRemoveUntil('/auth', (route) => false);
+   _navigationService.go("/auth");
   }
 
   Future<void> _saveTokens(TokenResponse result) async {

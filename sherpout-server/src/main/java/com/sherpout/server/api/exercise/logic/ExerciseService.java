@@ -5,6 +5,7 @@ import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
+import com.sherpout.server.api.image.dto.ImageDTO;
 import com.sherpout.server.api.image.entity.Image;
 import com.sherpout.server.api.image.logic.ImageService;
 import com.sherpout.server.api.image.mapper.ImageMapper;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -24,7 +26,6 @@ public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final StorageService storageService;
     private final ImageService imageService;
-    private final ImageMapper imageMapper;
     private final ExerciseMapper exerciseMapper;
 
     @Transactional
@@ -32,13 +33,10 @@ public class ExerciseService {
         Exercise exercise = exerciseRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
 
-        exercise.getImages()
-                .removeAll(imageService.deleteImagesFromBucket(exerciseDTO.getImages())
-                        .stream()
-                        .map(imageMapper::mapToEntity)
-                        .toList());
-
         configureFileSettings(files, exercise);
+
+        imageService.deleteImagesFromBucket(exerciseDTO);
+
         exerciseMapper.mapToUpdateEntity(exerciseDTO, exercise);
 
         return exerciseMapper.mapToDTO(exercise);
@@ -72,6 +70,4 @@ public class ExerciseService {
             exercise.setImages(uploadedFiles);
         }
     }
-
-
 }

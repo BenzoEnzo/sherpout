@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ImageDTO {
     private String name;
-    private Boolean toDelete = false;
+    private Boolean toDelete;
 }

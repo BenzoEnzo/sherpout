@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -64,7 +65,9 @@ public class ExerciseService {
     private void configureExerciseImages(List<MultipartFile> files, Exercise exercise, ExerciseDTO exerciseDTO) {
         if (files != null && !files.isEmpty()) {
             List<Image> uploadedImages = imageService.convertAndSaveImages(String.valueOf(exercise.getId()), files);
-            exercise.getImages().addAll(uploadedImages);
+            List<Image> exerciseImages = exercise.getImages() != null ? exercise.getImages() : new ArrayList<>();
+            exerciseImages.addAll(uploadedImages);
+            exercise.setImages(exerciseImages);
         }
 
         exercise.setCover(selectExerciseCover(exerciseDTO, exercise));

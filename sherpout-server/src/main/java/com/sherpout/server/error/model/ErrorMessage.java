@@ -24,6 +24,9 @@ public enum ErrorMessage {
     IMAGE_DELETE_ERROR(
             "Unable to delete image from bucket with name: {{name}}",
             "Nie można usunąć zdjęcia z bucketu o nazwie: {{name}}"),
+    COVER_IMAGE_ERROR(
+            "Unable to load cover image for exercise: {{name}}",
+            "Nie można załadować okładki dla ćwiczenia: {{name}}"),
     EXERCISE_UNABLE_TO_FIND_BY_ID(
             "Unable to find exercise with id: {{id}}",
             "Nie można znaleźć ćwiczenia o identyfikatorze: {{id}}"),

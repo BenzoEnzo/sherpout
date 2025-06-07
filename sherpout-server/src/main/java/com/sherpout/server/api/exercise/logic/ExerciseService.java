@@ -8,17 +8,19 @@ import com.sherpout.server.api.exercise.repository.ExerciseRepository;
 import com.sherpout.server.api.image.dto.ImageDTO;
 import com.sherpout.server.api.image.entity.Image;
 import com.sherpout.server.api.image.logic.ImageService;
-import com.sherpout.server.api.image.mapper.ImageMapper;
+import com.sherpout.server.error.exception.FileException;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.model.ErrorLocationType;
+import com.sherpout.server.error.model.ErrorMessage;
 import com.sherpout.server.external.storage.StorageService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,11 +35,11 @@ public class ExerciseService {
         Exercise exercise = exerciseRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
 
-        configureFileSettings(files, exercise);
-
-        imageService.deleteImagesFromBucket(exerciseDTO);
-
         exerciseMapper.mapToUpdateEntity(exerciseDTO, exercise);
+        imageService.deleteImagesFromBucket(exerciseDTO);
+        configureImageSettings(files, exercise, exerciseDTO);
+
+        exerciseRepository.save(exercise);
 
         return exerciseMapper.mapToDTO(exercise);
     }
@@ -46,7 +48,7 @@ public class ExerciseService {
     public ExerciseDTO createExercise(ExerciseDTO exerciseDTO, List<MultipartFile> files) {
         Exercise exercise = exerciseMapper.mapToEntity(exerciseDTO);
         Exercise managed = exerciseRepository.save(exercise);
-        configureFileSettings(files, managed);
+        configureImageSettings(files, managed, exerciseDTO);
 
         return exerciseMapper.mapToDTO(managed);
     }
@@ -63,11 +65,27 @@ public class ExerciseService {
                 .toList();
     }
 
-    private void configureFileSettings(List<MultipartFile> files, Exercise exercise){
-        if(files != null && !files.isEmpty()) {
-            List<Image> uploadedFiles = storageService.uploadFiles(String.valueOf(exercise.getId()), files);
-            exercise.setCover(uploadedFiles.getFirst());
-            exercise.setImages(uploadedFiles);
+    private void configureImageSettings(List<MultipartFile> files, Exercise exercise, ExerciseDTO exerciseDTO) {
+        if (files != null && !files.isEmpty()) {
+            List<Image> uploadedImages = storageService.uploadFiles(String.valueOf(exercise.getId()), files);
+            exercise.getImages().addAll(uploadedImages);
         }
+
+        exercise.setCover(selectImageCover(exerciseDTO, exercise));
+    }
+
+    private Image selectImageCover(ExerciseDTO exerciseDTO, Exercise exercise) {
+        return Optional.ofNullable(exerciseDTO.getImages())
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(img -> img.getMain().equals(true))
+                        .map(ImageDTO::getName)
+                        .flatMap(name -> exercise.getImages().stream().filter(img-> img.getName().equals(name)))
+                        .findFirst()
+                .or(() -> exercise.getImages()
+                        .stream()
+                        .filter(img -> img.getDeprecated().equals(false))
+                        .findFirst())
+                        .orElseThrow(() -> new FileException(ErrorMessage.COVER_IMAGE_ERROR, exercise.getName().getEn()));
     }
 }

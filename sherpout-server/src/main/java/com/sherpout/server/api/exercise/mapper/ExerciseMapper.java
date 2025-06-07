@@ -23,6 +23,7 @@ public interface ExerciseMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "likesNumber", ignore = true)
+    @Mapping(target = "cover", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @IterableMapping(qualifiedByName = "imageUpdate")
     void mapToUpdateEntity(ExerciseDTO dto, @MappingTarget Exercise exercise);

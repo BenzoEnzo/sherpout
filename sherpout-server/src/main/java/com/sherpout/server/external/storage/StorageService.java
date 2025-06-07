@@ -1,6 +1,5 @@
 package com.sherpout.server.external.storage;
 
-import com.sherpout.server.api.image.entity.Image;
 import com.sherpout.server.error.exception.FileException;
 import com.sherpout.server.error.model.ErrorMessage;
 import io.minio.*;
@@ -62,20 +61,7 @@ public class StorageService {
         }
     }
 
-    public List<Image> uploadFiles(String dirName, List<MultipartFile> files) {
-        return files.stream().map(file -> transformFileToImage(dirName, file)).toList();
-    }
-
-    private Image transformFileToImage(String dirName, MultipartFile file) {
-        String fileName = file.getOriginalFilename();
-        String fullName = dirName + "/" + UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
-        uploadFile(fullName, file);
-        Image img = new Image();
-        img.setName(fullName);
-        return img;
-    }
-
-    private void uploadFile(String objectName, MultipartFile file) {
+    public void uploadFile(String objectName, MultipartFile file) {
         try {
             if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());

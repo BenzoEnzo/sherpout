@@ -12,7 +12,6 @@ import com.sherpout.server.error.exception.FileException;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.model.ErrorLocationType;
 import com.sherpout.server.error.model.ErrorMessage;
-import com.sherpout.server.external.storage.StorageService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
-    private final StorageService storageService;
     private final ImageService imageService;
     private final ExerciseMapper exerciseMapper;
 
@@ -37,9 +35,7 @@ public class ExerciseService {
 
         exerciseMapper.mapToUpdateEntity(exerciseDTO, exercise);
         imageService.deleteImagesFromBucket(exerciseDTO);
-        configureImageSettings(files, exercise, exerciseDTO);
-
-        exerciseRepository.save(exercise);
+        configureExerciseImages(files, exercise, exerciseDTO);
 
         return exerciseMapper.mapToDTO(exercise);
     }
@@ -48,7 +44,7 @@ public class ExerciseService {
     public ExerciseDTO createExercise(ExerciseDTO exerciseDTO, List<MultipartFile> files) {
         Exercise exercise = exerciseMapper.mapToEntity(exerciseDTO);
         Exercise managed = exerciseRepository.save(exercise);
-        configureImageSettings(files, managed, exerciseDTO);
+        configureExerciseImages(files, managed, exerciseDTO);
 
         return exerciseMapper.mapToDTO(managed);
     }
@@ -65,16 +61,16 @@ public class ExerciseService {
                 .toList();
     }
 
-    private void configureImageSettings(List<MultipartFile> files, Exercise exercise, ExerciseDTO exerciseDTO) {
+    private void configureExerciseImages(List<MultipartFile> files, Exercise exercise, ExerciseDTO exerciseDTO) {
         if (files != null && !files.isEmpty()) {
-            List<Image> uploadedImages = storageService.uploadFiles(String.valueOf(exercise.getId()), files);
+            List<Image> uploadedImages = imageService.convertAndSaveImages(String.valueOf(exercise.getId()), files);
             exercise.getImages().addAll(uploadedImages);
         }
 
-        exercise.setCover(selectImageCover(exerciseDTO, exercise));
+        exercise.setCover(selectExerciseCover(exerciseDTO, exercise));
     }
 
-    private Image selectImageCover(ExerciseDTO exerciseDTO, Exercise exercise) {
+    private Image selectExerciseCover(ExerciseDTO exerciseDTO, Exercise exercise) {
         return Optional.ofNullable(exerciseDTO.getImages())
                 .stream()
                 .flatMap(Collection::stream)

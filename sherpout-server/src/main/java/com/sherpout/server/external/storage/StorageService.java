@@ -38,10 +38,10 @@ public class StorageService {
 
     private Image transformFileToImage(String dirName, MultipartFile file) {
         String fileName = file.getOriginalFilename();
-        String path = dirName + "/" + UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
-        uploadFile(path, file);
+        String fullName = dirName + "/" + UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
+        uploadFile(fullName, file);
         Image img = new Image();
-        img.setImagePath(path);
+        img.setName(fullName);
         return img;
     }
 

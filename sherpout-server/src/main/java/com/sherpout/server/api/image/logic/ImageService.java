@@ -1,6 +1,7 @@
 package com.sherpout.server.api.image.logic;
 
 import com.sherpout.server.api.image.dto.ImageDTO;
+import com.sherpout.server.api.image.dto.ImageUrlDTO;
 import com.sherpout.server.error.exception.FileException;
 import com.sherpout.server.error.model.ErrorMessage;
 import com.sherpout.server.external.storage.StorageService;
@@ -23,17 +24,17 @@ public class ImageService {
     @Value("${minio.bucket.name}")
     private String bucketName;
 
-    public ImageDTO getImageFromBucket(String objectName) {
+    public ImageUrlDTO getPresignedUrlByName(String name) {
         try {
-            return new ImageDTO(minioClient.getPresignedObjectUrl(
+            return new ImageUrlDTO(minioClient.getPresignedObjectUrl(
                     GetPresignedObjectUrlArgs.builder()
                             .method(Method.GET)
                             .bucket(bucketName)
-                            .object(objectName)
+                            .object(name)
                             .expiry(15, TimeUnit.MINUTES)
                             .build()));
         } catch(Exception e) {
-            throw new FileException(ErrorMessage.IMAGE_FETCH_ERROR, objectName);
+            throw new FileException(ErrorMessage.IMAGE_FETCH_ERROR, name);
         }
     }
 

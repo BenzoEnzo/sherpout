@@ -11,14 +11,14 @@ import '../../../common/components/search_input.dart';
 import 'exercises_accordion.dart';
 import 'exercises_sort_button.dart';
 
-class ExercisesPage extends StatefulWidget {
-  const ExercisesPage({super.key});
+class ExercisesListPage extends StatefulWidget {
+  const ExercisesListPage({super.key});
 
   @override
-  State<ExercisesPage> createState() => _ExercisesPageState();
+  State<ExercisesListPage> createState() => _ExercisesListPageState();
 }
 
-class _ExercisesPageState extends State<ExercisesPage> {
+class _ExercisesListPageState extends State<ExercisesListPage> {
   final ExerciseService _exerciseService = GetIt.instance<ExerciseService>();
 
   final _debouncer = Debouncer(delay: Duration(milliseconds: 300));

@@ -3,22 +3,21 @@ import 'image_dto.dart';
 
 class ExerciseSelectDTO {
   final int id;
+  final TranslatedStringDto name;
   final ImageDto? cover;
-  final TranslatedStringDto? name;
+
 
   ExerciseSelectDTO({
     required this.id,
-    this.cover,
-    this.name,
+    required this.name,
+    this.cover
   });
 
   factory ExerciseSelectDTO.fromJson(Map<String, dynamic> json) {
     return ExerciseSelectDTO(
       id: json['id'] as int,
+      name: TranslatedStringDto.fromJson(json['name'] as Map<String, dynamic>),
       cover: json['cover'] != null ? ImageDto.fromJson(json['cover']) : null,
-      name: json['name'] != null
-          ? TranslatedStringDto.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
     );
   }
 }

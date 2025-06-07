@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImageDTO {
-    private String name;
-    private Boolean toDelete = false;
+public class ImageUrlDTO {
+    private String url;
 }

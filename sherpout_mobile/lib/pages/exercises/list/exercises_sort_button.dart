@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sherpoutmobile/common/theme/app_colors.dart';
+import 'package:sherpoutmobile/common/theme/app_typography.dart';
 
 class ExercisesSortButton extends StatefulWidget {
   @override
@@ -17,10 +19,10 @@ class _ExercisesSortButtonState extends State<ExercisesSortButton> {
       return ToggleButtons(
         borderRadius: BorderRadius.circular(30),
         selectedColor: Colors.white,
-        color: Colors.blue,
-        fillColor: const Color(0xff4B7FD2),
-        borderColor: const Color(0xffADC5EB),
-        selectedBorderColor: const Color(0xff4B7FD2),
+        color: AppColors.primary,
+        fillColor: AppColors.primary,
+        borderColor: AppColors.secondary,
+        selectedBorderColor: AppColors.secondary,
         constraints: BoxConstraints.expand(width: constraints.maxWidth / 2 - 2),
         isSelected: isSelected,
         onPressed: (int index) {
@@ -32,10 +34,10 @@ class _ExercisesSortButtonState extends State<ExercisesSortButton> {
         },
         children: [
           Text(AppLocalizations.of(context)!.sortByLikes,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)
+              style: AppTypography.buttonMedium
           ),
           Text(AppLocalizations.of(context)!.sortByPopularity,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)
+              style: AppTypography.buttonMedium
           ),
         ],
       );

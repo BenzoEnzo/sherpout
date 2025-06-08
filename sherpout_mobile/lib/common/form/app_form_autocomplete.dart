@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sherpoutmobile/common/theme/app_colors.dart';
 
 class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
   final DTO dto;
@@ -30,45 +31,51 @@ class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
     );
 
     return Autocomplete<T>(
-      initialValue: TextEditingValue(text: controller.text),
-      optionsBuilder: (TextEditingValue textEditingValue) {
-        final input = textEditingValue.text.toLowerCase();
-        return options.where(
-              (T option) => getDisplay(option).toLowerCase().contains(input),
-        );
-      },
-      displayStringForOption: getDisplay,
-      fieldViewBuilder: (context, textEditingController, focusNode, onEditingComplete) {
-        textEditingController.text = controller.text;
-        return TextFormField(
-          controller: textEditingController,
-          focusNode: focusNode,
-          decoration: InputDecoration(
-            labelText: label,
-          ),
-          validator: _validate,
-          onEditingComplete: onEditingComplete,
-        );
-      },
-      onSelected: (T value) {
-        setValue(dto, value);
-      },
-      optionsViewBuilder: (context, onSelected, options) {
-        return Material(
-          elevation: 4,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            children: options.map((T option) {
-              return InkWell(
-                onTap: () => onSelected(option),
-                child: optionViewBuilder(context, option),
-              );
-            }).toList(),
-          ),
-        );
-      },
-    );
+        initialValue: TextEditingValue(text: controller.text),
+        optionsBuilder: (TextEditingValue textEditingValue) {
+          final input = textEditingValue.text.toLowerCase();
+          return options.where(
+            (T option) => getDisplay(option).toLowerCase().contains(input),
+          );
+        },
+        displayStringForOption: getDisplay,
+        fieldViewBuilder:
+            (context, textEditingController, focusNode, onEditingComplete) {
+          textEditingController.text = controller.text;
+          return TextFormField(
+            controller: textEditingController,
+            focusNode: focusNode,
+            decoration: InputDecoration(
+              labelText: label,
+            ),
+            validator: _validate,
+            onEditingComplete: onEditingComplete,
+          );
+        },
+        onSelected: (T value) {
+          setValue(dto, value);
+        },
+        optionsViewBuilder: (context, onSelected, options) {
+          return Align(
+            alignment: Alignment.topLeft,
+            child: Material(
+                color: AppColors.background,
+                elevation: 4.0,
+                child: Container(
+                  width: MediaQuery.of(context).size.width - 32,
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: options.map((T option) {
+                      return InkWell(
+                        onTap: () => onSelected(option),
+                        child: optionViewBuilder(context, option),
+                      );
+                    }).toList(),
+                  ),
+                )),
+          );
+        });
   }
 
   String? _validate(String? value) {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
 import 'package:sherpoutmobile/common/form/app_form.dart';
@@ -14,8 +15,9 @@ import '../../../services/exercise_service.dart';
 
 class RecordForm extends StatefulWidget {
   final RecordDTO record;
+  final bool isEdit;
 
-  const RecordForm({super.key, required this.record});
+  const RecordForm({super.key, required this.record, this.isEdit = false});
 
   @override
   State<RecordForm> createState() => _RecordFormState();
@@ -49,17 +51,20 @@ class _RecordFormState extends State<RecordForm> {
         onSubmit: _onSubmit,
         isLoading: false,
         children: [
-          AppFormAutocomplete(
-            dto: record,
-            options: _exercises,
-            label: AppLocalizations.of(context)!.exercise,
-            isRequired: true,
-            getValue: (dto) => dto.exercise,
-            setValue: (dto, exercise) => dto.exercise = exercise,
-            getDisplay: (value) => value.name.localized(context),
-            optionViewBuilder: (context, value) => ExerciseSelectItem(exercise: value),
-          ),
-          SizedBox(height: 24),
+          if (!widget.isEdit) ...[
+            AppFormAutocomplete(
+              dto: record,
+              options: _exercises,
+              label: AppLocalizations.of(context)!.exercise,
+              isRequired: true,
+              getValue: (dto) => dto.exercise,
+              setValue: (dto, exercise) => dto.exercise = exercise,
+              getDisplay: (value) => value.name.localized(context),
+              optionViewBuilder: (context, value) => ExerciseSelectItem(exercise: value),
+            ),
+            SizedBox(height: 24),
+          ],
+
           AppFormNumberInput(
               dto: record,
               label: AppLocalizations.of(context)!.weight,
@@ -82,15 +87,32 @@ class _RecordFormState extends State<RecordForm> {
     );
   }
 
-  Future<void> _onSubmit(RecordDTO record) async {
+  Future<void> _onSubmit(RecordDTO toSave) async {
     setState(() {
       isLoading = true;
     });
-    await _recordService.create(record);
-    //TODO redirect to record page if success
+
+    widget.isEdit ? _onEditSubmit(toSave) : _onCreateSubmit(toSave);
+
     setState(() {
       isLoading = false;
     });
   }
 
+  Future<void> _onCreateSubmit(RecordDTO toCreate) async {
+    RecordDTO result = await _recordService.create(toCreate);
+
+    if (!mounted) return;
+
+    //TODO redirect to record page if success
+    // context.push("records/${result.id}");
+  }
+
+  Future<void> _onEditSubmit(RecordDTO toEdit) async {
+    await _recordService.update(toEdit);
+
+    if (!mounted) return;
+
+    context.pop();
+  }
 }

@@ -18,4 +18,10 @@ class RecordService {
     final dynamic data = response.data;
     return RecordDTO.fromJson(data);
   }
+
+  Future<RecordDTO> update(RecordDTO record) async {
+    Response<dynamic> response = await _apiClient.put('records/${record.id}', data: record.toJson());
+    final dynamic data = response.data;
+    return RecordDTO.fromJson(data);
+  }
 }

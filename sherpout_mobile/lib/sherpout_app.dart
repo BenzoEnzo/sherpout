@@ -14,7 +14,6 @@ import 'package:sherpoutmobile/pages/language/objects/language.dart';
 import 'package:sherpoutmobile/pages/personal/account_page.dart';
 import 'package:sherpoutmobile/pages/personal/friends_page.dart';
 import 'package:sherpoutmobile/pages/personal/settings_page.dart';
-import 'package:sherpoutmobile/pages/records/create/record_create_page.dart';
 import 'package:sherpoutmobile/pages/records/list/records_list_page.dart';
 
 import 'common/theme/app_colors.dart';
@@ -101,10 +100,6 @@ class _SherpoutAppState extends State<SherpoutApp> {
         GoRoute(
           path: '/records',
           builder: (context, state) => RecordsPage(),
-        ),
-        GoRoute(
-          path: '/records/create',
-          builder: (context, state) => RecordCreatePage(),
         ),
         GoRoute(
           path: '/trainings',

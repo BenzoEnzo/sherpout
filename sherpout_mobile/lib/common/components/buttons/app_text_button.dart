@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../theme/app_colors.dart';
+
 class AppTextButton extends StatelessWidget {
   final String text;
   final void Function() onPressed;
@@ -22,11 +24,11 @@ class AppTextButton extends StatelessWidget {
         text,
         style: const TextStyle(
           fontSize: 16,
-          color: Colors.white,
+          color: AppColors.background,
         ),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue,
+        backgroundColor: AppColors.primary,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),

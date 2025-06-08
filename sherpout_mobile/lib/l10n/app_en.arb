@@ -16,10 +16,13 @@
     "addNew": "Add new",
     "addNewRecord": "Add new record",
     "editRecord": "Edit record",
+    "deleteRecord": "Delete record",
     "exercise": "Exercise",
     "weight": "Weight",
     "date": "Date",
     "save": "Save",
     "thisFieldIsRequired": "This field is required.",
-    "thisFieldHasToBeNumber": "This field has to be number."
+    "thisFieldHasToBeNumber": "This field has to be number.",
+    "deleteRecordConfirmMessage": "Are you sure you want to delete this record?",
+    "yes": "Yes"
 }

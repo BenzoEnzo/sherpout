@@ -16,11 +16,13 @@
     "addNew": "Dodaj nowy",
     "addNewRecord": "Dodaj nowy rekord",
     "editRecord": "Edytuj rekord",
+    "deleteRecord": "Usuń rekord",
     "exercise": "Ćwiczenie",
     "weight": "Waga",
     "date": "Data",
     "save": "Zapisz",
     "thisFieldIsRequired": "To pole jest wymagane.",
-    "thisFieldHasToBeNumber": "To pole musi być liczbą."
-
+    "thisFieldHasToBeNumber": "To pole musi być liczbą.",
+    "deleteRecordConfirmMessage": "Czy jesteś pewny, że chcesz usunąć ten rekord?",
+    "yes": "Tak"
 }

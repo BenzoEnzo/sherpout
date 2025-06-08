@@ -21,7 +21,6 @@ class RecordItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        // color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.secondary, width: 1),
       ),
@@ -35,7 +34,6 @@ class RecordItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RecordListItemHeader(exerciseName: record.exercise!.name),
-                // const SizedBox(height: 8),
                 RecordListItemFooter(formattedDate: formattedDate, weight: record.value!),
               ],
             ),

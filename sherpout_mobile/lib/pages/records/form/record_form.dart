@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
 import 'package:sherpoutmobile/common/form/app_form.dart';
@@ -51,7 +52,7 @@ class _RecordFormState extends State<RecordForm> {
           AppFormAutocomplete(
             dto: record,
             options: _exercises,
-            label: "Exercise",
+            label: AppLocalizations.of(context)!.exercise,
             isRequired: true,
             getValue: (dto) => dto.exercise,
             setValue: (dto, exercise) => dto.exercise = exercise,
@@ -61,7 +62,7 @@ class _RecordFormState extends State<RecordForm> {
           SizedBox(height: 24),
           AppFormNumberInput(
               dto: record,
-              label: "Weight",
+              label: AppLocalizations.of(context)!.weight,
               isRequired: true,
               getValue: (dto) => dto.value,
               setValue: (dto, value) => dto.value = value,
@@ -70,7 +71,7 @@ class _RecordFormState extends State<RecordForm> {
           SizedBox(height: 24),
           AppFormDateInput(
               dto: record,
-              label: "Date",
+              label: AppLocalizations.of(context)!.date,
               isRequired: true,
               getValue: (dto) => dto.date,
               setValue: (dto, date) => dto.date = date,

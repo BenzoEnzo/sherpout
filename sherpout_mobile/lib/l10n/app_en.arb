@@ -13,5 +13,12 @@
     "sortByLikes": "Sort by likes",
     "sortByPopularity": "Sort by popularity",
     "searchExercises": "Search exercises",
-    "addNewRecord": "Add new"
+    "addNew": "Add new",
+    "addNewRecord": "Add new record",
+    "exercise": "Exercise",
+    "weight": "Weight",
+    "date": "Date",
+    "save": "Save",
+    "thisFieldIsRequired": "This field is required.",
+    "thisFieldHasToBeNumber": "This field has to be number."
 }

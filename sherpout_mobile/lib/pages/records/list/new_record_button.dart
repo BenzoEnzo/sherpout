@@ -14,7 +14,7 @@ class NewRecordButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppTextAndIconButton(
-        text: AppLocalizations.of(context)!.addNewRecord,
+        text: AppLocalizations.of(context)!.addNew,
         icon: Icons.add,
         onPressed: () => context.push('/records/create'));
   }

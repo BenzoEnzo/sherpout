@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../components/buttons/app_text_and_icon_button.dart';
 
@@ -16,7 +17,7 @@ class AppFormSaveButton<T> extends StatelessWidget {
       width: double.infinity,
       child: AppTextAndIconButton(
         onPressed: onSubmit,
-        text: 'Save',
+        text: AppLocalizations.of(context)!.save,
         icon: Icons.save_outlined,
         isLoading: isLoading,
       ),

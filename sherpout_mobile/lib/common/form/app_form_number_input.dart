@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppFormNumberInput<T> extends StatelessWidget {
   final T dto;
@@ -32,19 +33,19 @@ class AppFormNumberInput<T> extends StatelessWidget {
         decimal: isDecimal,
         signed: false,
       ),
-      validator: _validate,
+      validator: (value) => _validate(value, context),
       onSaved: _onSaved,
     );
   }
 
-  String? _validate(String? value) {
+  String? _validate(String? value, BuildContext context) {
     if (isRequired && (value == null || value.isEmpty)) {
-      return "This field is required.";
+      return AppLocalizations.of(context)!.thisFieldIsRequired;
     }
     if (value != null && value.isNotEmpty) {
       final parsed = isDecimal ? double.tryParse(value) : int.tryParse(value);
       if (parsed == null) {
-        return "This field has to be number";
+        return AppLocalizations.of(context)!.thisFieldHasToBeNumber;
       }
     }
     return null;

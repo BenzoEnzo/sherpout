@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/theme/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
   final DTO dto;
@@ -48,7 +49,7 @@ class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
             decoration: InputDecoration(
               labelText: label,
             ),
-            validator: _validate,
+            validator: (value) => _validate(value, context),
             onEditingComplete: onEditingComplete,
           );
         },
@@ -78,9 +79,9 @@ class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
         });
   }
 
-  String? _validate(String? value) {
+  String? _validate(String? value, BuildContext context) {
     if (isRequired && (value?.isEmpty ?? true)) {
-      return 'This field is required';
+      return AppLocalizations.of(context)!.thisFieldIsRequired;
     }
     return null;
   }

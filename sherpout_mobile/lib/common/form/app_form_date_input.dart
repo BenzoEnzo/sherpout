@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppFormDateInput<T> extends StatelessWidget {
   final T dto;
@@ -41,7 +42,7 @@ class AppFormDateInput<T> extends StatelessWidget {
         suffixIcon: const Icon(Icons.calendar_today),
       ),
       readOnly: true,
-      validator: _validate,
+      validator: (value) => _validate(value, context),
       onTap: () async {
         final picked = await showDatePicker(
           context: context,
@@ -58,9 +59,9 @@ class AppFormDateInput<T> extends StatelessWidget {
     );
   }
 
-  String? _validate(String? value) {
+  String? _validate(String? value, BuildContext context) {
     if (isRequired && (value == null || value.isEmpty)) {
-      return "This field is required.";
+      return AppLocalizations.of(context)!.thisFieldIsRequired;
     }
     return null;
   }

@@ -2,7 +2,7 @@ package com.sherpout.server.api.exercise.dto;
 
 import com.sherpout.server.api.exercise.enumerated.ExerciseDifficulty;
 import com.sherpout.server.api.exercise.enumerated.Muscle;
-import com.sherpout.server.commons.dto.ImageDTO;
+import com.sherpout.server.api.image.dto.ImageDTO;
 import com.sherpout.server.commons.dto.TranslatedStringDTO;
 import lombok.Getter;
 import lombok.Setter;

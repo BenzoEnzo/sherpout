@@ -5,35 +5,61 @@ import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
-import com.sherpout.server.commons.dto.pagination.PageResponseDTO;
-import com.sherpout.server.commons.dto.pagination.PaginationDTO;
-import com.sherpout.server.commons.service.PaginationService;
+import com.sherpout.server.api.image.entity.Image;
+import com.sherpout.server.error.exception.UnableToFindExerciseException;
+import com.sherpout.server.error.model.ErrorLocationType;
+import com.sherpout.server.external.storage.StorageService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
+    private final StorageService storageService;
     private final ExerciseMapper exerciseMapper;
-    private final PaginationService paginationService;
 
-    public ExerciseDTO createExercise(ExerciseDTO dto) {
-        Exercise exercise = exerciseRepository.save(exerciseMapper.mapToEntity(dto));
+    @Transactional
+    public ExerciseDTO updateExercise(ExerciseDTO exerciseDTO, Long id, List<MultipartFile> files) {
+        Exercise exercise = exerciseRepository.findById(id)
+                .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
+
+        configureFileSettings(files, exercise);
+        exerciseMapper.mapToUpdateEntity(exerciseDTO, exercise);
+
         return exerciseMapper.mapToDTO(exercise);
+    }
+
+    @Transactional
+    public ExerciseDTO createExercise(ExerciseDTO exerciseDTO, List<MultipartFile> files) {
+        Exercise exercise = exerciseMapper.mapToEntity(exerciseDTO);
+        Exercise managed = exerciseRepository.save(exercise);
+        configureFileSettings(files, managed);
+
+        return exerciseMapper.mapToDTO(managed);
     }
 
     public ExerciseDTO getExerciseById(Long id) {
         return exerciseRepository.findById(id)
                 .map(exerciseMapper::mapToDTO)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
     }
 
-    public PageResponseDTO<ExerciseListDTO> getAllExercises(PaginationDTO pagination) {
-        PageRequest pageRequest = paginationService.getPageRequest(pagination);
-        Page<Exercise> exercisesPage = exerciseRepository.findAll(pageRequest);
-        return paginationService.mapToPage(exercisesPage.stream().map(exerciseMapper::mapToListDTO), exercisesPage);
+    public List<ExerciseListDTO> getAllExercises() {
+        return exerciseRepository.findAll().stream()
+                .map(exerciseMapper::mapToListDTO)
+                .toList();
+    }
+
+    private void configureFileSettings(List<MultipartFile> files, Exercise exercise){
+        if(files != null && !files.isEmpty()) {
+            List<Image> uploadedFiles = storageService.uploadFiles(String.valueOf(exercise.getId()), files);
+            exercise.setCover(uploadedFiles.getFirst());
+            exercise.setImages(uploadedFiles);
+        }
     }
 }

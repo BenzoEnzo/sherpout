@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:provider/provider.dart';
+import 'package:sherpoutmobile/navigation/menu/left_side_menu.dart';
+import 'package:sherpoutmobile/navigation/menu/right_side_menu.dart';
 
-import 'package:sherpout_mobile/navigation/menu/left_side_menu.dart';
-import 'package:sherpout_mobile/navigation/menu/right_side_menu.dart';
+import '../../common/user_provider.dart';
+
+final FlutterAppAuth appAuth = FlutterAppAuth();
+final FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
 class DashboardPage extends StatelessWidget {
-  final String userName;
-  const DashboardPage({super.key, required this.userName});
+
+  const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
+
+    if (userProvider.userData == null) {
+      userProvider.fetch();
+      return Container(
+        color: Colors.blue[50],
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(top: 12.0),
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation(Colors.blue),
+        ),
+      );
+    }
+
     return Scaffold(
       drawer: LeftSideMenu(),
       endDrawer: RightSideMenu(),
@@ -32,7 +52,7 @@ class DashboardPage extends StatelessWidget {
               return IconButton(
                 icon: CircleAvatar(
                   backgroundColor: Colors.blue,
-                  child: Text(userName.isNotEmpty ? userName.characters.first.toUpperCase() : '',
+                  child: Text(getFirstLetter(userProvider.userData!.firstName),
                       style: const TextStyle(color: Colors.white)),
                 ),
                 onPressed: () {
@@ -53,15 +73,36 @@ class DashboardPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
+              onPressed: () {},
+              child: Text('Test 1'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Test 2'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Test 3'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
               onPressed: () async {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.clear();
+                userProvider.fetch();
               },
-              child: Text('Clear shared preferences.'),
+              child: Text('Refetch user.'),
             ),
           ],
         ),
       ),
     );
+  }
+
+  String getFirstLetter(String name) {
+    if (name.isEmpty) {
+      return '';
+    }
+    return name[0].toUpperCase();
   }
 }

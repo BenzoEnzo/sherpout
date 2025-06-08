@@ -7,6 +7,11 @@
     "records": "Rekordy",
     "trainings": "Treningi",
     "account": "Konto",
-    "settings": "Ustawienia",
-    "rankings": "Rankingi"
+    "rankings": "Rankingi",
+    "loginOrRegister": "Zaloguj się lub zarejestruj",
+    "logOut": "Wyloguj się",
+    "sortByLikes": "Sortuj wg polubień",
+    "sortByPopularity": "Sortuj wg popularności",
+    "searchExercises": "Wyszukaj ćwiczenia",
+    "addNewRecord": "Dodaj nowy"
 }

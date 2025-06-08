@@ -3,9 +3,17 @@ server:
   servlet:
     context-path: /api
 
+minio:
+  url: http://192.168.232.34:9000
+  access:
+    name: Xjbrg8rZVQpSWzjtRQI7
+    secret: GC5HjRA6xRMK7abijPZXna8LYY5IyZsB7tSv55jL
+  bucket:
+    name: sherpout
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/sherpout
+    url: jdbc:postgresql://localhost:5435/sherpout
     username: dev
     password: secret
     driver-class-name: org.postgresql.Driver
@@ -29,5 +37,5 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost/realms/Sherpout
-          jwk-set-uri: http://localhost:8082/realms/Sherpout/protocol/openid-connect/certs
+          jwk-set-uri: http://localhost/realms/Sherpout/protocol/openid-connect/certs
+          issuers: http://192.168.232.34:8082/realms/Sherpout, http://localhost:8082/realms/Sherpout

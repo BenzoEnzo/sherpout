@@ -24,6 +24,7 @@ class _RecordFormState extends State<RecordForm> {
   final ExerciseService _exerciseService = GetIt.instance<ExerciseService>();
   final RecordService _recordService = GetIt.instance<RecordService>();
   List<ExerciseSelectDTO> _exercises = [];
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -45,6 +46,7 @@ class _RecordFormState extends State<RecordForm> {
     return AppForm(
         dto: record,
         onSubmit: _onSubmit,
+        isLoading: false,
         children: [
           AppFormAutocomplete(
             dto: record,
@@ -80,8 +82,14 @@ class _RecordFormState extends State<RecordForm> {
   }
 
   Future<void> _onSubmit(RecordDTO record) async {
-    RecordDTO response = await _recordService.create(record);
-    print(response.id);
+    setState(() {
+      isLoading = true;
+    });
+    await _recordService.create(record);
+    //TODO redirect to record page if success
+    setState(() {
+      isLoading = false;
+    });
   }
 
 }

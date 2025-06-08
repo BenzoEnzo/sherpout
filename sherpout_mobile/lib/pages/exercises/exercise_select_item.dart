@@ -10,11 +10,13 @@ class ExerciseSelectItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
+    return Padding(padding: EdgeInsets.all(4),
+    child: Row(children: [
       ExerciseCover(cover: exercise.cover),
       SizedBox(width: 20),
       Text(exercise.name.localized(context), style: AppTypography.bodyMedium)
     ]
+    )
     );
   }
 

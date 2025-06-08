@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sherpoutmobile/pages/activity/rankings_page.dart';
 import 'package:sherpoutmobile/pages/activity/trainings_page.dart';
 import 'package:sherpoutmobile/pages/auth/auth_page.dart';
 import 'package:sherpoutmobile/pages/dashboard/dashboard_page.dart';
@@ -95,11 +96,15 @@ class _SherpoutAppState extends State<SherpoutApp> {
         ),
         GoRoute(
           path: '/rankings',
-          builder: (context, state) => RecordCreatePage(),
+          builder: (context, state) => RankingsPage(),
         ),
         GoRoute(
           path: '/records',
           builder: (context, state) => RecordsPage(),
+        ),
+        GoRoute(
+          path: '/records/create',
+          builder: (context, state) => RecordCreatePage(),
         ),
         GoRoute(
           path: '/trainings',

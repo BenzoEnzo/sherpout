@@ -1,16 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:sherpoutmobile/common/form/app_form_save_button.dart';
 
 class AppForm<T> extends StatefulWidget {
   final T dto;
   final List<Widget> children;
   final void Function(T dto) onSubmit;
+  final bool isLoading;
 
-  const AppForm({super.key,
+  const AppForm({
+    super.key,
     required this.dto,
     required this.children,
     required this.onSubmit,
+    required this.isLoading
   });
 
   @override
@@ -41,15 +44,7 @@ class _AppFormState<T> extends State<AppForm<T>> {
       child: Column(
         children: [
           ...widget.children.map((input) => input),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ElevatedButton(
-                onPressed: () => context.pop(), child: Text("Cancel")),
-            SizedBox(width: 20),
-            ElevatedButton(
-              onPressed: _submit,
-              child: Text('Save'),
-            ),
-          ])
+            AppFormSaveButton(onSubmit: _submit, isLoading: widget.isLoading)
         ],
       ),
     );

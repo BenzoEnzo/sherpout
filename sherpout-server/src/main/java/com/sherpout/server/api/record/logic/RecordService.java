@@ -62,4 +62,16 @@ public class RecordService {
             throw new AccessForbiddenException();
         }
     }
+
+    public RecordDTO updateRecord(Long id, RecordDTO dto) {
+        Record record = recordRepository.findById(id)
+                .orElseThrow(() -> new UnableToFindRecordException(ErrorLocationType.PATH_PARAM, id));
+
+        if (record.getUserId().equals(tokenService.getUser().getId())) {
+            record = recordRepository.save(recordMapper.mapToUpdateEntity(dto, record));
+            return recordMapper.mapToDTO(record);
+        } else {
+            throw new AccessForbiddenException();
+        }
+    }
 }

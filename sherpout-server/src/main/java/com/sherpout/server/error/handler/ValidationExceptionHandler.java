@@ -14,16 +14,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
 
 @ControllerAdvice
 public class ValidationExceptionHandler {
-    private final Map<String, Function<FieldError, ApiError.Builder>> errorHandlers = Map.of(
-            "Null", this::getNullError,
-            "NotNull", this::getNotNullError,
-            "Min", this::getMinError,
-            "Max", this::getMaxError
+    private static final Map<String, ErrorMessage> errorMessageMap = Map.of(
+            "Null", ErrorMessage.VALIDATION_NULL,
+            "NotNull", ErrorMessage.VALIDATION_NOT_NULL,
+            "Min", ErrorMessage.VALIDATION_MIN,
+            "Max", ErrorMessage.VALIDATION_MAX,
+            "MaxFileSize", ErrorMessage.VALIDATION_MAX_FILE_SIZE,
+            "PastOrNow", ErrorMessage.VALIDATION_PAST_OR_NOW,
+            "TranslatedStringValid", ErrorMessage.VALIDATION_TRANSLATED_STRING_VALID
     );
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -39,12 +40,12 @@ public class ValidationExceptionHandler {
     }
 
     private ApiError getApiError(FieldError apiError) {
-        return errorHandlers
-                .getOrDefault(
-                        getValidationName(apiError.getCodes()),
-                        fe -> ApiError.builder(ErrorMessage.INTERNAL_ERROR, HttpStatus.INTERNAL_SERVER_ERROR)
-                )
-                .apply(apiError)
+        ErrorMessage errorMessage = errorMessageMap.getOrDefault(
+                getValidationName(apiError.getCodes()),
+                ErrorMessage.INTERNAL_ERROR
+        );
+
+        return ApiError.builder(errorMessage, HttpStatus.UNPROCESSABLE_ENTITY)
                 .withErrorLocationType(ErrorLocationType.BODY)
                 .withLocation(apiError.getField().replace(".", "/"))
                 .build();
@@ -55,23 +56,5 @@ public class ValidationExceptionHandler {
             throw new IllegalArgumentException();
         }
         return codes[3];
-    }
-
-    private ApiError.Builder getNullError(FieldError error) {
-        return ApiError.builder(ErrorMessage.ACCESS_FORBIDDEN, HttpStatus.BAD_REQUEST);
-    }
-
-    private ApiError.Builder getNotNullError(FieldError error) {
-        return ApiError.builder(ErrorMessage.ACCESS_FORBIDDEN, HttpStatus.BAD_REQUEST);
-    }
-
-    private ApiError.Builder getMinError(FieldError error) {
-        return ApiError.builder(ErrorMessage.ACCESS_FORBIDDEN, HttpStatus.BAD_REQUEST)
-                .withTextParam("min", Objects.requireNonNull(error.getArguments())[1]);
-    }
-
-    private ApiError.Builder getMaxError(FieldError error) {
-        return ApiError.builder(ErrorMessage.ACCESS_FORBIDDEN, HttpStatus.BAD_REQUEST)
-                .withTextParam("max", Objects.requireNonNull(error.getArguments())[1]);
     }
 }

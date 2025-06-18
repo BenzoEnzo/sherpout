@@ -13,9 +13,8 @@ public class MultipleApiErrorExceptionHandler {
     @ExceptionHandler(MultipleApiErrorsException.class)
     @ResponseBody
     public ResponseEntity<ApiErrorResponseDTO> handleMultipleApiErrorsException(MultipleApiErrorsException ex) {
-        return new ResponseEntity<>(ApiErrorResponseDTO.builder()
-                .apiErrorList(ex.getApiErrorsList())
-                .httpStatus(ex.getApiErrorsList().getFirst().getHttpStatus())
-                .build(), ex.getApiErrorsList().getFirst().getHttpStatus());
+        return ResponseEntity
+                .status(ex.getApiErrorsList().getFirst().getHttpStatus())
+                .body(new ApiErrorResponseDTO(ex.getApiErrorsList()));
     }
 }

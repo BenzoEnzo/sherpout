@@ -9,7 +9,7 @@ import com.sherpout.server.api.record.mapper.RecordMapper;
 import com.sherpout.server.api.record.repository.RecordRepository;
 import com.sherpout.server.api.user.logic.TokenService;
 import com.sherpout.server.commons.param.DateRangeQueryParam;
-import com.sherpout.server.config.security.ownership.OwnershipService;
+import com.sherpout.server.config.security.ownership.OwnershipGuard;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.exception.UnableToFindRecordException;
 import com.sherpout.server.error.model.ErrorLocationType;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecordService {
     private final TokenService tokenService;
-    private final OwnershipService ownershipService;
+    private final OwnershipGuard ownershipGuard;
     private final RecordRepository recordRepository;
     private final ExerciseRepository exerciseRepository;
     private final RecordMapper recordMapper;
@@ -60,7 +60,8 @@ public class RecordService {
         Record record = recordRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindRecordException(ErrorLocationType.PATH_PARAM, id));
 
-        ownershipService.withRunnable(record, () -> recordRepository.delete(record));
+        ownershipGuard.checkOwnership(record);
+        recordRepository.delete(record);
     }
 
     @Transactional
@@ -68,9 +69,7 @@ public class RecordService {
         Record record = recordRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindRecordException(ErrorLocationType.PATH_PARAM, id));
 
-        return ownershipService.withSuppplier(
-                record,
-                () -> recordMapper.mapToDTO(recordMapper.mapToUpdateEntity(dto, record))
-        );
+        ownershipGuard.checkOwnership(record);
+        return recordMapper.mapToDTO(recordMapper.mapToUpdateEntity(dto, record));
     }
 }

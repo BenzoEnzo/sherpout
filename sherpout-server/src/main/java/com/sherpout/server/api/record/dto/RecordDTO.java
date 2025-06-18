@@ -3,8 +3,7 @@ package com.sherpout.server.api.record.dto;
 import com.sherpout.server.api.exercise.dto.ExerciseSelectDTO;
 import com.sherpout.server.commons.validation.PastOrNow;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +19,8 @@ public class RecordDTO {
     @PastOrNow
     private LocalDateTime date;
 
-    @NotNull
+    @Min(1)
+    @Max(1000)
     private Integer value;
 
     @Valid

@@ -1,6 +1,7 @@
 package com.sherpout.server.api.record.entity;
 
 import com.sherpout.server.api.exercise.entity.Exercise;
+import com.sherpout.server.config.security.ownership.Ownable;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @EqualsAndHashCode
-public class Record {
+public class Record implements Ownable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

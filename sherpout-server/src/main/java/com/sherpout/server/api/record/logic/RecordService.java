@@ -9,7 +9,7 @@ import com.sherpout.server.api.record.mapper.RecordMapper;
 import com.sherpout.server.api.record.repository.RecordRepository;
 import com.sherpout.server.api.user.logic.TokenService;
 import com.sherpout.server.commons.param.DateRangeQueryParam;
-import com.sherpout.server.error.exception.AccessForbiddenException;
+import com.sherpout.server.config.security.ownership.OwnershipService;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.exception.UnableToFindRecordException;
 import com.sherpout.server.error.model.ErrorLocationType;
@@ -24,18 +24,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecordService {
     private final TokenService tokenService;
+    private final OwnershipService ownershipService;
     private final RecordRepository recordRepository;
     private final ExerciseRepository exerciseRepository;
     private final RecordMapper recordMapper;
 
     public RecordDTO createRecord(RecordDTO dto){
         Record record = recordMapper.mapToEntity(dto);
-        record.setUserId(tokenService.getUser().getId());
+        record.setUserId(tokenService.getUserId());
         return recordMapper.mapToDTO(recordRepository.save(record));
     }
 
     public List<RecordDTO> getRecords(){
-        return recordRepository.findBestAndLatestRecordsForUser(tokenService.getUser().getId())
+        return recordRepository.findBestAndLatestRecordsForUser(tokenService.getUserId())
                 .stream()
                 .map(recordMapper::mapToDTO)
                 .toList();
@@ -48,7 +49,9 @@ public class RecordService {
     }
 
     private List<RecordHistoryDTO> getRecordHistoryBetweenDates(Exercise exercise, LocalDateTime from, LocalDateTime to) {
-        return recordRepository.findAllByExerciseAndDateBetweenOrderByDateDesc(exercise, from, to).stream()
+        return recordRepository
+                .findAllByExerciseAndUserIdAndDateBetweenOrderByDateDesc(exercise, tokenService.getUserId(), from, to)
+                .stream()
                 .map(recordMapper::mapToHistoryDTO)
                 .toList();
     }
@@ -57,11 +60,7 @@ public class RecordService {
         Record record = recordRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindRecordException(ErrorLocationType.PATH_PARAM, id));
 
-        if (record.getUserId().equals(tokenService.getUser().getId())) {
-            recordRepository.delete(record);
-        } else {
-            throw new AccessForbiddenException();
-        }
+        ownershipService.withRunnable(record, () -> recordRepository.delete(record));
     }
 
     @Transactional
@@ -69,10 +68,9 @@ public class RecordService {
         Record record = recordRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindRecordException(ErrorLocationType.PATH_PARAM, id));
 
-        if (record.getUserId().equals(tokenService.getUser().getId())) {
-            return recordMapper.mapToDTO(recordMapper.mapToUpdateEntity(dto, record));
-        } else {
-            throw new AccessForbiddenException();
-        }
+        return ownershipService.withSuppplier(
+                record,
+                () -> recordMapper.mapToDTO(recordMapper.mapToUpdateEntity(dto, record))
+        );
     }
 }

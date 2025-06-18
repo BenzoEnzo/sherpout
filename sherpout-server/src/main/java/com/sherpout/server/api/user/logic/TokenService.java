@@ -23,6 +23,11 @@ public class TokenService {
         return user;
     }
 
+    public UUID getUserId() {
+        JwtAuthenticationToken auth = getCurrentAuthentication();
+        return UUID.fromString(getClaim(auth, "uuid"));
+    }
+
     private JwtAuthenticationToken getCurrentAuthentication() {
         return (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
     }

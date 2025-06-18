@@ -42,6 +42,7 @@ class _AppFormState<T> extends State<AppForm<T>> {
     return Form(
       key: _formKey,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           ...widget.children.map((input) => input),
             AppFormSaveButton(onSubmit: _submit, isLoading: widget.isLoading)

@@ -56,7 +56,7 @@ class _ExercisesAccordionState extends State<ExercisesAccordion> {
               ),
               if (index < widget.exercises.length - 1)
                 Divider(
-                  color: const Color(0xffADC5EB),
+                  color: AppColors.secondary,
                   thickness: 1.0,
                   height: 0.0,
                 ),

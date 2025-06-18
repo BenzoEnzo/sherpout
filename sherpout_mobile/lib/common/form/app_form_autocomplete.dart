@@ -62,8 +62,8 @@ class AppFormAutocomplete<DTO, T extends Object> extends StatelessWidget {
             child: Material(
                 color: AppColors.background,
                 elevation: 4.0,
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 32,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width - 65,
                   child: ListView(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,

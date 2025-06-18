@@ -48,4 +48,13 @@ class ApiClient {
       queryParameters: queryParameters,
     );
   }
+
+  Future<Response> put(String endpoint,
+      {Object? data, Map<String, dynamic>? queryParameters}) async {
+    return await _dio.put(
+      endpoint,
+      data: data,
+      queryParameters: queryParameters,
+    );
+  }
 }

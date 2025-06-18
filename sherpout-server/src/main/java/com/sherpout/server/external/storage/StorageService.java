@@ -1,5 +1,6 @@
 package com.sherpout.server.external.storage;
 
+import com.sherpout.server.api.image.dto.ImageDTO;
 import com.sherpout.server.error.exception.FileException;
 import com.sherpout.server.error.model.ErrorMessage;
 import io.minio.*;
@@ -25,11 +26,16 @@ public class StorageService {
     @Value("${minio.bucket.name}")
     private String bucketName;
 
-    public void deleteFiles(List<String> objectNames) {
+    public void deleteFiles(List<ImageDTO> objectNames) {
         Iterable<Result<DeleteError>> results = removeObjects(objectNames.stream()
+                .map(ImageDTO::getName)
                 .map(DeleteObject::new)
                 .toList());
 
+        verifyDeletionResults(results);
+    }
+
+    private void verifyDeletionResults(Iterable<Result<DeleteError>> results) {
         results.forEach(result -> {
             try {
                 result.get();

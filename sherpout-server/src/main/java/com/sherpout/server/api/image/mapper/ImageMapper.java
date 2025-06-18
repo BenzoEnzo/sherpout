@@ -6,13 +6,10 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface ImageMapper {
-    @Mapping(target = "toDelete", source = "deprecated")
     ImageDTO mapToDTO(Image image);
-    @Mapping(target = "deprecated", source = "toDelete")
     Image mapToEntity(ImageDTO dto);
 
     @Named("imageUpdate")
-    @Mapping(target = "deprecated", source = "toDelete")
     @Mapping(target = "id", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Image mapToUpdateEntity(ImageDTO dto);

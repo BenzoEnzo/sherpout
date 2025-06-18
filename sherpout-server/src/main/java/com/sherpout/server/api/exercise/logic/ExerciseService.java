@@ -83,7 +83,6 @@ public class ExerciseService {
                         .findFirst()
                 .or(() -> exercise.getImages()
                         .stream()
-                        .filter(img -> img.getDeprecated().equals(false))
                         .findFirst())
                         .orElseThrow(() -> new FileException(ErrorMessage.COVER_IMAGE_ERROR, exercise.getName().getEn()));
     }

@@ -13,6 +13,7 @@ import com.sherpout.server.error.exception.AccessForbiddenException;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.exception.UnableToFindRecordException;
 import com.sherpout.server.error.model.ErrorLocationType;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -63,13 +64,13 @@ public class RecordService {
         }
     }
 
+    @Transactional
     public RecordDTO updateRecord(Long id, RecordDTO dto) {
         Record record = recordRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindRecordException(ErrorLocationType.PATH_PARAM, id));
 
         if (record.getUserId().equals(tokenService.getUser().getId())) {
-            record = recordRepository.save(recordMapper.mapToUpdateEntity(dto, record));
-            return recordMapper.mapToDTO(record);
+            return recordMapper.mapToDTO(recordMapper.mapToUpdateEntity(dto, record));
         } else {
             throw new AccessForbiddenException();
         }

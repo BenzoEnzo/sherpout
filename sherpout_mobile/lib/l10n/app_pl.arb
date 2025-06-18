@@ -13,5 +13,13 @@
     "sortByLikes": "Sortuj wg polubień",
     "sortByPopularity": "Sortuj wg popularności",
     "searchExercises": "Wyszukaj ćwiczenia",
-    "addNewRecord": "Dodaj nowy"
+    "addNew": "Dodaj nowy",
+    "addNewRecord": "Dodaj nowy rekord",
+    "exercise": "Ćwiczenie",
+    "weight": "Waga",
+    "date": "Data",
+    "save": "Zapisz",
+    "thisFieldIsRequired": "To pole jest wymagane.",
+    "thisFieldHasToBeNumber": "To pole musi być liczbą."
+
 }

@@ -12,4 +12,10 @@ class RecordService {
     final List<dynamic> data = response.data;
     return data.map((json) => RecordDTO.fromJson(json)).toList();
   }
+
+  Future<RecordDTO> create(RecordDTO record) async {
+    Response<dynamic> response = await _apiClient.post('records', data: record.toJson());
+    final dynamic data = response.data;
+    return RecordDTO.fromJson(data);
+  }
 }

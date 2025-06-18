@@ -7,6 +7,7 @@ import com.sherpout.server.api.record.dto.RecordHistoryDTO;
 import com.sherpout.server.api.record.entity.Record;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(
         componentModel = "spring",
@@ -22,4 +23,8 @@ public interface RecordMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "exercise", source = "exercise", qualifiedByName = "mapSelectToExercise")
     Record mapToEntity(RecordDTO dto);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "exercise", ignore = true)
+    Record mapToUpdateEntity(RecordDTO dto, @MappingTarget Record record);
 }

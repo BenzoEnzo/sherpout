@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AppFormNumberInput<T> extends StatelessWidget {
-  final T dto;
-  final String label;
-  final bool isRequired;
-  final num? Function(T dto) getValue;
-  final void Function(T dto, num value) setValue;
+import 'app_form_field.dart';
+
+class AppFormNumberInput<T> extends AppFormField<T, num> {
   final bool isDecimal;
 
-  const AppFormNumberInput({
-    super.key,
-    required this.dto,
-    required this.label,
-    required this.isRequired,
-    required this.getValue,
-    required this.setValue,
-    this.isDecimal = false,
-  });
+  AppFormNumberInput({
+    required String label,
+    required num? Function(T dto) getValue,
+    required void Function(T dto, num value) setValue,
+    required bool isRequired,
+    this.isDecimal = false
+  }) : super(label, getValue, setValue, isRequired);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, T dto) {
     final initialValue = getValue(dto)?.toString() ?? '';
 
     return TextFormField(
@@ -34,14 +29,14 @@ class AppFormNumberInput<T> extends StatelessWidget {
         signed: false,
       ),
       validator: (value) => _validate(value, context),
-      onSaved: _onSaved,
+      onSaved: (value) => _onSaved(value, dto),
     );
   }
 
   String? _validate(String? value, BuildContext context) {
-    if (isRequired && (value == null || value.isEmpty)) {
-      return AppLocalizations.of(context)!.thisFieldIsRequired;
-    }
+    final requiredValidation = validateRequired(value, context);
+    if (requiredValidation != null) return requiredValidation;
+
     if (value != null && value.isNotEmpty) {
       final parsed = isDecimal ? double.tryParse(value) : int.tryParse(value);
       if (parsed == null) {
@@ -51,7 +46,7 @@ class AppFormNumberInput<T> extends StatelessWidget {
     return null;
   }
 
-  void _onSaved(String? value) {
+  void _onSaved(String? value, T dto) {
     if (value != null && value.isNotEmpty) {
       final parsed = isDecimal ? double.tryParse(value) : int.tryParse(value);
       if (parsed != null) {

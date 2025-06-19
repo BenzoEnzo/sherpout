@@ -5,12 +5,12 @@ import 'package:go_router/go_router.dart';
 import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
 import 'package:sherpoutmobile/common/form/app_form.dart';
-import 'package:sherpoutmobile/common/form/app_form_autocomplete.dart';
-import 'package:sherpoutmobile/common/form/app_form_date_input.dart';
-import 'package:sherpoutmobile/common/form/app_form_number_input.dart';
+import 'package:sherpoutmobile/common/form/fields/app_form_date_input.dart';
 import 'package:sherpoutmobile/pages/exercises/exercise_select_item.dart';
 import 'package:sherpoutmobile/services/record_service.dart';
 
+import '../../../common/form/fields/app_form_autocomplete.dart';
+import '../../../common/form/fields/app_form_number_input.dart';
 import '../../../services/exercise_service.dart';
 
 class RecordForm extends StatefulWidget {
@@ -52,8 +52,7 @@ class _RecordFormState extends State<RecordForm> {
         isLoading: false,
         children: [
           if (!widget.isEdit) ...[
-            AppFormAutocomplete(
-              dto: record,
+            AppFormAutocomplete<RecordDTO, ExerciseSelectDTO>(
               options: _exercises,
               label: AppLocalizations.of(context)!.exercise,
               isRequired: true,
@@ -62,27 +61,21 @@ class _RecordFormState extends State<RecordForm> {
               getDisplay: (value) => value.name.localized(context),
               optionViewBuilder: (context, value) => ExerciseSelectItem(exercise: value),
             ),
-            SizedBox(height: 24),
           ],
-
-          AppFormNumberInput(
-              dto: record,
+          AppFormNumberInput<RecordDTO>(
               label: AppLocalizations.of(context)!.weight,
               isRequired: true,
               getValue: (dto) => dto.value,
               setValue: (dto, value) => dto.value = value,
               isDecimal: true,
           ),
-          SizedBox(height: 24),
-          AppFormDateInput(
-              dto: record,
+          AppFormDateInput<RecordDTO>(
               label: AppLocalizations.of(context)!.date,
               isRequired: true,
               getValue: (dto) => dto.date,
               setValue: (dto, date) => dto.date = date,
               lastDate: DateTime.now(),
           ),
-          SizedBox(height: 32),
         ]
     );
   }

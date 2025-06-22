@@ -7,23 +7,21 @@ class AppFormNumberInput<T> extends AppFormField<T, num> {
   final bool isDecimal;
 
   AppFormNumberInput({
+    required String key,
     required String label,
     required num? Function(T dto) getValue,
     required void Function(T dto, num value) setValue,
     required bool isRequired,
     this.isDecimal = false
-  }) : super(label, getValue, setValue, isRequired);
+  }) : super(key, label, getValue, setValue, isRequired);
 
   @override
-  Widget build(BuildContext context, T dto) {
+  Widget build(BuildContext context, T dto, List<String>? errors) {
     final initialValue = getValue(dto)?.toString() ?? '';
 
     return TextFormField(
       initialValue: initialValue,
-      decoration: InputDecoration(
-        labelText: label,
-        suffix: Text("kg"),
-      ),
+      decoration: buildInputDecoration(errors).copyWith(suffix: Text("kg")),
       keyboardType: TextInputType.numberWithOptions(
         decimal: isDecimal,
         signed: false,

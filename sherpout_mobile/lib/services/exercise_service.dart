@@ -3,7 +3,7 @@ import 'package:sherpoutmobile/common/dto/exercise_dto.dart';
 import 'package:sherpoutmobile/common/dto/exercise_list_dto.dart';
 import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 
-import '../common/api_client.dart';
+import '../common/api/api_client.dart';
 
 class ExerciseService {
   final ApiClient _apiClient;

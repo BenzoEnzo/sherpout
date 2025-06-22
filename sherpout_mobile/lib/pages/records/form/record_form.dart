@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get_it/get_it.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
@@ -27,7 +27,6 @@ class _RecordFormState extends State<RecordForm> {
   final ExerciseService _exerciseService = GetIt.instance<ExerciseService>();
   final RecordService _recordService = GetIt.instance<RecordService>();
   List<ExerciseSelectDTO> _exercises = [];
-  bool isLoading = false;
 
   @override
   void initState() {
@@ -36,10 +35,10 @@ class _RecordFormState extends State<RecordForm> {
   }
 
   Future<void> _loadExercises() async {
-      final exercises = await _exerciseService.getSelects();
-      setState(() {
-        _exercises = exercises;
-      });
+    final exercises = await _exerciseService.getSelects();
+    setState(() {
+      _exercises = exercises;
+    });
   }
 
   @override
@@ -48,48 +47,38 @@ class _RecordFormState extends State<RecordForm> {
 
     return AppForm(
         dto: record,
-        onSubmit: _onSubmit,
-        isLoading: false,
+        onSubmit: widget.isEdit ? _onEditSubmit : _onCreateSubmit,
         children: [
           if (!widget.isEdit) ...[
             AppFormAutocomplete<RecordDTO, ExerciseSelectDTO>(
+              key: "exercise",
               options: _exercises,
               label: AppLocalizations.of(context)!.exercise,
               isRequired: true,
               getValue: (dto) => dto.exercise,
               setValue: (dto, exercise) => dto.exercise = exercise,
               getDisplay: (value) => value.name.localized(context),
-              optionViewBuilder: (context, value) => ExerciseSelectItem(exercise: value),
+              optionViewBuilder: (context, value) =>
+                  ExerciseSelectItem(exercise: value),
             ),
           ],
           AppFormNumberInput<RecordDTO>(
-              label: AppLocalizations.of(context)!.weight,
-              isRequired: true,
-              getValue: (dto) => dto.value,
-              setValue: (dto, value) => dto.value = value,
-              isDecimal: true,
+            key: "value",
+            label: AppLocalizations.of(context)!.weight,
+            isRequired: true,
+            getValue: (dto) => dto.value,
+            setValue: (dto, value) => dto.value = value,
+            isDecimal: true,
           ),
           AppFormDateInput<RecordDTO>(
-              label: AppLocalizations.of(context)!.date,
-              isRequired: true,
-              getValue: (dto) => dto.date,
-              setValue: (dto, date) => dto.date = date,
-              lastDate: DateTime.now(),
+            key: "date",
+            label: AppLocalizations.of(context)!.date,
+            isRequired: true,
+            getValue: (dto) => dto.date,
+            setValue: (dto, date) => dto.date = date,
+            lastDate: DateTime.now(),
           ),
-        ]
-    );
-  }
-
-  Future<void> _onSubmit(RecordDTO toSave) async {
-    setState(() {
-      isLoading = true;
-    });
-
-    widget.isEdit ? _onEditSubmit(toSave) : _onCreateSubmit(toSave);
-
-    setState(() {
-      isLoading = false;
-    });
+        ]);
   }
 
   Future<void> _onCreateSubmit(RecordDTO toCreate) async {

@@ -8,18 +8,19 @@ class AppFormAutocomplete<T, V extends Object> extends AppFormField<T, V> {
   final String Function(V) getDisplay;
   final Widget Function(BuildContext, V) optionViewBuilder;
 
-  AppFormAutocomplete({
-    required String label,
-    required V? Function(T dto) getValue,
-    required void Function(T dto, V value) setValue,
-    required bool isRequired,
-    required this.options,
-    required this.getDisplay,
-    required this.optionViewBuilder
-  }) : super(label, getValue, setValue, isRequired);
+  AppFormAutocomplete(
+      {required String key,
+      required String label,
+      required V? Function(T dto) getValue,
+      required void Function(T dto, V value) setValue,
+      required bool isRequired,
+      required this.options,
+      required this.getDisplay,
+      required this.optionViewBuilder})
+      : super(key, label, getValue, setValue, isRequired);
 
   @override
-  Widget build(BuildContext context, T dto) {
+  Widget build(BuildContext context, T dto, List<String>? errors) {
     final selectedValue = getValue(dto);
     final controller = TextEditingController(
       text: selectedValue != null ? getDisplay(selectedValue) : '',
@@ -40,9 +41,7 @@ class AppFormAutocomplete<T, V extends Object> extends AppFormField<T, V> {
           return TextFormField(
             controller: textEditingController,
             focusNode: focusNode,
-            decoration: InputDecoration(
-              labelText: label,
-            ),
+            decoration: buildInputDecoration(errors),
             validator: (value) => validateRequired(value, context),
             onEditingComplete: onEditingComplete,
           );

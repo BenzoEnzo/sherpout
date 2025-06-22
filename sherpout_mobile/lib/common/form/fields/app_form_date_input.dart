@@ -8,6 +8,7 @@ class AppFormDateInput<T> extends AppFormField<T, DateTime> {
   final DateFormat? dateFormat;
 
   AppFormDateInput({
+    required String key,
     required String label,
     required DateTime? Function(T dto) getValue,
     required void Function(T dto, DateTime value) setValue,
@@ -15,10 +16,10 @@ class AppFormDateInput<T> extends AppFormField<T, DateTime> {
     this.firstDate,
     this.lastDate,
     this.dateFormat,
-  }) : super(label, getValue, setValue, isRequired);
+  }) : super(key, label, getValue, setValue, isRequired);
 
   @override
-  Widget build(BuildContext context, T dto) {
+  Widget build(BuildContext context, T dto, List<String>? errors) {
     final DateTime effectiveFirstDate = firstDate ?? DateTime(2010);
     final DateTime effectiveLastDate = lastDate ?? DateTime(2100);
     final DateFormat effectiveDateFormat =
@@ -31,10 +32,8 @@ class AppFormDateInput<T> extends AppFormField<T, DateTime> {
 
     return TextFormField(
       controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        suffixIcon: const Icon(Icons.calendar_today),
-      ),
+      decoration: buildInputDecoration(errors)
+          .copyWith(suffixIcon: const Icon(Icons.calendar_today)),
       readOnly: true,
       validator: (value) => validateRequired(value, context),
       onTap: () async {

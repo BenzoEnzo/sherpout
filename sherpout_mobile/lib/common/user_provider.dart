@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import 'api_client.dart';
+import 'api/api_client.dart';
 import 'dto/user_dto.dart';
 
 class UserProvider with ChangeNotifier {

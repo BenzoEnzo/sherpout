@@ -17,7 +17,7 @@ class RecordService {
     return data.map((json) => RecordDTO.fromJson(json)).toList();
   }
 
-  Future<List<RecordDTO>> getRecordHistory(Long exerciseId, DateRangeQueryParam dateRangeQueryParam) async {
+  Future<List<RecordDTO>> getRecordHistory(int exerciseId, DateRangeQueryParam dateRangeQueryParam) async {
     Response<dynamic> response = await _apiClient.get('records/history/$exerciseId', queryParameters: dateRangeQueryParam.asQueryParameters());
     final List<dynamic> data = response.data;
     return data.map((json) => RecordDTO.fromJson(json)).toList();

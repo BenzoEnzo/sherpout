@@ -16,5 +16,10 @@ class DateRangeQueryParam {
         'to': _dateOnly.format(to),
       };
 
+  static DateRangeQueryParam all() => DateRangeQueryParam(
+    from: DateTime.fromMillisecondsSinceEpoch(0),
+    to: DateTime.now(),
+  );
+
   Map<String, dynamic> toJson() => asQueryParameters();
 }

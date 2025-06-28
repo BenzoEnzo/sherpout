@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sherpoutmobile/pages/records/detail/record_history_row_component.dart';
 
 import '../../../common/dto/date_range_query_param.dart';
 import '../../../common/dto/record_dto.dart';
+import '../../../common/dto/record_history_dto.dart';
 import '../../../services/record_service.dart';
 import '../list/record_row_component.dart';
 
@@ -19,18 +21,18 @@ class RecordHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<RecordDTO>>(
+    return FutureBuilder<List<RecordHistoryDTO>>(
       future: _recordService.getRecordHistory(exerciseId, range),
       builder: (context, snap) {
         if (snap.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
         if (snap.hasError) {
-          return Center(child: Text('Błąd: ${snap.error}'));
+          return Center(child: Text('Error: ${snap.error}'));
         }
 
         final records = snap.data!
-          ..sort((a, b) => b.date!.compareTo(a.date!));
+          ..sort((a, b) => b.date.compareTo(a.date));
 
         if (records.isEmpty) {
           return const Center(child: Text('Brak rekordów w tym okresie'));
@@ -40,7 +42,7 @@ class RecordHistory extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           itemCount: records.length,
           separatorBuilder: (_, __) => const SizedBox(height: 12),
-          itemBuilder: (_, i) => RecordRowComponent(
+          itemBuilder: (_, i) => RecordHistoryRowComponent(
             record: records[i],
             showChevron: false,
             padding: const EdgeInsets.all(16),

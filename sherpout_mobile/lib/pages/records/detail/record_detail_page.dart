@@ -49,7 +49,7 @@ class _RecordDetailPageState extends State<RecordDetailPage>
               controller: _tabs,
               children: [
                 RecordHistory(
-                  exerciseId: widget.record.exercise!.id!,
+                  exerciseId: widget.record.exercise!.id,
                   range: widget.range,
                 ),
               ],

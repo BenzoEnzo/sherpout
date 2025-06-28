@@ -8,45 +8,50 @@ import '../../../common/theme/app_colors.dart';
 import '../../exercises/list/exercise_cover.dart';
 
 class RecordHistoryRowComponent extends StatelessWidget {
-  const RecordHistoryRowComponent({
-    super.key,
-    required this.record,
-    this.showChevron = true,
-    this.padding = const EdgeInsets.all(12),
-  });
+  const RecordHistoryRowComponent(
+      {super.key,
+      required this.record,
+      this.verticalGap = 0,
+      this.onEdit,
+      this.onDelete});
 
   final RecordHistoryDTO record;
-  final bool showChevron;
-  final EdgeInsetsGeometry padding;
+  final double verticalGap;
+  final VoidCallback? onEdit;
+  final VoidCallback? onDelete;
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate = DateFormat('dd.MM.yyyy').format(record.date!);
+    final formattedDate = DateFormat('dd.MM.yyyy').format(record.date);
 
-    return Container(
-      padding: padding,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.secondary, width: 1),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RecordListItemFooter(
-                  formattedDate: formattedDate,
-                  weight: record.value!,
-                ),
-              ],
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: verticalGap),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RecordListItemFooter(
+                    formattedDate: formattedDate,
+                    weight: record.value,
+                  ),
+                ],
+              ),
             ),
-          ),
-          if (showChevron) const Icon(Icons.chevron_right),
-        ],
-      ),
-    );
+            IconButton(
+              visualDensity: VisualDensity.compact,
+              icon: const Icon(Icons.edit, size: 20),
+              onPressed: onEdit,
+            ),
+            IconButton(
+              visualDensity: VisualDensity.compact,
+              icon: const Icon(Icons.close, size: 20),
+              onPressed: onDelete,
+            ),
+          ],
+        ));
   }
 }

@@ -31,22 +31,44 @@ class RecordHistory extends StatelessWidget {
           return Center(child: Text('Error: ${snap.error}'));
         }
 
-        final records = snap.data!
-          ..sort((a, b) => b.date.compareTo(a.date));
-
+        final records = snap.data!..sort((a, b) => b.date.compareTo(a.date));
         if (records.isEmpty) {
           return const Center(child: Text('Brak rekordów w tym okresie'));
         }
 
-        return ListView.separated(
-          padding: const EdgeInsets.all(16),
-          itemCount: records.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 12),
-          itemBuilder: (_, i) => RecordHistoryRowComponent(
-            record: records[i],
-            showChevron: false,
-            padding: const EdgeInsets.all(16),
-          ),
+        final Map<int, List<RecordHistoryDTO>> byYear = {};
+        for (final record in records) {
+          byYear.putIfAbsent(record.date.year, () => []).add(record);
+        }
+        final years = byYear.keys.toList()..sort((b, a) => a.compareTo(b));
+
+        final list = <Widget>[];
+        for (final year in years) {
+          list.add(Padding(
+            padding: const EdgeInsets.only(top: 16, bottom: 8),
+            child: Row(
+              children: [
+                Text(
+                  year.toString(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall
+                      ?.copyWith(color: Colors.blueGrey.shade300),
+                ),
+                const SizedBox(width: 12),
+                const Expanded(child: Divider(thickness: 1)),
+              ],
+            ),
+          ));
+
+          for (final record in byYear[year]!) {
+            list.add(RecordHistoryRowComponent(record: record, verticalGap: 8));
+          }
+        }
+
+        return ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          children: list,
         );
       },
     );

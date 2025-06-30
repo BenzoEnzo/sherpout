@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sherpoutmobile/pages/records/detail/record_history_row_component.dart';
 
 import '../../../common/dto/date_range_query_param.dart';
-import '../../../common/dto/record_dto.dart';
 import '../../../common/dto/record_history_dto.dart';
 import '../../../services/record_service.dart';
-import '../list/record_row_component.dart';
+
+import 'record_history_row_component.dart';
+import 'record_content_card.dart';
 
 class RecordHistory extends StatelessWidget {
   RecordHistory({
@@ -35,7 +35,6 @@ class RecordHistory extends StatelessWidget {
         if (records.isEmpty) {
           return const Center(child: Text('Brak rekordów w tym okresie'));
         }
-
         final Map<int, List<RecordHistoryDTO>> byYear = {};
         for (final record in records) {
           byYear.putIfAbsent(record.date.year, () => []).add(record);
@@ -44,31 +43,40 @@ class RecordHistory extends StatelessWidget {
 
         final list = <Widget>[];
         for (final year in years) {
-          list.add(Padding(
-            padding: const EdgeInsets.only(top: 16, bottom: 8),
-            child: Row(
-              children: [
-                Text(
-                  year.toString(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(color: Colors.blueGrey.shade300),
-                ),
-                const SizedBox(width: 12),
-                const Expanded(child: Divider(thickness: 1)),
-              ],
+          list.add(
+            Padding(
+              padding: const EdgeInsets.only(top: 16, bottom: 8),
+              child: Row(
+                children: [
+                  Text(
+                    year.toString(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(color: Colors.blueGrey.shade300),
+                  ),
+                  const SizedBox(width: 12),
+                  const Expanded(child: Divider(thickness: 1)),
+                ],
+              ),
             ),
-          ));
+          );
 
           for (final record in byYear[year]!) {
-            list.add(RecordHistoryRowComponent(record: record, verticalGap: 8));
+            list.add(
+              RecordHistoryRowComponent(
+                record: record,
+                verticalGap: 8,
+              ),
+            );
           }
         }
 
-        return ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          children: list,
+        return RecordContentCard(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            children: list,
+          ),
         );
       },
     );

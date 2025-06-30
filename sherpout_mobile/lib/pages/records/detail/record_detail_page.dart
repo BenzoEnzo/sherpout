@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sherpoutmobile/pages/records/detail/record_chart.dart';
 import 'package:sherpoutmobile/pages/records/detail/record_history.dart';
 
 import '../../../../common/dto/record_dto.dart';
@@ -49,6 +50,10 @@ class _RecordDetailPageState extends State<RecordDetailPage>
               controller: _tabs,
               children: [
                 RecordHistory(
+                  exerciseId: widget.record.exercise!.id,
+                  range: widget.range,
+                ),
+                RecordChart(
                   exerciseId: widget.record.exercise!.id,
                   range: widget.range,
                 ),

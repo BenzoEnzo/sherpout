@@ -41,6 +41,7 @@ class RecordRowComponent extends StatelessWidget {
                 RecordListItemFooter(
                   formattedDate: formattedDate,
                   weight: record.value!,
+                  color: Colors.amber
                 ),
               ],
             ),

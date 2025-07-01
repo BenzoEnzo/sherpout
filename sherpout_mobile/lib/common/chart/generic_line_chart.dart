@@ -65,7 +65,7 @@ class GenericLineChart extends StatelessWidget {
           horizontalInterval: yInterval ?? 10,
           drawVerticalLine: false,
           getDrawingHorizontalLine: (_) =>
-              FlLine(color: Colors.grey.shade300, strokeWidth: 1),
+              FlLine(color: Colors.transparent, strokeWidth: 1),
         ),
         lineBarsData: [
           LineChartBarData(
@@ -73,7 +73,7 @@ class GenericLineChart extends StatelessWidget {
             isCurved: curved,
             barWidth: 3,
             dotData: FlDotData(show: showDots),
-            color: Theme.of(context).colorScheme.primary,
+            color: Colors.lightBlueAccent
           ),
         ],
       ),

@@ -12,22 +12,24 @@ import '../../../services/record_service.dart';
 import 'record_content_card.dart';
 
 class RecordChart extends StatelessWidget {
-  RecordChart({
+  const RecordChart({
     super.key,
     required this.exerciseId,
     required this.range,
-  }) : _recordService = GetIt.instance<RecordService>();
+    this.lineColor,
+  });
 
   final int exerciseId;
   final DateRangeQueryParam range;
-  final RecordService _recordService;
+  final Color? lineColor;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<RecordHistoryDTO>>(
-      future: _recordService.getRecordHistory(exerciseId, range),
-      builder: (context, snap) {
+    final recordService = GetIt.instance<RecordService>();
 
+    return FutureBuilder<List<RecordHistoryDTO>>(
+      future: recordService.getRecordHistory(exerciseId, range),
+      builder: (context, snap) {
         if (snap.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
@@ -41,31 +43,27 @@ class RecordChart extends StatelessWidget {
         }
 
         final spots = [
-          for (final r in records)
-            FlSpot(
-              r.date.millisecondsSinceEpoch.toDouble(),
-              r.value.toDouble(),
-            ),
+          for (final record in records)
+            FlSpot(record.date.millisecondsSinceEpoch.toDouble(), record.value.toDouble())
         ];
 
         final minYVal = records.map((e) => e.value).reduce(math.min).toDouble();
         final maxYVal = records.map((e) => e.value).reduce(math.max).toDouble();
-        final yRange  = maxYVal - minYVal;
+        final yRange = maxYVal - minYVal;
 
-        double _niceStep(double raw) {
-          final double exp =
+        double niceStep(double raw) {
+          final exp =
           math.pow(10, (math.log(raw) / math.ln10).floor()).toDouble();
-
           final frac = raw / exp;
-          if (frac < 1.5) return (1 * exp);
-          if (frac < 3)   return (2 * exp);
-          if (frac < 7)   return (5 * exp);
-          return (10 * exp);
+          if (frac < 1.5) return 1 * exp;
+          if (frac < 3) return 2 * exp;
+          if (frac < 7) return 5 * exp;
+          return 10 * exp;
         }
 
-        final yInterval = _niceStep(yRange / 5);
+        final yInterval = niceStep(yRange / 5);
         final minY = (minYVal / yInterval).floor() * yInterval;
-        final maxY = (maxYVal / yInterval).ceil()  * yInterval;
+        final maxY = (maxYVal / yInterval).ceil() * yInterval;
 
         final minX = spots.first.x;
         final maxX = spots.last.x;

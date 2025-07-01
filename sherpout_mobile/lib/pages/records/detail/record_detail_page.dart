@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sherpoutmobile/pages/records/detail/record_chart.dart';
+import 'package:sherpoutmobile/pages/records/detail/record_chart_date.dart';
 import 'package:sherpoutmobile/pages/records/detail/record_history.dart';
 
 import '../../../../common/dto/record_dto.dart';
@@ -53,9 +53,9 @@ class _RecordDetailPageState extends State<RecordDetailPage>
                   exerciseId: widget.record.exercise!.id,
                   range: widget.range,
                 ),
-                RecordChart(
+                RecordChartDate(
                   exerciseId: widget.record.exercise!.id,
-                  range: widget.range,
+                  initialRange: widget.range,
                 ),
               ],
             ),

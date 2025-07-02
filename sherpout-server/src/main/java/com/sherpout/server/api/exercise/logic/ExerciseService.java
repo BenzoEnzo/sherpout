@@ -2,26 +2,31 @@ package com.sherpout.server.api.exercise.logic;
 
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
-import com.sherpout.server.api.exercise.dto.ExerciseSelectDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
+import com.sherpout.server.api.image.dto.ImageDTO;
 import com.sherpout.server.api.image.entity.Image;
+import com.sherpout.server.api.image.logic.ImageService;
+import com.sherpout.server.error.exception.FileException;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.model.ErrorLocationType;
-import com.sherpout.server.external.storage.StorageService;
+import com.sherpout.server.error.model.ErrorMessage;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
-    private final StorageService storageService;
+    private final ImageService imageService;
     private final ExerciseMapper exerciseMapper;
 
     @Transactional
@@ -29,8 +34,9 @@ public class ExerciseService {
         Exercise exercise = exerciseRepository.findById(id)
                 .orElseThrow(() -> new UnableToFindExerciseException(ErrorLocationType.PATH_PARAM, "id", id));
 
-        configureFileSettings(files, exercise);
         exerciseMapper.mapToUpdateEntity(exerciseDTO, exercise);
+        imageService.deleteImagesFromBucket(exerciseDTO);
+        configureExerciseImages(files, exercise, exerciseDTO);
 
         return exerciseMapper.mapToDTO(exercise);
     }
@@ -39,7 +45,7 @@ public class ExerciseService {
     public ExerciseDTO createExercise(ExerciseDTO exerciseDTO, List<MultipartFile> files) {
         Exercise exercise = exerciseMapper.mapToEntity(exerciseDTO);
         Exercise managed = exerciseRepository.save(exercise);
-        configureFileSettings(files, managed);
+        configureExerciseImages(files, managed, exerciseDTO);
 
         return exerciseMapper.mapToDTO(managed);
     }
@@ -56,17 +62,28 @@ public class ExerciseService {
                 .toList();
     }
 
-    public List<ExerciseSelectDTO> getExerciseSelects() {
-        return exerciseRepository.findAll().stream()
-                .map(exerciseMapper::mapToSelectDTO)
-                .toList();
+    private void configureExerciseImages(List<MultipartFile> files, Exercise exercise, ExerciseDTO exerciseDTO) {
+        if (files != null && !files.isEmpty()) {
+            List<Image> uploadedImages = imageService.convertAndSaveImages(String.valueOf(exercise.getId()), files);
+            List<Image> exerciseImages = exercise.getImages() != null ? exercise.getImages() : new ArrayList<>();
+            exerciseImages.addAll(uploadedImages);
+            exercise.setImages(exerciseImages);
+        }
+
+        exercise.setCover(selectExerciseCover(exerciseDTO, exercise));
     }
 
-    private void configureFileSettings(List<MultipartFile> files, Exercise exercise){
-        if(files != null && !files.isEmpty()) {
-            List<Image> uploadedFiles = storageService.uploadFiles(String.valueOf(exercise.getId()), files);
-            exercise.setCover(uploadedFiles.getFirst());
-            exercise.setImages(uploadedFiles);
-        }
+    private Image selectExerciseCover(ExerciseDTO exerciseDTO, Exercise exercise) {
+        return Optional.ofNullable(exerciseDTO.getImages())
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(img -> img.getMain().equals(true))
+                        .map(ImageDTO::getName)
+                        .flatMap(name -> exercise.getImages().stream().filter(img-> img.getName().equals(name)))
+                        .findFirst()
+                .or(() -> exercise.getImages()
+                        .stream()
+                        .findFirst())
+                        .orElseThrow(() -> new FileException(ErrorMessage.COVER_IMAGE_ERROR, exercise.getName().getEn()));
     }
 }

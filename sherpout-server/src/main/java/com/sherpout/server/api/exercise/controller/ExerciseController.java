@@ -29,7 +29,7 @@ public class ExerciseController {
     @PutMapping("/{id}")
     @SecuredByGroup(UserGroup.USER)
     public ResponseEntity<ExerciseDTO> updateExercise(
-            @RequestBody @RequestPart("data") ExerciseDTO exerciseDTO,
+            @RequestPart("data") ExerciseDTO exerciseDTO,
             @PathVariable Long id,
             @RequestPart(value = "files", required = false) List<MultipartFile> files
     ) {

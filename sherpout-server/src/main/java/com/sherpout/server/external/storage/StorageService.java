@@ -1,42 +1,73 @@
 package com.sherpout.server.external.storage;
 
-import com.sherpout.server.api.image.entity.Image;
+import com.sherpout.server.api.image.dto.ImageDTO;
 import com.sherpout.server.error.exception.FileException;
 import com.sherpout.server.error.model.ErrorMessage;
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import io.minio.*;
+import io.minio.http.Method;
+import io.minio.messages.DeleteError;
+import io.minio.messages.DeleteObject;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StorageService {
     private final MinioClient minioClient;
 
     @Value("${minio.bucket.name}")
     private String bucketName;
 
-    public List<Image> uploadFiles(String dirName, List<MultipartFile> files) {
-        return files.stream().map(file -> transformFileToImage(dirName,file)).toList();
+    public void deleteFiles(List<ImageDTO> objectNames) {
+        Iterable<Result<DeleteError>> results = removeObjects(objectNames.stream()
+                .map(ImageDTO::getName)
+                .map(DeleteObject::new)
+                .toList());
+
+        verifyDeletionResults(results);
     }
 
-    private Image transformFileToImage(String dirName, MultipartFile file){
-        String fileName = file.getOriginalFilename();
-        String fullName = dirName + "/" + UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
-        uploadFile(fullName, file);
-        Image img = new Image();
-        img.setName(fullName);
-        return img;
+    private void verifyDeletionResults(Iterable<Result<DeleteError>> results) {
+        results.forEach(result -> {
+            try {
+                result.get();
+            } catch (Exception e) {
+                throw new FileException(ErrorMessage.IMAGE_DELETE_ERROR, e.getMessage());
+            }
+        });
     }
 
-    private void uploadFile(String objectName, MultipartFile file) {
+    private Iterable<Result<DeleteError>> removeObjects(List<DeleteObject> objects) {
+        return minioClient.removeObjects(
+                RemoveObjectsArgs.builder()
+                        .bucket(bucketName)
+                        .objects(objects)
+                        .build());
+    }
+
+    public String getPresignedUrl(String name) {
+        try {
+            return minioClient.getPresignedObjectUrl(
+                    GetPresignedObjectUrlArgs.builder()
+                            .method(Method.GET)
+                            .bucket(bucketName)
+                            .object(name)
+                            .expiry(15, TimeUnit.MINUTES)
+                            .build());
+        } catch (Exception e) {
+            throw new FileException(ErrorMessage.IMAGE_FETCH_ERROR, name);
+        }
+    }
+
+    public void uploadFile(String objectName, MultipartFile file) {
         try {
             if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());

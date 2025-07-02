@@ -20,4 +20,10 @@ class ExerciseSelectDTO {
       cover: json['cover'] != null ? ImageDto.fromJson(json['cover']) : null,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+    };
+  }
 }

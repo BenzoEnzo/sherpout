@@ -2,6 +2,7 @@ package com.sherpout.server.api.exercise.controller;
 
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
+import com.sherpout.server.api.exercise.dto.ExerciseSelectDTO;
 import com.sherpout.server.api.exercise.dto.LikeNumberResponseDTO;
 import com.sherpout.server.api.exercise.logic.ExerciseLikeService;
 import com.sherpout.server.api.exercise.logic.ExerciseService;
@@ -70,5 +71,13 @@ public class ExerciseController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(exerciseLikeService.toggleLike(id, tokenService.getUser().getId()));
+    }
+
+    @GetMapping("/select")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<List<ExerciseSelectDTO>> getExerciseSelects() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(exerciseService.getExerciseSelects());
     }
 }

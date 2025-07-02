@@ -13,6 +13,7 @@ import com.sherpout.server.error.exception.AccessForbiddenException;
 import com.sherpout.server.error.exception.UnableToFindExerciseException;
 import com.sherpout.server.error.exception.UnableToFindRecordException;
 import com.sherpout.server.error.model.ErrorLocationType;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +59,18 @@ public class RecordService {
 
         if (record.getUserId().equals(tokenService.getUser().getId())) {
             recordRepository.delete(record);
+        } else {
+            throw new AccessForbiddenException();
+        }
+    }
+
+    @Transactional
+    public RecordDTO updateRecord(Long id, RecordDTO dto) {
+        Record record = recordRepository.findById(id)
+                .orElseThrow(() -> new UnableToFindRecordException(ErrorLocationType.PATH_PARAM, id));
+
+        if (record.getUserId().equals(tokenService.getUser().getId())) {
+            return recordMapper.mapToDTO(recordMapper.mapToUpdateEntity(dto, record));
         } else {
             throw new AccessForbiddenException();
         }

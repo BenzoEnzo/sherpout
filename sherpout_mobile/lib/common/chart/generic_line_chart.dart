@@ -8,7 +8,7 @@ class GenericLineChart extends StatelessWidget {
     this.minY,
     this.maxY,
     this.showDots = true,
-    this.curved = true,
+    this.curved = false,
     this.showX = false,
     this.showY = false,
     this.xInterval,

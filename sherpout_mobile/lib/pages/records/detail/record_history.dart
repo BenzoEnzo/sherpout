@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 
 import '../../../common/dto/date_range_query_param.dart';
+import '../../../common/dto/record_dto.dart';
 import '../../../common/dto/record_history_dto.dart';
 import '../../../services/record_service.dart';
 import '../delete/record_delete_dialog.dart';
+import '../form/record_form.dart';
 import 'record_history_row_component.dart';
 import 'record_content_card.dart';
 
@@ -62,7 +65,6 @@ class _RecordHistoryState extends State<RecordHistory> {
           return const Center(child: Text('Brak rekordów w tym okresie'));
         }
 
-        // ─── grupowanie po roku ───
         final Map<int, List<RecordHistoryDTO>> byYear = {};
         for (final r in records) {
           byYear.putIfAbsent(r.date.year, () => []).add(r);
@@ -95,6 +97,23 @@ class _RecordHistoryState extends State<RecordHistory> {
               RecordHistoryRowComponent(
                 record: rec,
                 verticalGap: 8,
+                onEdit: () async {
+                  final edited = await showDialog<bool>(
+                    context: context,
+                    builder: (_) => Dialog(
+                      insetPadding: const EdgeInsets.all(24),
+                      child: RecordForm(
+                        record: RecordDTO(
+                          id: rec.id,
+                          date: rec.date,
+                          value: rec.value
+                        ),
+                        isEdit: true,
+                      ),
+                    ),
+                  );
+                  if (edited == true) _refresh();
+                },
                 onDelete: () async {
                   final deleted = await showDialog<bool>(
                     context: context,

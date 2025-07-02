@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -27,8 +26,8 @@ class RecordDeleteDialog extends StatelessWidget {
                 style: AppTypography.bodyLarge),
             SizedBox(height: 16),
             AppTextButton(
-                text: AppLocalizations.of(context)!.yes,
-                onPressed: () => _deleteAndClose(context),
+              text: AppLocalizations.of(context)!.yes,
+              onPressed: () => _deleteAndClose(context),
             )
           ],
         ));

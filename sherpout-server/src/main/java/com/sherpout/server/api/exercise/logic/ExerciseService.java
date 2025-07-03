@@ -2,6 +2,7 @@ package com.sherpout.server.api.exercise.logic;
 
 import com.sherpout.server.api.exercise.dto.ExerciseDTO;
 import com.sherpout.server.api.exercise.dto.ExerciseListDTO;
+import com.sherpout.server.api.exercise.dto.ExerciseSelectDTO;
 import com.sherpout.server.api.exercise.entity.Exercise;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.repository.ExerciseRepository;
@@ -59,6 +60,12 @@ public class ExerciseService {
     public List<ExerciseListDTO> getAllExercises() {
         return exerciseRepository.findAll().stream()
                 .map(exerciseMapper::mapToListDTO)
+                .toList();
+    }
+
+    public List<ExerciseSelectDTO> getExerciseSelects() {
+        return exerciseRepository.findAll().stream()
+                .map(exerciseMapper::mapToSelectDTO)
                 .toList();
     }
 

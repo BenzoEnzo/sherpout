@@ -10,5 +10,5 @@ class RecordListItemHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      Text(exerciseName.localized(context), style: AppTypography.titleLarge);
+      Text(exerciseName.localized(context), style: AppTypography.titleMedium);
 }

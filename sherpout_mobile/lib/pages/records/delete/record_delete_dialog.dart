@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/components/app_dialog.dart';
@@ -26,13 +26,24 @@ class RecordDeleteDialog extends StatelessWidget {
                 style: AppTypography.bodyLarge),
             SizedBox(height: 16),
             AppTextButton(
-                text: AppLocalizations.of(context)!.yes,
-                onPressed: () => deleteRecord(id))
+              text: AppLocalizations.of(context)!.yes,
+              onPressed: () => _deleteAndClose(context),
+            )
           ],
         ));
   }
 
-  void deleteRecord(int id) {
-    _recordService.delete(id);
+  Future<void> _deleteAndClose(BuildContext context) async {
+    try {
+      await _recordService.delete(id);
+      if (context.mounted) Navigator.pop(context, true);
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Delete failed: $e')),
+        );
+        Navigator.pop(context, false);
+      }
+    }
   }
 }

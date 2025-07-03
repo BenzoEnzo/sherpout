@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/theme/app_colors.dart';
 import 'package:sherpoutmobile/common/theme/app_typography.dart';
 
 class RecordWeightCircle extends StatelessWidget {
   final num weight;
-
-  const RecordWeightCircle({super.key, required this.weight});
+  final Color color;
+  const RecordWeightCircle({super.key, required this.weight, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class RecordWeightCircle extends StatelessWidget {
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: AppColors.background,
-          border: Border.all(color: Colors.amber, width: 2),
+          border: Border.all(color: color, width: 2),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.20),

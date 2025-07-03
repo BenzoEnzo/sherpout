@@ -6,8 +6,8 @@ import '../../../common/theme/app_typography.dart';
 class RecordListItemFooter extends StatelessWidget {
   final String formattedDate;
   final num weight;
-
-  const RecordListItemFooter({super.key, required this.formattedDate, required this.weight});
+  final Color color;
+  const RecordListItemFooter({super.key, required this.formattedDate, required this.weight, required this.color});
 
   @override
   Widget build(BuildContext context) => Row(
@@ -20,7 +20,7 @@ class RecordListItemFooter extends StatelessWidget {
           Text(formattedDate, style: AppTypography.bodyLarge),
         ],
       ),
-      RecordWeightCircle(weight: weight),
+      RecordWeightCircle(weight: weight, color: color),
     ],
   );
 }

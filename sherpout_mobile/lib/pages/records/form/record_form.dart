@@ -113,6 +113,6 @@ class _RecordFormState extends State<RecordForm> {
 
     if (!mounted) return;
 
-    context.pop();
+    context.pop(true);
   }
 }

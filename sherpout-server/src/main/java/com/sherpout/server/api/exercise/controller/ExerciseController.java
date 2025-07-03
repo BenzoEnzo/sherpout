@@ -70,7 +70,7 @@ public class ExerciseController {
     public ResponseEntity<LikeNumberResponseDTO> toggleLike(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(exerciseLikeService.toggleLike(id, tokenService.getUser().getId()));
+                .body(exerciseLikeService.toggleLike(id, tokenService.getUserId()));
     }
 
     @GetMapping("/select")

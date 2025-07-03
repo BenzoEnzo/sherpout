@@ -35,57 +35,54 @@ class _GenericLineChartState extends State<GenericLineChart> {
 
   List<FlSpot> get _spots => widget.data
       .where((s) =>
-  s.x >= _range.from.millisecondsSinceEpoch &&
-      s.x <= _range.to.millisecondsSinceEpoch)
+          s.x >= _range.from.millisecondsSinceEpoch &&
+          s.x <= _range.to.millisecondsSinceEpoch)
       .toList();
 
-  // ---------- Y -------------------------------------------------------------
-
   double get _minY => _spots.map((e) => e.y).reduce(math.min);
+
   double get _maxY => _spots.map((e) => e.y).reduce(math.max);
 
   double get _yStep {
     final span = _maxY - _minY;
-    if (span == 0) return 1;                 // tylko jedna wartość
+    if (span == 0) return 1;
     return _niceStep(span / 5);
   }
 
   double _niceStep(double raw) {
-    if (raw <= 0) return 1;                  // zabezpieczenie
+    if (raw <= 0) return 1;
     final p = math.pow(10, (math.log(raw) / math.ln10).floor()).toDouble();
     final f = raw / p;
     if (f < 1.5) return 1 * p;
-    if (f < 3)   return 2 * p;
-    if (f < 7)   return 5 * p;
+    if (f < 3) return 2 * p;
+    if (f < 7) return 5 * p;
     return 10 * p;
   }
 
   double get _chartMinY =>
       (_minY == _maxY) ? _minY - 1 : (_minY / _yStep).floor() * _yStep;
+
   double get _chartMaxY =>
       (_minY == _maxY) ? _maxY + 1 : (_maxY / _yStep).ceil() * _yStep;
 
-  // ---------- X -------------------------------------------------------------
-
   double get _minX => _spots.first.x;
+
   double get _maxX => _spots.last.x;
 
   double get _xStep {
     final span = _maxX - _minX;
-    if (span == 0) return 1;                 // tylko jeden punkt
+    if (span == 0) return 1;
     final every = (_spots.length / 6).ceil().clamp(1, _spots.length);
     return span / _spots.length * every;
   }
 
   bool _showX(double v) {
     final span = _maxX - _minX;
-    if (span == 0) return true;              // zawsze pokaż etykietę dla jednego punktu
+    if (span == 0) return true;
     final idx = ((v - _minX) / (span / _spots.length)).round();
     final every = (_spots.length / 6).ceil().clamp(1, _spots.length);
     return idx % every == 0;
   }
-
-  // ---------- UI ------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +99,7 @@ class _GenericLineChartState extends State<GenericLineChart> {
             children: [
               Text(
                 '${DateFormat('dd.MM.yyyy').format(_range.from)} – '
-                    '${DateFormat('dd.MM.yyyy').format(_range.to)}',
+                '${DateFormat('dd.MM.yyyy').format(_range.to)}',
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium
@@ -128,7 +125,7 @@ class _GenericLineChartState extends State<GenericLineChart> {
                     getTitlesWidget: (v, _) => Text(
                       _showX(v)
                           ? DateFormat('MM.dd').format(
-                          DateTime.fromMillisecondsSinceEpoch(v.toInt()))
+                              DateTime.fromMillisecondsSinceEpoch(v.toInt()))
                           : '',
                       style: const TextStyle(fontSize: 10),
                     ),

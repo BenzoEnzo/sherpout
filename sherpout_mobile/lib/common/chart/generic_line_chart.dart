@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 
-import '../dto/date_range_query_param.dart';
 import '../components/date_range_picker_dialog.dart';
+import '../dto/date_range_query_param.dart';
 
 class GenericLineChart extends StatefulWidget {
   const GenericLineChart({
@@ -35,39 +35,57 @@ class _GenericLineChartState extends State<GenericLineChart> {
 
   List<FlSpot> get _spots => widget.data
       .where((s) =>
-          s.x >= _range.from.millisecondsSinceEpoch &&
-          s.x <= _range.to.millisecondsSinceEpoch)
+  s.x >= _range.from.millisecondsSinceEpoch &&
+      s.x <= _range.to.millisecondsSinceEpoch)
       .toList();
 
-  double get _minY => _spots.map((e) => e.y).reduce(math.min);
+  // ---------- Y -------------------------------------------------------------
 
+  double get _minY => _spots.map((e) => e.y).reduce(math.min);
   double get _maxY => _spots.map((e) => e.y).reduce(math.max);
 
-  double get _yStep => _niceStep((_maxY - _minY) / 5);
+  double get _yStep {
+    final span = _maxY - _minY;
+    if (span == 0) return 1;                 // tylko jedna wartość
+    return _niceStep(span / 5);
+  }
 
   double _niceStep(double raw) {
+    if (raw <= 0) return 1;                  // zabezpieczenie
     final p = math.pow(10, (math.log(raw) / math.ln10).floor()).toDouble();
     final f = raw / p;
     if (f < 1.5) return 1 * p;
-    if (f < 3) return 2 * p;
-    if (f < 7) return 5 * p;
+    if (f < 3)   return 2 * p;
+    if (f < 7)   return 5 * p;
     return 10 * p;
   }
 
-  double get _minX => _spots.first.x;
+  double get _chartMinY =>
+      (_minY == _maxY) ? _minY - 1 : (_minY / _yStep).floor() * _yStep;
+  double get _chartMaxY =>
+      (_minY == _maxY) ? _maxY + 1 : (_maxY / _yStep).ceil() * _yStep;
 
+  // ---------- X -------------------------------------------------------------
+
+  double get _minX => _spots.first.x;
   double get _maxX => _spots.last.x;
 
   double get _xStep {
+    final span = _maxX - _minX;
+    if (span == 0) return 1;                 // tylko jeden punkt
     final every = (_spots.length / 6).ceil().clamp(1, _spots.length);
-    return (_maxX - _minX) / _spots.length * every;
+    return span / _spots.length * every;
   }
 
   bool _showX(double v) {
-    final idx = ((v - _minX) / ((_maxX - _minX) / _spots.length)).round();
+    final span = _maxX - _minX;
+    if (span == 0) return true;              // zawsze pokaż etykietę dla jednego punktu
+    final idx = ((v - _minX) / (span / _spots.length)).round();
     final every = (_spots.length / 6).ceil().clamp(1, _spots.length);
     return idx % every == 0;
   }
+
+  // ---------- UI ------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +101,8 @@ class _GenericLineChartState extends State<GenericLineChart> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '${DateFormat('dd.MM.yyyy').format(_range.from)} – ${DateFormat('dd.MM.yyyy').format(_range.to)}',
+                '${DateFormat('dd.MM.yyyy').format(_range.from)} – '
+                    '${DateFormat('dd.MM.yyyy').format(_range.to)}',
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium
@@ -99,8 +118,8 @@ class _GenericLineChartState extends State<GenericLineChart> {
         Expanded(
           child: LineChart(
             LineChartData(
-              minY: (_minY / _yStep).floor() * _yStep,
-              maxY: (_maxY / _yStep).ceil() * _yStep,
+              minY: _chartMinY,
+              maxY: _chartMaxY,
               titlesData: FlTitlesData(
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
@@ -109,7 +128,7 @@ class _GenericLineChartState extends State<GenericLineChart> {
                     getTitlesWidget: (v, _) => Text(
                       _showX(v)
                           ? DateFormat('MM.dd').format(
-                              DateTime.fromMillisecondsSinceEpoch(v.toInt()))
+                          DateTime.fromMillisecondsSinceEpoch(v.toInt()))
                           : '',
                       style: const TextStyle(fontSize: 10),
                     ),

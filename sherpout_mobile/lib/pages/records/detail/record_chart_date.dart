@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../../common/dto/date_range_query_param.dart';
 import '../../../common/theme/app_colors.dart';
+import '../../../common/form/app_form_date_input.dart';
 import 'record_chart.dart';
 
 class RecordChartDate extends StatefulWidget {
@@ -22,13 +23,7 @@ class RecordChartDate extends StatefulWidget {
 }
 
 class _RecordChartDateState extends State<RecordChartDate> {
-  late DateRangeQueryParam _range;
-
-  @override
-  void initState() {
-    super.initState();
-    _range = widget.initialRange;
-  }
+  late DateRangeQueryParam _range = widget.initialRange;
 
   @override
   Widget build(BuildContext context) {
@@ -49,29 +44,13 @@ class _RecordChartDateState extends State<RecordChartDate> {
               ),
               IconButton(
                 icon: const Icon(Icons.filter_alt_outlined),
-                tooltip: 'Wybierz zakres',
                 onPressed: () async {
-                  final earliest = _range.from.isBefore(DateTime(2000))
-                      ? _range.from
-                      : DateTime(2000);
-
-                  final picked = await showDateRangePicker(
+                  final picked = await showDialog<DateRangeQueryParam>(
                     context: context,
-                    locale: const Locale('pl', 'PL'),
-                    firstDate: earliest,
-                    lastDate: DateTime.now(),
-                    initialDateRange: DateTimeRange(
-                      start: _range.from,
-                      end: _range.to,
-                    ),
+                    builder: (_) => _RangePickerDialog(initial: _range),
                   );
                   if (picked != null) {
-                    setState(() {
-                      _range = DateRangeQueryParam(
-                        from: picked.start,
-                        to: picked.end,
-                      );
-                    });
+                    setState(() => _range = picked);
                   }
                 },
               ),
@@ -86,6 +65,71 @@ class _RecordChartDateState extends State<RecordChartDate> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _RangePickerDialog extends StatefulWidget {
+  const _RangePickerDialog({required this.initial});
+  final DateRangeQueryParam initial;
+
+  @override
+  State<_RangePickerDialog> createState() => _RangePickerDialogState();
+}
+
+class _RangePickerDialogState extends State<_RangePickerDialog> {
+  late DateTime _from = widget.initial.from;
+  late DateTime _to   = widget.initial.to;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Zakres dat'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: AppFormDateInput<_RangePickerDialogState>(
+                  dto: this,
+                  label: 'Od',
+                  isRequired: true,
+                  firstDate: DateTime(1900),
+                  lastDate : DateTime.now(),
+                  getValue: (_) => _from,
+                  setValue: (_, v) => setState(() => _from = v),
+                  dateFormat: DateFormat('yyyy-MM-dd'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: AppFormDateInput<_RangePickerDialogState>(
+                  dto: this,
+                  label: 'Do',
+                  isRequired: true,
+                  firstDate: DateTime(1900),
+                  lastDate : DateTime.now(),
+                  getValue: (_) => _to,
+                  setValue: (_, v) => setState(() => _to = v),
+                  dateFormat: DateFormat('yyyy-MM-dd'),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Align(
+            alignment: Alignment.centerRight,
+            child: ElevatedButton(
+              onPressed: () => Navigator.pop(
+                context,
+                DateRangeQueryParam(from: _from, to: _to),
+              ),
+              child: const Text('Zastosuj'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

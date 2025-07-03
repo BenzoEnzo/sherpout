@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:sherpoutmobile/navigation/menu/left_side_menu.dart';
-import 'package:sherpoutmobile/navigation/menu/right_side_menu.dart';
 
 import '../../common/user_provider.dart';
 
@@ -33,7 +32,6 @@ class DashboardPage extends StatelessWidget {
 
     return Scaffold(
       drawer: LeftSideMenu(),
-      endDrawer: RightSideMenu(),
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.dashboardTitle),
         leading: Builder(

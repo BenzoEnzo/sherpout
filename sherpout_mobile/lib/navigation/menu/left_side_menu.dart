@@ -4,7 +4,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../common/theme/app_colors.dart';
 import '../../common/auth_service.dart';
 import '../../common/user_provider.dart';
 import '../../navigation/menu/user_drawer_header.dart';
@@ -15,36 +14,18 @@ class LeftSideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
-    final authService  = GetIt.instance<AuthService>();
+    final authService = GetIt.instance<AuthService>();
 
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          // ----- górny nagłówek z nazwą aplikacji ---------------------------
-          Container(
-            height: 100,
-            alignment: Alignment.center,
-            color: AppColors.primary,
-            child: Text(
-              'Sherpout',
-              style: TextStyle(
-                color: AppColors.surface,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-
-          // ----- sekcja użytkownika -----------------------------------------
           if (userProvider.userData != null)
             UserDrawerHeader(
-              name:        userProvider.userData!.firstName,
-              lastName:    userProvider.userData!.lastName,
-              accountEmail:userProvider.userData!.email,
+              name: userProvider.userData!.firstName,
+              lastName: userProvider.userData!.lastName,
+              accountEmail: userProvider.userData!.email,
             ),
-
-          // ----- główne nawigacje -------------------------------------------
           _navTile(
             context,
             icon: Icons.fitness_center,
@@ -72,7 +53,6 @@ class LeftSideMenu extends StatelessWidget {
 
           const Divider(),
 
-          // ----- konto / ustawienia / wyloguj -------------------------------
           _navTile(
             context,
             icon: Icons.account_circle,
@@ -102,9 +82,7 @@ class LeftSideMenu extends StatelessWidget {
   }
 
   ListTile _navTile(BuildContext context,
-      {required IconData icon,
-        required String label,
-        required String route}) {
+      {required IconData icon, required String label, required String route}) {
     return ListTile(
       leading: Icon(icon),
       title: Text(label),

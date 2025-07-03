@@ -20,7 +20,6 @@ class RecordChart extends StatelessWidget {
   final DateRangeQueryParam? initialRange;
   final Color? lineColor;
 
-
   @override
   Widget build(BuildContext context) {
     final queryRange = initialRange ??
@@ -55,7 +54,6 @@ class RecordChart extends StatelessWidget {
             child: GenericLineChart(
               data: spots,
               initialRange: initialRange,
-              lineColor: lineColor ?? Theme.of(context).colorScheme.primary,
             ),
           ),
         );

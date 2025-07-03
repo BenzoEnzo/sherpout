@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 
 import '../../../common/dto/date_range_query_param.dart';
 import '../../../common/dto/record_dto.dart';
@@ -104,10 +103,7 @@ class _RecordHistoryState extends State<RecordHistory> {
                       insetPadding: const EdgeInsets.all(24),
                       child: RecordForm(
                         record: RecordDTO(
-                          id: rec.id,
-                          date: rec.date,
-                          value: rec.value
-                        ),
+                            id: rec.id, date: rec.date, value: rec.value),
                         isEdit: true,
                       ),
                     ),

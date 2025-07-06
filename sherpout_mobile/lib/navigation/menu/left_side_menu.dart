@@ -1,59 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
-import '../../common/theme/app_colors.dart';
+import '../../common/auth_service.dart';
+import '../../common/user_provider.dart';
+import '../../navigation/menu/user_drawer_header.dart';
 
 class LeftSideMenu extends StatelessWidget {
-
   const LeftSideMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
+    final authService = GetIt.instance<AuthService>();
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          Container(
-            height: 100.0,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.primary,
+          if (userProvider.userData != null)
+            UserDrawerHeader(
+              name: userProvider.userData!.firstName,
+              lastName: userProvider.userData!.lastName,
+              accountEmail: userProvider.userData!.email,
             ),
-            child: Text('Sherpout Menu',
-              style: TextStyle(color: AppColors.surface, fontSize: 20),
-                ),
+          _navTile(
+            context,
+            icon: Icons.fitness_center,
+            label: AppLocalizations.of(context)!.exercises,
+            route: '/exercises',
+          ),
+          _navTile(
+            context,
+            icon: Icons.directions_run,
+            label: AppLocalizations.of(context)!.trainings,
+            route: '/trainings',
+          ),
+          _navTile(
+            context,
+            icon: Icons.book,
+            label: AppLocalizations.of(context)!.records,
+            route: '/records',
+          ),
+          _navTile(
+            context,
+            icon: Icons.equalizer,
+            label: AppLocalizations.of(context)!.rankings,
+            route: '/rankings',
+          ),
+
+          const Divider(),
+
+          _navTile(
+            context,
+            icon: Icons.account_circle,
+            label: AppLocalizations.of(context)!.account,
+            route: '/accounts',
+          ),
+          _navTile(
+            context,
+            icon: Icons.people,
+            label: AppLocalizations.of(context)!.friends,
+            route: '/friends',
+          ),
+          _navTile(
+            context,
+            icon: Icons.settings,
+            label: AppLocalizations.of(context)!.settings,
+            route: '/settings',
           ),
           ListTile(
-            leading: Icon(Icons.fitness_center),
-            title: Text(AppLocalizations.of(context)!.exercises),
-            onTap: () {
-              context.push('/exercises');
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.directions_run),
-            title: Text(AppLocalizations.of(context)!.trainings),
-            onTap: () {
-              context.push('/trainings');
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.book),
-            title: Text(AppLocalizations.of(context)!.records),
-            onTap: () {
-              context.push('/records');
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.equalizer),
-            title: Text(AppLocalizations.of(context)!.rankings),
-            onTap: () {
-              context.push('/rankings');
-            },
+            leading: const Icon(Icons.logout),
+            title: Text(AppLocalizations.of(context)!.logOut),
+            onTap: authService.logout,
           ),
         ],
       ),
+    );
+  }
+
+  ListTile _navTile(BuildContext context,
+      {required IconData icon, required String label, required String route}) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(label),
+      onTap: () => context.push(route),
     );
   }
 }

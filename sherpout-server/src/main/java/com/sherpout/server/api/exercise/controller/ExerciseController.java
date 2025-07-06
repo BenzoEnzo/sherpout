@@ -29,7 +29,7 @@ public class ExerciseController {
     @PutMapping("/{id}")
     @SecuredByGroup(UserGroup.USER)
     public ResponseEntity<ExerciseDTO> updateExercise(
-            @RequestBody @RequestPart("data") ExerciseDTO exerciseDTO,
+            @RequestPart("data") ExerciseDTO exerciseDTO,
             @PathVariable Long id,
             @RequestPart(value = "files", required = false) List<MultipartFile> files
     ) {
@@ -70,7 +70,7 @@ public class ExerciseController {
     public ResponseEntity<LikeNumberResponseDTO> toggleLike(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(exerciseLikeService.toggleLike(id, tokenService.getUser().getId()));
+                .body(exerciseLikeService.toggleLike(id, tokenService.getUserId()));
     }
 
     @GetMapping("/select")

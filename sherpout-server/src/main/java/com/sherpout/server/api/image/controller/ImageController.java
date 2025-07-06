@@ -1,6 +1,5 @@
 package com.sherpout.server.api.image.controller;
 
-import com.sherpout.server.api.image.dto.ImageDTO;
 import com.sherpout.server.api.image.dto.ImageUrlDTO;
 import com.sherpout.server.api.image.logic.ImageService;
 import com.sherpout.server.config.security.group.SecuredByGroup;

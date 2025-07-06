@@ -1,5 +1,6 @@
 package com.sherpout.server.api.training.entity;
 
+import com.sherpout.server.commons.entity.TranslatedString;
 import com.sherpout.server.config.security.ownership.Ownable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,20 @@ public class TrainingPlan implements Ownable {
     private Long id;
 
     private UUID userId;
-    private String name;
-    private String description;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride( name = "en", column = @Column(name = "name_en")),
+            @AttributeOverride( name = "pl", column = @Column(name = "name_pl"))
+    })
+    private TranslatedString name;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride( name = "en", column = @Column(name = "description_en")),
+            @AttributeOverride( name = "pl", column = @Column(name = "description_pl"))
+    })
+    private TranslatedString description;
 
     @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL)
     private List<TrainingPlanDay> days;

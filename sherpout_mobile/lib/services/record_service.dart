@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../common/api_client.dart';
+import '../common/api/api_client.dart';
 import '../common/dto/record_dto.dart';
 
 class RecordService {

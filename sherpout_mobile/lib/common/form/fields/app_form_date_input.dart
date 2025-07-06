@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sherpoutmobile/common/form/fields/app_form_field.dart';
 
-class AppFormDateInput<T> extends StatelessWidget {
-  final T dto;
-  final String label;
-  final bool isRequired;
-  final DateTime? Function(T dto) getValue;
-  final void Function(T dto, DateTime value) setValue;
+class AppFormDateInput<T> extends AppFormField<T, DateTime> {
   final DateTime? firstDate;
   final DateTime? lastDate;
   final DateFormat? dateFormat;
 
-  const AppFormDateInput({
-    super.key,
-    required this.dto,
-    required this.label,
-    required this.isRequired,
-    required this.getValue,
-    required this.setValue,
+  AppFormDateInput({
+    required String key,
+    required String label,
+    required DateTime? Function(T dto) getValue,
+    required void Function(T dto, DateTime value) setValue,
+    required bool isRequired,
     this.firstDate,
     this.lastDate,
     this.dateFormat,
-  });
+  }) : super(key, label, getValue, setValue, isRequired);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, T dto, List<String>? errors) {
     final DateTime effectiveFirstDate = firstDate ?? DateTime(2010);
     final DateTime effectiveLastDate = lastDate ?? DateTime(2100);
-    final DateFormat effectiveDateFormat = dateFormat ?? DateFormat('yyyy-MM-dd');
+    final DateFormat effectiveDateFormat =
+        dateFormat ?? DateFormat('yyyy-MM-dd');
 
     final currentDate = getValue(dto);
     final controller = TextEditingController(
@@ -37,12 +32,10 @@ class AppFormDateInput<T> extends StatelessWidget {
 
     return TextFormField(
       controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        suffixIcon: const Icon(Icons.calendar_today),
-      ),
+      decoration: buildInputDecoration(errors)
+          .copyWith(suffixIcon: const Icon(Icons.calendar_today)),
       readOnly: true,
-      validator: (value) => _validate(value, context),
+      validator: (value) => validateRequired(value, context),
       onTap: () async {
         final picked = await showDatePicker(
           context: context,
@@ -57,12 +50,5 @@ class AppFormDateInput<T> extends StatelessWidget {
         }
       },
     );
-  }
-
-  String? _validate(String? value, BuildContext context) {
-    if (isRequired && (value == null || value.isEmpty)) {
-      return AppLocalizations.of(context)!.thisFieldIsRequired;
-    }
-    return null;
   }
 }

@@ -6,7 +6,7 @@ import com.sherpout.server.api.training.mapper.TrainingPlanMapper;
 import com.sherpout.server.api.training.repository.TrainingPlanRepository;
 import com.sherpout.server.api.user.logic.TokenService;
 import com.sherpout.server.config.security.ownership.OwnershipGuard;
-import com.sherpout.server.error.exception.UnableToFindRecordException;
+import com.sherpout.server.error.exception.UnableToFindTrainingPlanException;
 import com.sherpout.server.error.model.ErrorLocationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class TrainingPlanService {
 
     public TrainingPlanDTO update(Long id, TrainingPlanDTO dto) {
         TrainingPlan trainingPlan = trainingPlanRepository.findById(id)
-                .orElseThrow(() -> new UnableToFindRecordException(ErrorLocationType.PATH_PARAM, id));
+                .orElseThrow(() -> new UnableToFindTrainingPlanException(ErrorLocationType.PATH_PARAM, id));
 
         ownershipGuard.checkOwnership(trainingPlan);
         return trainingPlanMapper.mapToDTO(trainingPlanMapper.mapToUpdateEntity(dto, trainingPlan));

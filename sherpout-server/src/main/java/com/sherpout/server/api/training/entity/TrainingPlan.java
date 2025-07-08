@@ -37,6 +37,6 @@ public class TrainingPlan implements Ownable {
     })
     private TranslatedString description;
 
-    @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TrainingPlanDay> days;
 }

@@ -15,6 +15,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TrainingPlanExerciseDTO {
+    private Long id;
+
     @Valid
     @NotNull
     private ExerciseSelectDTO exercise;

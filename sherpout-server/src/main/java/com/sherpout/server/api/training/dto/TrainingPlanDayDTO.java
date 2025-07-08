@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TrainingPlanDayDTO {
+    private Long id;
+
     @NotNull
     @Min(1)
     @Max(7)

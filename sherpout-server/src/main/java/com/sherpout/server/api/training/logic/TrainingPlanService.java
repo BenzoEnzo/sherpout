@@ -22,9 +22,9 @@ public class TrainingPlanService {
     private final TrainingPlanMapper trainingPlanMapper;
 
     public TrainingPlanDTO create(TrainingPlanDTO dto) {
-        TrainingPlan trainingPlan = trainingPlanMapper.mapToEntity(dto);
-        trainingPlan.setUserId(tokenService.getUserId());
-        return trainingPlanMapper.mapToDTO(trainingPlanRepository.save(trainingPlan));
+        TrainingPlan entity = trainingPlanMapper.mapToEntity(dto);
+        entity.setUserId(tokenService.getUserId());
+        return trainingPlanMapper.mapToDTO(trainingPlanRepository.save(entity));
     }
 
     @Transactional

@@ -27,7 +27,7 @@ public interface TrainingPlanDayMapper {
         if (day.getId() != null) {
             return;
         }
-        
+
         for (TrainingPlanExercise exercise : day.getExercises()) {
             exercise.setTrainingPlanDay(day);
         }

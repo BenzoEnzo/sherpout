@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class TranslatedStringDto {
-  final String en;
-  final String pl;
+  String? en;
+  String? pl;
 
   TranslatedStringDto({
     required this.en,
@@ -11,19 +11,27 @@ class TranslatedStringDto {
 
   factory TranslatedStringDto.fromJson(Map<String, dynamic> json) {
     return TranslatedStringDto(
-      en: json['en'] as String,
-      pl: json['pl'] as String,
+      en: json['en'] != null ? json['en'] as String : null,
+      pl: json['pl'] != null ? json['pl'] as String : null,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      if (en != null) 'en': en,
+      if (pl != null) 'pl': pl,
+    };
   }
 
   String localized(BuildContext context) {
     final lang = Localizations.localeOf(context).languageCode;
+
     switch (lang) {
       case 'pl':
-        return pl;
+        return pl ?? en ?? '';
       case 'en':
       default:
-        return en;
+        return en ?? pl ?? '';
     }
   }
 }

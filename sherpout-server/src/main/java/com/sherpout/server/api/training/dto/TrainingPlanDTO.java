@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TrainingPlanDTO {
-    @Null
     private Long id;
 
     @NotNull

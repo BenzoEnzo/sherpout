@@ -1,8 +1,10 @@
 package com.sherpout.server.api.training.mapper;
 
 import com.sherpout.server.api.training.dto.TrainingPlanDTO;
+import com.sherpout.server.api.training.dto.TrainingPlanListDTO;
 import com.sherpout.server.api.training.entity.TrainingPlan;
 import com.sherpout.server.api.training.entity.TrainingPlanDay;
+import com.sherpout.server.api.training.entity.TrainingPlanExercise;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,6 +16,8 @@ import org.mapstruct.MappingTarget;
 )
 public interface TrainingPlanMapper {
     TrainingPlanDTO mapToDTO(TrainingPlan trainingPlan);
+
+    TrainingPlanListDTO mapToListDTO(TrainingPlan trainingPlan);
 
     @Mapping(target = "id", ignore = true)
     TrainingPlan mapToEntity(TrainingPlanDTO dto);
@@ -27,5 +31,15 @@ public interface TrainingPlanMapper {
         for (TrainingPlanDay day : plan.getDays()) {
             day.setTrainingPlan(plan);
         }
+    }
+
+    @AfterMapping
+    default void setSetsNumber(@MappingTarget TrainingPlanListDTO dto, TrainingPlan trainingPlan) {
+        int setsNumber = trainingPlan.getDays().stream()
+                .flatMap(day -> day.getExercises().stream())
+                .mapToInt(TrainingPlanExercise::getSets)
+                .sum();
+
+        dto.setSetsNumber(setsNumber);
     }
 }

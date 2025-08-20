@@ -8,6 +8,11 @@ class TrainingPlanService {
 
   TrainingPlanService(this._apiClient);
 
+  Future<TrainingPlanDTO> getById(int id) async {
+    Response<dynamic> response = await _apiClient.get('training-plans/$id');
+    return TrainingPlanDTO.fromJson(response.data);
+  }
+
   Future<TrainingPlanDTO> create(TrainingPlanDTO trainingPlan) async {
     Response<dynamic> response = await _apiClient.post('training-plans', data: trainingPlan.toJson());
     final dynamic data = response.data;

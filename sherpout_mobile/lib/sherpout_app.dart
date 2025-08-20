@@ -4,7 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sherpoutmobile/pages/activity/rankings_page.dart';
-import 'package:sherpoutmobile/pages/activity/trainings_page.dart';
 import 'package:sherpoutmobile/pages/auth/auth_page.dart';
 import 'package:sherpoutmobile/pages/dashboard/dashboard_page.dart';
 import 'package:sherpoutmobile/pages/exercises/detail/exercise_detail_page.dart';
@@ -15,6 +14,7 @@ import 'package:sherpoutmobile/pages/personal/account_page.dart';
 import 'package:sherpoutmobile/pages/personal/friends_page.dart';
 import 'package:sherpoutmobile/pages/personal/settings_page.dart';
 import 'package:sherpoutmobile/pages/records/list/records_list_page.dart';
+import 'package:sherpoutmobile/pages/training/plan/create/training_plan_create_page.dart';
 
 import 'common/theme/app_colors.dart';
 import 'l10n/l10n.dart';
@@ -102,8 +102,8 @@ class _SherpoutAppState extends State<SherpoutApp> {
           builder: (context, state) => RecordsPage(),
         ),
         GoRoute(
-          path: '/trainings',
-          builder: (context, state) => TrainingsPage(),
+          path: '/training-plans/create',
+          builder: (context, state) => TrainingPlanCreatePage(),
         ),
       ],
     );

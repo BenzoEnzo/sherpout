@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
-import 'package:sherpoutmobile/pages/training/plan/training_plan_form.dart';
+import 'package:sherpoutmobile/pages/training/plan/form/training_plan_form.dart';
 import 'package:sherpoutmobile/services/training_plan_service.dart';
 
 import '../../../../common/components/app_page.dart';

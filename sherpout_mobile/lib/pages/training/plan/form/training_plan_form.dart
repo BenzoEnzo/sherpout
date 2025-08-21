@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
+import 'package:sherpoutmobile/pages/training/plan/form/training_plan_form_days_input.dart';
 import 'package:sherpoutmobile/services/training_plan_service.dart';
 
-import '../../../common/form/app_form.dart';
+import '../../../../common/form/app_form.dart';
 
 class TrainingPlanForm extends StatefulWidget {
   final TrainingPlanDTO trainingPlan;
@@ -32,7 +33,16 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
         dto: trainingPlan,
         onSubmit: widget.isEdit ? _onEditSubmit : _onCreateSubmit,
         children: [
-
+          //name
+          //description
+          TrainingPlanFormDaysField(
+              key: "days",
+              label: "label",
+              getValue: (dto) => dto.days,
+              setValue: (dto, value) => dto.days = value
+          )
+            //exercisesList
+            //addExercise
         ]);
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
+import 'package:sherpoutmobile/common/form/fields/app_form_translated_string_input.dart';
 import 'package:sherpoutmobile/pages/training/plan/form/training_plan_form_days_input.dart';
 import 'package:sherpoutmobile/services/training_plan_service.dart';
 
@@ -33,8 +34,20 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
         dto: trainingPlan,
         onSubmit: widget.isEdit ? _onEditSubmit : _onCreateSubmit,
         children: [
-          //name
-          //description
+          AppFormTranslatedStringInput(
+              key: "name",
+              label: "Name",
+              getValue: (plan) => plan.name,
+              setValue: (plan, value) => plan.name = value,
+              isRequired: true
+          ),
+          AppFormTranslatedStringInput(
+              key: "description",
+              label: "Description",
+              getValue: (plan) => plan.description,
+              setValue: (plan, value) => plan.description = value,
+              isRequired: true
+          ),
           TrainingPlanFormDaysField(
               key: "days",
               label: "label",
@@ -47,7 +60,8 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
   }
 
   Future<void> _onCreateSubmit(TrainingPlanDTO toCreate) async {
-    TrainingPlanDTO result = await _trainingPlanService.create(toCreate);
+    print("Jebac ${toCreate.toJson()}");
+    // TrainingPlanDTO result = await _trainingPlanService.create(toCreate);
 
     if (!mounted) return;
 

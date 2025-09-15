@@ -8,8 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
@@ -39,4 +38,13 @@ public class TrainingPlan implements Ownable {
 
     @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL)
     private List<TrainingPlanDay> days;
+
+    @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL)
+    private final Set<AssignedTrainingPlan> assignments = new HashSet<>();
+
+    public AssignedTrainingPlan assignTo(UUID userId) {
+        AssignedTrainingPlan assignedTrainingPlan = new AssignedTrainingPlan(this, userId);
+        assignments.add(assignedTrainingPlan);
+        return assignedTrainingPlan;
+    }
 }

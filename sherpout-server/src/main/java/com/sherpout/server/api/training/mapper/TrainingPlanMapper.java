@@ -10,16 +10,18 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(
         componentModel = "spring",
-        uses = TrainingPlanDayMapper.class
+        uses = {TrainingPlanDayMapper.class, AssignedTrainingPlanMapper.class}
 )
 public interface TrainingPlanMapper {
     TrainingPlanDTO mapToDTO(TrainingPlan trainingPlan);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "assignments", ignore = true)
     TrainingPlan mapToEntity(TrainingPlanDTO dto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "days", ignore = true)
+    @Mapping(target = "assignments", ignore = true)
     TrainingPlan mapToUpdateEntity(TrainingPlanDTO dto, @MappingTarget TrainingPlan trainingPlan);
 
     @AfterMapping

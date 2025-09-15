@@ -63,7 +63,11 @@ public enum ErrorMessage {
 
     RECORD_UNABLE_TO_FIND_BY_ID(
             "Unable to find record with id: {{id}}.",
-            "Nie można znaleźć rekordu o identyfikatorze: {{id}}.");
+            "Nie można znaleźć rekordu o identyfikatorze: {{id}}."),
+
+    TRAINING_PLAN_UNABLE_TO_FIND_BY_ID(
+            "Unable to find training plan with id: {{id}}.",
+                    "Nie można znaleźć planu treningowego o identyfikatorze: {{id}}.");
 
     private final String english;
     private final String polish;

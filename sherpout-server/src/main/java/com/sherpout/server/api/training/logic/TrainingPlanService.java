@@ -5,8 +5,13 @@ import com.sherpout.server.api.training.entity.TrainingPlan;
 import com.sherpout.server.api.training.mapper.TrainingPlanMapper;
 import com.sherpout.server.api.training.repository.TrainingPlanRepository;
 import com.sherpout.server.api.user.logic.TokenService;
+import com.sherpout.server.error.exception.UnableToFindTrainingPlanException;
+import com.sherpout.server.error.model.ErrorLocationType;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,5 +24,15 @@ public class TrainingPlanService {
         TrainingPlan entity = trainingPlanMapper.mapToEntity(dto);
         entity.setUserId(tokenService.getUserId());
         return trainingPlanMapper.mapToDTO(trainingPlanRepository.save(entity));
+    }
+
+    @Transactional
+    public TrainingPlanDTO assignToUser(UUID userId, Long trainingPlanId){
+        TrainingPlan trainingPlan = trainingPlanRepository.findById(trainingPlanId)
+                .orElseThrow(()-> new UnableToFindTrainingPlanException(ErrorLocationType.PATH_PARAM,trainingPlanId));
+
+        trainingPlan.assignTo(userId);
+
+        return trainingPlanMapper.mapToDTO(trainingPlan);
     }
 }

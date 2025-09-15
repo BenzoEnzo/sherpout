@@ -31,4 +31,6 @@ public class TrainingPlanDTO {
     @NotEmpty
     @Size(min = 1, max = 7)
     private List<TrainingPlanDayDTO> days;
+
+    private List<AssignedTrainingPlanDTO> assignments;
 }

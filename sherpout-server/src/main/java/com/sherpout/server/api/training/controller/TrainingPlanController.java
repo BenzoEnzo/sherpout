@@ -24,6 +24,14 @@ public class TrainingPlanController {
                 .body(trainingPlanService.create(request));
     }
 
+    @PutMapping("/{id}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<TrainingPlanDTO> update(@PathVariable Long id, @Valid @RequestBody TrainingPlanDTO request) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(trainingPlanService.update(id, request));
+    }
+
     @GetMapping("/{id}")
     @SecuredByGroup(UserGroup.USER)
     public ResponseEntity<TrainingPlanDTO> getById(@PathVariable Long id) {

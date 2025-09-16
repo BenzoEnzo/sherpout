@@ -24,6 +24,10 @@ public interface TrainingPlanDayMapper {
 
     @AfterMapping
     default void setBackReference(@MappingTarget TrainingPlanDay day) {
+        if (day.getId() != null) {
+            return;
+        }
+
         for (TrainingPlanExercise exercise : day.getExercises()) {
             exercise.setTrainingPlanDay(day);
         }

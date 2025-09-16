@@ -24,6 +24,6 @@ public class TrainingPlanDay {
 
     private Integer number;
 
-    @OneToMany(mappedBy = "trainingPlanDay", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trainingPlanDay", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TrainingPlanExercise> exercises;
 }

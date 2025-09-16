@@ -1,0 +1,16 @@
+package com.sherpout.server.error.exception;
+
+import com.sherpout.server.error.model.ApiError;
+import com.sherpout.server.error.model.ErrorLocationType;
+import com.sherpout.server.error.model.ErrorMessage;
+import org.springframework.http.HttpStatus;
+
+public class UnableToFindTrainingPlanException extends SingleApiErrorException {
+    public UnableToFindTrainingPlanException(ErrorLocationType locationType, Long id) {
+        super(ApiError.builder(ErrorMessage.TRAINING_PLAN_UNABLE_TO_FIND_BY_ID, HttpStatus.NOT_FOUND)
+                .withErrorLocationType(locationType)
+                .withLocation("id")
+                .withTextParam("id", id)
+        );
+    }
+}

@@ -5,6 +5,9 @@ import com.sherpout.server.api.training.entity.TrainingPlan;
 import com.sherpout.server.api.training.mapper.TrainingPlanMapper;
 import com.sherpout.server.api.training.repository.TrainingPlanRepository;
 import com.sherpout.server.api.user.logic.TokenService;
+import com.sherpout.server.config.security.ownership.OwnershipGuard;
+import com.sherpout.server.error.exception.UnableToFindTrainingPlanException;
+import com.sherpout.server.error.model.ErrorLocationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +17,20 @@ public class TrainingPlanService {
     private final TokenService tokenService;
     private final TrainingPlanRepository trainingPlanRepository;
     private final TrainingPlanMapper trainingPlanMapper;
+    private final OwnershipGuard ownershipGuard;
 
     public TrainingPlanDTO create(TrainingPlanDTO dto) {
         TrainingPlan entity = trainingPlanMapper.mapToEntity(dto);
         entity.setUserId(tokenService.getUserId());
         return trainingPlanMapper.mapToDTO(trainingPlanRepository.save(entity));
+    }
+
+    public TrainingPlanDTO getById(Long id) {
+        TrainingPlan trainingPlan = trainingPlanRepository.findById(id)
+                .orElseThrow(() -> new UnableToFindTrainingPlanException(ErrorLocationType.PATH_PARAM, id));
+
+        ownershipGuard.checkOwnership(trainingPlan);
+
+        return trainingPlanMapper.mapToDTO(trainingPlan);
     }
 }

@@ -13,6 +13,7 @@ import org.mapstruct.MappingTarget;
         uses = TrainingPlanDayMapper.class
 )
 public interface TrainingPlanMapper {
+    @Mapping(target = "id", ignore = true)
     TrainingPlanDTO mapToDTO(TrainingPlan trainingPlan);
 
     @Mapping(target = "id", ignore = true)
@@ -24,6 +25,10 @@ public interface TrainingPlanMapper {
 
     @AfterMapping
     default void setBackReference(@MappingTarget TrainingPlan plan) {
+        if (plan.getId() != null) {
+            return;
+        }
+
         for (TrainingPlanDay day : plan.getDays()) {
             day.setTrainingPlan(plan);
         }

@@ -39,4 +39,14 @@ public class TrainingPlanController {
                 .status(HttpStatus.OK)
                 .body(trainingPlanService.getById(id));
     }
+
+    @PostMapping("/{id}/activate")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<Void> activate(@PathVariable Long id) {
+        trainingPlanService.activateTrainingPlan(id);
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
 }

@@ -9,7 +9,6 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
 @Entity
 @Getter @Setter
 @NoArgsConstructor
@@ -19,9 +18,14 @@ public class ActiveTrainingPlan {
     private UUID userId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "training_plan_id",
-            foreignKey = @ForeignKey(name = "fk_atp_plan"))
+    @JoinColumn(name = "training_plan_id", nullable = false)
     private TrainingPlan trainingPlan;
 
     private LocalDateTime activatedAt;
+
+    @PrePersist
+    @PreUpdate
+    private void updateActivatedAt() {
+        this.activatedAt = LocalDateTime.now();
+    }
 }

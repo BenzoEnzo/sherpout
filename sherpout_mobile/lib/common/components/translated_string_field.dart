@@ -1,3 +1,4 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,9 @@ class _TranslatedStringFieldState extends State<TranslatedStringField> {
   late TextEditingController _enController;
   late TextEditingController _plController;
 
+  final List<String> _languages = ["en", "pl"];
+  int _currentLangIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -32,6 +36,14 @@ class _TranslatedStringFieldState extends State<TranslatedStringField> {
 
     _enController.addListener(_notifyChange);
     _plController.addListener(_notifyChange);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final systemLang = Localizations.localeOf(context).languageCode;
+    _currentLangIndex = _languages.indexOf(systemLang);
   }
 
   void _notifyChange() {
@@ -50,21 +62,30 @@ class _TranslatedStringFieldState extends State<TranslatedStringField> {
     super.dispose();
   }
 
+  void _switchLanguage() {
+    setState(() {
+      _currentLangIndex = (_currentLangIndex + 1) % _languages.length;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    final label = widget.label;
+    final currentLang = _languages[_currentLangIndex];
+    final controller = currentLang == "en" ? _enController : _plController;
+
+    return Row(
       children: [
-        Text(widget.label),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _enController,
-          decoration: const InputDecoration(labelText: "English"),
-        ),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _plController,
-          decoration: const InputDecoration(labelText: "Polish"),
+        Expanded(
+            child: TextField(
+          controller: controller,
+          decoration: InputDecoration(label: Text(label)),
+        )),
+        SizedBox(width: 8),
+        CountryFlag.fromLanguageCode(currentLang, shape: Circle(), width: 30),
+        IconButton(
+          icon: const Icon(Icons.arrow_forward_ios),
+          onPressed: _switchLanguage,
         ),
       ],
     );

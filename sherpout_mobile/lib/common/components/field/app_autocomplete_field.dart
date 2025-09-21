@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:sherpoutmobile/common/form/fields/app_form_field.dart';
-import 'package:sherpoutmobile/common/theme/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AppFormAutocomplete<T, V extends Object> extends AppFormField<T, V> {
-  final List<V> options;
+import '../../theme/app_colors.dart';
 
-  final String Function(V) getDisplay;
-  final Widget Function(BuildContext, V) optionViewBuilder;
+class AppAutocompleteField<T extends Object> extends StatelessWidget {
+  final String label;
+  final T? initialValue;
+  final void Function(T value) setValue;
+  final bool isRequired;
+  final List<T> options;
 
-  AppFormAutocomplete(
-      {required String key,
-      required String label,
-      required V? Function(T dto) getValue,
-      required void Function(T dto, V value) setValue,
-      required bool isRequired,
-      required this.options,
-      required this.getDisplay,
-      required this.optionViewBuilder})
-      : super(key, label, getValue, setValue, isRequired);
+  final String Function(T) getDisplay;
+  final Widget Function(BuildContext, T) optionViewBuilder;
+
+  const AppAutocompleteField(
+      {super.key,
+        required this.label,
+        required this.initialValue,
+        required this.setValue,
+        required this.isRequired,
+        required this.options,
+        required this.getDisplay,
+        required this.optionViewBuilder
+      });
 
   @override
-  Widget build(BuildContext context, T dto, List<String>? errors) {
-    final selectedValue = getValue(dto);
+  Widget build(BuildContext context) {
     final controller = TextEditingController(
-      text: selectedValue != null ? getDisplay(selectedValue) : '',
+      text: initialValue != null ? getDisplay(initialValue!) : '',
     );
 
-    return Autocomplete<V>(
+    return Autocomplete<T>(
         initialValue: TextEditingValue(text: controller.text),
         optionsBuilder: (TextEditingValue textEditingValue) {
           final input = textEditingValue.text.toLowerCase();
           return options.where(
-            (V option) => getDisplay(option).toLowerCase().contains(input),
+            (T option) => getDisplay(option).toLowerCase().contains(input),
           );
         },
         displayStringForOption: getDisplay,
@@ -41,13 +45,13 @@ class AppFormAutocomplete<T, V extends Object> extends AppFormField<T, V> {
           return TextFormField(
             controller: textEditingController,
             focusNode: focusNode,
-            decoration: buildInputDecoration(errors),
+            decoration: InputDecoration(label: Text(label)),
             validator: (value) => validateRequired(value, context),
             onEditingComplete: onEditingComplete,
           );
         },
-        onSelected: (V value) {
-          setValue(dto, value);
+        onSelected: (T value) {
+          setValue(value);
         },
         optionsViewBuilder: (context, onSelected, options) {
           return Align(
@@ -60,7 +64,7 @@ class AppFormAutocomplete<T, V extends Object> extends AppFormField<T, V> {
                   child: ListView(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
-                    children: options.map((V option) {
+                    children: options.map((T option) {
                       return InkWell(
                         onTap: () => onSelected(option),
                         child: optionViewBuilder(context, option),
@@ -70,5 +74,12 @@ class AppFormAutocomplete<T, V extends Object> extends AppFormField<T, V> {
                 )),
           );
         });
+  }
+
+  String? validateRequired(String? value, BuildContext context) {
+    if (isRequired && (value?.isEmpty ?? true)) {
+      return AppLocalizations.of(context)!.thisFieldIsRequired;
+    }
+    return null;
   }
 }

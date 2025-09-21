@@ -1,33 +1,33 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'app_form_field.dart';
-
-class AppFormNumberInput<T> extends AppFormField<T, num> {
+class AppNumberField extends StatelessWidget {
+  final String label;
+  final num? initialValue;
+  final void Function(num value) setValue;
+  final bool isRequired;
   final bool isDecimal;
 
-  AppFormNumberInput({
-    required String key,
-    required String label,
-    required num? Function(T dto) getValue,
-    required void Function(T dto, num value) setValue,
-    required bool isRequired,
+  const AppNumberField({super.key,
+    required this.label,
+    required this.initialValue,
+    required this.setValue,
+    required this.isRequired,
     this.isDecimal = false
-  }) : super(key, label, getValue, setValue, isRequired);
+  });
 
   @override
-  Widget build(BuildContext context, T dto, List<String>? errors) {
-    final initialValue = getValue(dto)?.toString() ?? '';
-
+  Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: initialValue,
-      decoration: buildInputDecoration(errors).copyWith(suffix: Text("kg")),
+      initialValue: initialValue?.toString() ?? '',
+      decoration: InputDecoration(label: Text(label)),
       keyboardType: TextInputType.numberWithOptions(
         decimal: isDecimal,
         signed: false,
       ),
       validator: (value) => _validate(value, context),
-      onSaved: (value) => _onSaved(value, dto),
+      onSaved: (value) => _onSaved(value)
     );
   }
 
@@ -44,11 +44,18 @@ class AppFormNumberInput<T> extends AppFormField<T, num> {
     return null;
   }
 
-  void _onSaved(String? value, T dto) {
+  String? validateRequired(String? value, BuildContext context) {
+    if (isRequired && (value?.isEmpty ?? true)) {
+      return AppLocalizations.of(context)!.thisFieldIsRequired;
+    }
+    return null;
+  }
+
+  void _onSaved(String? value) {
     if (value != null && value.isNotEmpty) {
       final parsed = isDecimal ? double.tryParse(value) : int.tryParse(value);
       if (parsed != null) {
-        setValue(dto, parsed);
+        setValue(parsed);
       }
     }
   }

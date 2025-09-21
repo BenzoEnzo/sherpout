@@ -1,54 +1,65 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sherpoutmobile/common/form/fields/app_form_field.dart';
 
-class AppFormDateInput<T> extends AppFormField<T, DateTime> {
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+class AppDateField extends StatelessWidget {
+  final String label;
+  final DateTime? initialValue;
+  final void Function(DateTime value) setValue;
+  final bool isRequired;
+
   final DateTime? firstDate;
   final DateTime? lastDate;
   final DateFormat? dateFormat;
 
-  AppFormDateInput({
-    required String key,
-    required String label,
-    required DateTime? Function(T dto) getValue,
-    required void Function(T dto, DateTime value) setValue,
-    required bool isRequired,
+  const AppDateField({super.key,
+    required this.label,
+    required this.initialValue,
+    required this.setValue,
+    required this.isRequired,
     this.firstDate,
     this.lastDate,
     this.dateFormat,
-  }) : super(key, label, getValue, setValue, isRequired);
+  });
 
   @override
-  Widget build(BuildContext context, T dto, List<String>? errors) {
+  Widget build(BuildContext context) {
     final DateTime effectiveFirstDate = firstDate ?? DateTime(2010);
     final DateTime effectiveLastDate = lastDate ?? DateTime(2100);
     final DateFormat effectiveDateFormat =
         dateFormat ?? DateFormat('yyyy-MM-dd');
 
-    final currentDate = getValue(dto);
     final controller = TextEditingController(
-      text: currentDate != null ? effectiveDateFormat.format(currentDate) : '',
+      text: initialValue != null ? effectiveDateFormat.format(initialValue!) : '',
     );
 
     return TextFormField(
       controller: controller,
-      decoration: buildInputDecoration(errors)
-          .copyWith(suffixIcon: const Icon(Icons.calendar_today)),
+      decoration: InputDecoration(label: Text(label), suffixIcon: const Icon(Icons.calendar_today)),
       readOnly: true,
       validator: (value) => validateRequired(value, context),
       onTap: () async {
         final picked = await showDatePicker(
           context: context,
-          initialDate: currentDate ?? DateTime.now(),
+          initialDate: initialValue ?? DateTime.now(),
           firstDate: effectiveFirstDate,
           lastDate: effectiveLastDate,
         );
 
         if (picked != null) {
-          setValue(dto, picked);
+          setValue(picked);
           controller.text = effectiveDateFormat.format(picked);
         }
       },
     );
+  }
+
+  String? validateRequired(String? value, BuildContext context) {
+    if (isRequired && (value?.isEmpty ?? true)) {
+      return AppLocalizations.of(context)!.thisFieldIsRequired;
+    }
+    return null;
   }
 }

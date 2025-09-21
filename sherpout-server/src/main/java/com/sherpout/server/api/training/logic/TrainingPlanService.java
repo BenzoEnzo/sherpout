@@ -62,14 +62,7 @@ public class TrainingPlanService {
         ownershipGuard.checkOwnership(trainingPlan);
         UUID userId = trainingPlan.getUserId();
 
-        ActiveTrainingPlan activeTrainingPlan = activeTrainingPlanRepository.findById(userId)
-                .orElseGet(()-> {
-                   ActiveTrainingPlan atp = new ActiveTrainingPlan();
-                   atp.setUserId(userId);
-                   return atp;
-                });
-
-        activeTrainingPlan.setTrainingPlan(trainingPlan);
+        ActiveTrainingPlan activeTrainingPlan = new ActiveTrainingPlan(userId, trainingPlan);
         activeTrainingPlanRepository.save(activeTrainingPlan);
     }
 }

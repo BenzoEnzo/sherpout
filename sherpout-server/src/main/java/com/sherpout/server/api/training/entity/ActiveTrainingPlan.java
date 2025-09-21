@@ -1,18 +1,16 @@
 package com.sherpout.server.api.training.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Getter @Setter
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ActiveTrainingPlan {
     @Id
     private UUID userId;
@@ -22,6 +20,11 @@ public class ActiveTrainingPlan {
     private TrainingPlan trainingPlan;
 
     private LocalDateTime activatedAt;
+
+    public ActiveTrainingPlan(UUID userId, TrainingPlan trainingPlan) {
+        this.userId = userId;
+        this.trainingPlan = trainingPlan;
+    }
 
     @PrePersist
     @PreUpdate

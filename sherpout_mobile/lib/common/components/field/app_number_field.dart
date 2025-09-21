@@ -27,7 +27,7 @@ class AppNumberField extends StatelessWidget {
         signed: false,
       ),
       validator: (value) => _validate(value, context),
-      onSaved: (value) => _onSaved(value)
+      onChanged: (value) => _onChanged(value)
     );
   }
 
@@ -51,7 +51,7 @@ class AppNumberField extends StatelessWidget {
     return null;
   }
 
-  void _onSaved(String? value) {
+  void _onChanged(String? value) {
     if (value != null && value.isNotEmpty) {
       final parsed = isDecimal ? double.tryParse(value) : int.tryParse(value);
       if (parsed != null) {

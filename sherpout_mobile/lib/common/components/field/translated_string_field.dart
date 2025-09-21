@@ -1,20 +1,19 @@
 import 'package:country_flags/country_flags.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../dto/translated_string_dto.dart';
+import '../../dto/translated_string_dto.dart';
 
 class TranslatedStringField extends StatefulWidget {
   final String label;
   final TranslatedStringDto initialValue;
   final void Function(TranslatedStringDto) onChanged;
-  final List<String>? errors;
+  final bool isRequired;
 
   const TranslatedStringField({super.key,
     required this.label,
     required this.initialValue,
     required this.onChanged,
-    this.errors,
+    required this.isRequired,
   });
 
   @override
@@ -77,10 +76,12 @@ class _TranslatedStringFieldState extends State<TranslatedStringField> {
     return Row(
       children: [
         Expanded(
-            child: TextField(
-          controller: controller,
-          decoration: InputDecoration(label: Text(label)),
-        )),
+          child: TextFormField(
+            controller: controller,
+            decoration: InputDecoration(label: Text(label)),
+            validator: (value) => validate(context),
+          ),
+        ),
         SizedBox(width: 8),
         CountryFlag.fromLanguageCode(currentLang, shape: Circle(), width: 30),
         IconButton(
@@ -89,5 +90,17 @@ class _TranslatedStringFieldState extends State<TranslatedStringField> {
         ),
       ],
     );
+  }
+
+  String? validate(BuildContext context) {
+    if (widget.isRequired) {
+      final isEmptyEn = (_enController.text.isEmpty);
+      final isEmptyPl = (_plController.text.isEmpty);
+
+      if (isEmptyEn && isEmptyPl) {
+        return "At least one language has to be set.";
+      }
+    }
+    return null;
   }
 }

@@ -23,6 +23,7 @@ class TrainingPlanExerciseDTO {
     return {
       if (id != null) 'id': id,
       if (exercise != null) 'exercise': exercise!.toJson(),
+      if (sets != null) 'sets': sets,
     };
   }
 }

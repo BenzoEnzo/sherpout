@@ -6,8 +6,9 @@ import 'package:sherpoutmobile/pages/training/plan/form/day/training_plan_day_fo
 
 class TrainingPlanFormDays extends StatefulWidget {
   final List<TrainingPlanDayDTO> days;
+  final void Function() addDay;
 
-  const TrainingPlanFormDays({super.key, required this.days});
+  const TrainingPlanFormDays({super.key, required this.days, required this.addDay});
 
   @override
   State<TrainingPlanFormDays> createState() => _TrainingPlanFormDaysState();
@@ -27,9 +28,7 @@ class _TrainingPlanFormDaysState extends State<TrainingPlanFormDays> with Ticker
   }
 
   void _handleAddDay() {
-    setState(() {
-      widget.days.add(TrainingPlanDayDTO());
-    });
+    widget.addDay();
 
     tabController = TabController(length: widget.days.length, vsync: this);
     tabController.animateTo(widget.days.length - 1);
@@ -55,7 +54,8 @@ class _TrainingPlanFormDaysState extends State<TrainingPlanFormDays> with Ticker
       ),
     ];
 
-    return Column(
+    return
+      Expanded(child: Column(
       children: [
         Row(
           children: [
@@ -79,6 +79,7 @@ class _TrainingPlanFormDaysState extends State<TrainingPlanFormDays> with Ticker
           ),
         ),
       ],
-    );
+    )
+      );
   }
 }

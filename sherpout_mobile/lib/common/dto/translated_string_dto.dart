@@ -5,8 +5,8 @@ class TranslatedStringDto {
   String? pl;
 
   TranslatedStringDto({
-    required this.en,
-    required this.pl,
+    this.en,
+    this.pl,
   });
 
   factory TranslatedStringDto.fromJson(Map<String, dynamic> json) {

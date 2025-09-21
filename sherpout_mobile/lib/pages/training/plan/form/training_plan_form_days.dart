@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sherpoutmobile/common/components/buttons/app_text_button.dart';
 import 'package:sherpoutmobile/common/components/tab_bar/app_tab_bar.dart';
+import 'package:sherpoutmobile/common/components/tab_bar/app_tab_bar_view.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_day_dto.dart';
+import 'package:sherpoutmobile/pages/training/plan/form/day/training_plan_day_form.dart';
 
 class TrainingPlanFormDays extends StatefulWidget {
   final List<TrainingPlanDayDTO> days;
@@ -50,25 +51,34 @@ class _TrainingPlanFormDaysState extends State<TrainingPlanFormDays> with Ticker
 
     final List<Widget> children = [
       ...widget.days.asMap().entries.map(
-            (entry) => Center(child: Text("Treść dnia ${entry.key + 1}")),
+            (entry) => TrainingPlanDayForm(day: entry.value),
       ),
     ];
 
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: AppTabBar(tabController: tabController, tabs: tabs),
+        Row(
+          children: [
+            Expanded(
+              child: AppTabBar(tabController: tabController, tabs: tabs),
+            ),
+            if (widget.days.length < 7)
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: _handleAddDay,
+              ),
+          ],
         ),
-        if (widget.days.length < 7)
-          AppTextButton(text: "+", onPressed: _handleAddDay),
+        Expanded(
+          child: AppTabBarView(
+            tabController: tabController,
+            children: children.map((dayForm) => SingleChildScrollView(
+              padding: const EdgeInsets.all(8),
+              child: dayForm,
+            )).toList(),
+          ),
+        ),
       ],
     );
-    
-    // return Column(
-    //   children: [
-    //     AppTabBar(tabController: tabController, tabs: tabs),
-    //     AppTabBarView(tabController: tabController, children: children)
-    //   ],
-    // );
   }
 }

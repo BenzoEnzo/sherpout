@@ -18,11 +18,8 @@ class TrainingPlanFormDaysField<T> extends AppFormField<T, List<TrainingPlanDayD
   Widget build(BuildContext context, T dto, List<String>? errors) {
     final days = getValue(dto) ?? [];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TrainingPlanFormDays(days: days),
-      ],
+    return Expanded(
+      child: TrainingPlanFormDays(days: days),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:sherpoutmobile/common/form/fields/app_form_field.dart';
 
 import '../api/error/api_error_handler.dart';
 import '../api/error/error_location_type.dart';
+import '../theme/app_colors.dart';
 
 class AppForm<T> extends StatefulWidget {
   final T dto;
@@ -71,7 +72,11 @@ class _AppFormState<T> extends State<AppForm<T>> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ..._buildFieldsWithSpacing(context),
-          SizedBox(height: 32),
+          Divider(
+            color: AppColors.secondary,
+            thickness: 1,
+            height: 32,
+          ),
           AppFormSaveButton(onSubmit: _submit, isLoading: isLoading)
         ],
       ),

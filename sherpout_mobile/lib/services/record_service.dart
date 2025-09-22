@@ -1,7 +1,11 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
+import 'package:sherpoutmobile/common/dto/date_range_query_param.dart';
 
 import '../common/api/api_client.dart';
 import '../common/dto/record_dto.dart';
+import '../common/dto/record_history_dto.dart';
 
 class RecordService {
   final ApiClient _apiClient;
@@ -12,6 +16,12 @@ class RecordService {
     Response<dynamic> response = await _apiClient.get('records');
     final List<dynamic> data = response.data;
     return data.map((json) => RecordDTO.fromJson(json)).toList();
+  }
+
+  Future<List<RecordHistoryDTO>> getRecordHistory(int exerciseId, DateRangeQueryParam dateRangeQueryParam) async {
+    Response<dynamic> response = await _apiClient.get('records/history/$exerciseId', queryParameters: dateRangeQueryParam.asQueryParameters());
+    final List<dynamic> data = response.data;
+    return data.map((json) => RecordHistoryDTO.fromJson(json)).toList();
   }
 
   Future<RecordDTO> create(RecordDTO record) async {

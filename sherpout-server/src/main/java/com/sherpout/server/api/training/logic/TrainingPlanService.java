@@ -65,4 +65,12 @@ public class TrainingPlanService {
         ActiveTrainingPlan activeTrainingPlan = new ActiveTrainingPlan(userId, trainingPlan);
         activeTrainingPlanRepository.save(activeTrainingPlan);
     }
+
+    public void delete(Long id){
+        TrainingPlan trainingPlan = trainingPlanRepository.findById(id)
+                .orElseThrow(() -> new UnableToFindTrainingPlanException(ErrorLocationType.PATH_PARAM, id));
+
+        ownershipGuard.checkOwnership(trainingPlan);
+        trainingPlanRepository.delete(trainingPlan);
+    }
 }

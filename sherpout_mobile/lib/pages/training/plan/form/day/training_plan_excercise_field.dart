@@ -54,7 +54,9 @@ class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
                   setValue: (value) {
                     widget.dto.sets = value.toInt();
                   },
-                  isRequired: true
+                  isRequired: true,
+                  min: 1,
+                  max: 16
               )
             ),
           ],

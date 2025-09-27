@@ -67,6 +67,8 @@ class _RecordFormState extends State<RecordForm> {
             initialValue: record.value,
             setValue: (value) => record.value = value,
             isDecimal: true,
+            min: 1,
+            max: 1000
           ),
           AppDateField(
             label: AppLocalizations.of(context)!.date,

@@ -1,20 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sherpoutmobile/common/components/field/app_field.dart';
 
-class AppNumberField extends StatelessWidget {
-  final String label;
-  final num? initialValue;
-  final void Function(num value) setValue;
-  final bool isRequired;
+class AppNumberField extends AppField<num> {
   final bool isDecimal;
+  final num? min;
+  final num? max;
 
-  const AppNumberField({super.key,
-    required this.label,
-    required this.initialValue,
-    required this.setValue,
-    required this.isRequired,
-    this.isDecimal = false
+  const AppNumberField({
+    super.key,
+    required super.label,
+    required super.initialValue,
+    required super.setValue,
+    required super.isRequired,
+    this.isDecimal = false,
+    this.min,
+    this.max,
   });
 
   @override
@@ -26,37 +28,42 @@ class AppNumberField extends StatelessWidget {
         decimal: isDecimal,
         signed: false,
       ),
-      validator: (value) => _validate(value, context),
+      validator: (value) => validate(value, context),
       onChanged: (value) => _onChanged(value)
     );
   }
 
-  String? _validate(String? value, BuildContext context) {
-    final requiredValidation = validateRequired(value, context);
+  @override
+  String? validate(String? value, BuildContext context) {
+    final requiredValidation = super.validate(value, context);
     if (requiredValidation != null) return requiredValidation;
 
     if (value != null && value.isNotEmpty) {
-      final parsed = isDecimal ? double.tryParse(value) : int.tryParse(value);
+      final parsed = _parse(value);
       if (parsed == null) {
         return AppLocalizations.of(context)!.thisFieldHasToBeNumber;
       }
-    }
-    return null;
-  }
 
-  String? validateRequired(String? value, BuildContext context) {
-    if (isRequired && (value?.isEmpty ?? true)) {
-      return AppLocalizations.of(context)!.thisFieldIsRequired;
+      if (min != null && parsed < min!) {
+        return "This field has to be smaller than $min";
+      }
+      if (max != null && parsed > max!) {
+        return "This field has to be bigger than $max";
+      }
     }
     return null;
   }
 
   void _onChanged(String? value) {
     if (value != null && value.isNotEmpty) {
-      final parsed = isDecimal ? double.tryParse(value) : int.tryParse(value);
+      final parsed = _parse(value);
       if (parsed != null) {
         setValue(parsed);
       }
     }
+  }
+
+  num? _parse(String value) {
+    return isDecimal ? double.tryParse(value) : int.tryParse(value);
   }
 }

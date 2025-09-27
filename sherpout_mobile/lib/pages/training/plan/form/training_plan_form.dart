@@ -37,6 +37,13 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
     });
   }
 
+  void _removeDay(int index) {
+    print("twoja kurwa");
+    setState(() {
+      widget.trainingPlan.days?.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final TrainingPlanDTO trainingPlan = widget.trainingPlan;
@@ -58,8 +65,9 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
             isRequired: false,
           ),
           TrainingPlanFormDays(
-            addDay: _addDay,
             days: trainingPlan.days ?? [],
+            addDay: _addDay,
+            removeDay: _removeDay,
           )
         ]);
   }

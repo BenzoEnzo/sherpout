@@ -10,8 +10,10 @@ import '../../../../../services/exercise_service.dart';
 
 class TrainingPlanDayForm extends StatefulWidget {
   final TrainingPlanDayDTO day;
+  final void Function() removeDay;
 
-  const TrainingPlanDayForm({super.key, required this.day});
+  const TrainingPlanDayForm(
+      {super.key, required this.day, required this.removeDay});
 
   @override
   State<TrainingPlanDayForm> createState() => _TrainingPlanDayFormState();
@@ -55,8 +57,8 @@ class _TrainingPlanDayFormState extends State<TrainingPlanDayForm> {
           exercises: _exercises,
         );
       }),
-      AppTextAndIconButton(text: "Add exercise", onPressed: () => _addExercise(), icon: Icons.add),
-      AppTextAndIconButton(text: "Remove day", onPressed: () => {}, icon: Icons.delete_outline_rounded),
+      AppTextAndIconButton(text: "Add exercise", onPressed: _addExercise, icon: Icons.add),
+      AppTextAndIconButton(text: "Remove day", onPressed: widget.removeDay, icon: Icons.delete_outline_rounded),
     ]);
   }
 }

@@ -29,7 +29,6 @@ class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
 
   @override
   Widget build(BuildContext context) {
-    print("ExerciseField dto hash: ${widget.dto.hashCode}, sets: ${widget.dto.sets}");
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
@@ -53,9 +52,7 @@ class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
                   label: "Sets",
                   initialValue: widget.dto.sets,
                   setValue: (value) {
-                    print("USTAWIAM SETS NA: $value");
                     widget.dto.sets = value.toInt();
-                    print("DTO teraz: ${widget.dto.sets}");
                   },
                   isRequired: true
               )

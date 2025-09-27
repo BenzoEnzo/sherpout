@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sherpoutmobile/common/components/field/app_field.dart';
+import 'package:sherpoutmobile/common/components/field/app_field_stateless_widget.dart';
 
-class AppDateField extends AppField<DateTime> {
+class AppDateField extends AppFieldStatelessWidget<DateTime> {
   final DateTime firstDate;
   final DateTime lastDate;
   final DateFormat dateFormat;

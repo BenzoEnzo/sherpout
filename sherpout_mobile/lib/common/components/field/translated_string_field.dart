@@ -9,11 +9,16 @@ class TranslatedStringField extends StatefulWidget {
   final void Function(TranslatedStringDto) onChanged;
   final bool isRequired;
 
+  final int maxLength;
+  final int maxLines;
+
   const TranslatedStringField({super.key,
     required this.label,
     required this.initialValue,
     required this.onChanged,
     required this.isRequired,
+    required this.maxLength,
+    this.maxLines = 1
   });
 
   @override
@@ -80,6 +85,8 @@ class _TranslatedStringFieldState extends State<TranslatedStringField> {
             controller: controller,
             decoration: InputDecoration(label: Text(label)),
             validator: (value) => validate(context),
+            maxLength: widget.maxLength,
+            maxLines: widget.maxLines,
           ),
         ),
         SizedBox(width: 8),

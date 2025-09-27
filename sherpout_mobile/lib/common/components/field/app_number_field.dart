@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sherpoutmobile/common/components/field/app_field.dart';
+import 'package:sherpoutmobile/common/components/field/app_field_stateless_widget.dart';
 
-class AppNumberField extends AppField<num> {
+class AppNumberField extends AppFieldStatelessWidget<num> {
   final bool isDecimal;
   final num? min;
   final num? max;
 
-  const AppNumberField({
-    super.key,
+  const AppNumberField({super.key,
     required super.label,
     required super.initialValue,
     required super.setValue,

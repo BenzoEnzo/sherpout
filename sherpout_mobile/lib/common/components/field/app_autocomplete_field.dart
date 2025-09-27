@@ -1,37 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sherpoutmobile/common/components/field/app_field_stateless_widget.dart';
 
 import '../../theme/app_colors.dart';
 
-class AppAutocompleteField<T extends Object> extends StatelessWidget {
-  final String label;
-  final T? initialValue;
-  final void Function(T value) setValue;
-  final bool isRequired;
+class AppAutocompleteField<T extends Object> extends AppFieldStatelessWidget<T> {
   final List<T> options;
-
   final String Function(T) getDisplay;
   final Widget Function(BuildContext, T) optionViewBuilder;
 
-  const AppAutocompleteField(
-      {super.key,
-        required this.label,
-        required this.initialValue,
-        required this.setValue,
-        required this.isRequired,
-        required this.options,
-        required this.getDisplay,
-        required this.optionViewBuilder
-      });
+  const AppAutocompleteField({
+    super.key,
+    required super.label,
+    required super.initialValue,
+    required super.setValue,
+    required super.isRequired,
+    required this.options,
+    required this.getDisplay,
+    required this.optionViewBuilder,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController(
-      text: initialValue != null ? getDisplay(initialValue!) : '',
-    );
-
     return Autocomplete<T>(
-        initialValue: TextEditingValue(text: controller.text),
+        initialValue: TextEditingValue(
+          text: initialValue != null ? getDisplay(initialValue!) : '',
+        ),
         optionsBuilder: (TextEditingValue textEditingValue) {
           final input = textEditingValue.text.toLowerCase();
           return options.where(
@@ -41,12 +34,11 @@ class AppAutocompleteField<T extends Object> extends StatelessWidget {
         displayStringForOption: getDisplay,
         fieldViewBuilder:
             (context, textEditingController, focusNode, onEditingComplete) {
-          textEditingController.text = controller.text;
           return TextFormField(
             controller: textEditingController,
             focusNode: focusNode,
             decoration: InputDecoration(label: Text(label)),
-            validator: (value) => validateRequired(value, context),
+            validator: (value) => validate(value, context),
             onEditingComplete: onEditingComplete,
           );
         },
@@ -74,12 +66,5 @@ class AppAutocompleteField<T extends Object> extends StatelessWidget {
                 )),
           );
         });
-  }
-
-  String? validateRequired(String? value, BuildContext context) {
-    if (isRequired && (value?.isEmpty ?? true)) {
-      return AppLocalizations.of(context)!.thisFieldIsRequired;
-    }
-    return null;
   }
 }

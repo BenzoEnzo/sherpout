@@ -57,12 +57,15 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
             initialValue: trainingPlan.name ?? TranslatedStringDto(),
             onChanged: (value) => trainingPlan.name = value,
             isRequired: true,
+            maxLength: 64,
           ),
           TranslatedStringField(
             label: "Description",
             initialValue: trainingPlan.name ?? TranslatedStringDto(),
             onChanged: (value) => trainingPlan.name = value,
             isRequired: false,
+            maxLength: 512,
+            maxLines: 4,
           ),
           TrainingPlanFormDays(
             days: trainingPlan.days ?? [],

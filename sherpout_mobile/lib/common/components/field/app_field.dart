@@ -7,8 +7,7 @@ abstract class AppField<T> extends StatelessWidget {
   final void Function(T value) setValue;
   final bool isRequired;
 
-  const AppField({
-    super.key,
+  const AppField({super.key,
     required this.label,
     required this.initialValue,
     required this.setValue,

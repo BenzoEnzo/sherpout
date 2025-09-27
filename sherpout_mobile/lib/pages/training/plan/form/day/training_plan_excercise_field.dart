@@ -59,6 +59,10 @@ class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
                   max: 16
               )
             ),
+            IconButton(
+              icon: const Icon(Icons.delete_outline_rounded),
+              onPressed: () => {},
+            ),
           ],
         ));
   }

@@ -83,18 +83,27 @@ class _TranslatedStringFieldState extends State<TranslatedStringField> {
         Expanded(
           child: TextFormField(
             controller: controller,
-            decoration: InputDecoration(label: Text(label)),
+            decoration: InputDecoration(
+                label: Text(label),
+              suffixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(width: 4),
+                  CountryFlag.fromLanguageCode(currentLang, shape: Circle(), width: 20),
+                  SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: _switchLanguage,
+                    child: Icon(Icons.arrow_forward_ios, size: 16),
+                  ),
+                ],
+              ),
+            ),
             validator: (value) => validate(context),
             maxLength: widget.maxLength,
             maxLines: widget.maxLines,
           ),
         ),
         SizedBox(width: 8),
-        CountryFlag.fromLanguageCode(currentLang, shape: Circle(), width: 30),
-        IconButton(
-          icon: const Icon(Icons.arrow_forward_ios),
-          onPressed: _switchLanguage,
-        ),
       ],
     );
   }

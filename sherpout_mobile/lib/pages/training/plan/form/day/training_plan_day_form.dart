@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/components/buttons/app_text_and_icon_button.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_day_dto.dart';
@@ -63,12 +64,14 @@ class _TrainingPlanDayFormState extends State<TrainingPlanDayForm> {
       SizedBox(
         width: double.infinity,
         child: AppTextAndIconButton(
-            text: "Add exercise", onPressed: _addExercise, icon: Icons.add),
+            text: AppLocalizations.of(context)!.addExercise,
+            onPressed: _addExercise, icon: Icons.add
+        ),
       ),
       SizedBox(
         width: double.infinity,
         child: AppTextAndIconButton(
-          text: "Remove day",
+          text: AppLocalizations.of(context)!.removeDay,
           onPressed: widget.removeDay,
           icon: Icons.delete_outline_rounded,
           backgroundColor: AppColors.redAccent,

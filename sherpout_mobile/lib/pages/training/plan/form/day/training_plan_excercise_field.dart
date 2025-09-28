@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sherpoutmobile/common/components/field/app_number_field.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_exercise_dto.dart';
 import 'package:sherpoutmobile/common/theme/app_colors.dart';
 
 import '../../../../../common/components/field/app_autocomplete_field.dart';
 import '../../../../../common/dto/exercise_select_dto.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../exercises/exercise_select_item.dart';
 
 class TrainingPlanExerciseField extends StatefulWidget {
@@ -54,7 +52,7 @@ class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
             SizedBox(
               width: 60,
               child: AppNumberField(
-                  label: "Sets",
+                  label: AppLocalizations.of(context)!.sets,
                   initialValue: widget.dto.sets,
                   setValue: (value) {
                     widget.dto.sets = value.toInt();

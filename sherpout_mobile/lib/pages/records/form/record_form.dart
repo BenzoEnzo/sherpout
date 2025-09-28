@@ -7,10 +7,10 @@ import 'package:sherpoutmobile/common/components/field/app_date_field.dart';
 import 'package:sherpoutmobile/common/components/field/app_number_field.dart';
 import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
-import 'package:sherpoutmobile/common/form/app_form.dart';
 import 'package:sherpoutmobile/pages/exercises/exercise_select_item.dart';
 import 'package:sherpoutmobile/services/record_service.dart';
 
+import '../../../common/components/form/app_form.dart';
 import '../../../services/exercise_service.dart';
 
 class RecordForm extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_day_dto.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
 import 'package:sherpoutmobile/pages/training/plan/form/training_plan_form.dart';
@@ -12,7 +13,7 @@ class TrainingPlanCreatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create training plan"),
+        title: Text(AppLocalizations.of(context)!.createNewTrainingPlan),
       ),
       body: AppPage(child:
       TrainingPlanForm(

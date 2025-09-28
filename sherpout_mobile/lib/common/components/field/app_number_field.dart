@@ -5,8 +5,8 @@ import 'package:sherpoutmobile/common/components/field/app_field_stateless_widge
 
 class AppNumberField extends AppFieldStatelessWidget<num> {
   final bool isDecimal;
-  final num? min;
-  final num? max;
+  final num min;
+  final num max;
 
   const AppNumberField({super.key,
     required super.label,
@@ -14,8 +14,8 @@ class AppNumberField extends AppFieldStatelessWidget<num> {
     required super.setValue,
     required super.isRequired,
     this.isDecimal = false,
-    this.min,
-    this.max,
+    required this.min,
+    required this.max,
   });
 
   @override
@@ -43,11 +43,11 @@ class AppNumberField extends AppFieldStatelessWidget<num> {
         return AppLocalizations.of(context)!.thisFieldHasToBeNumber;
       }
 
-      if (min != null && parsed < min!) {
-        return "This field has to be smaller than $min";
+      if (parsed < min) {
+        return AppLocalizations.of(context)!.thisFieldHasToBeBiggerThan(min);
       }
-      if (max != null && parsed > max!) {
-        return "This field has to be bigger than $max";
+      if (parsed > max) {
+        return AppLocalizations.of(context)!.thisFieldHasToBeSmallerThan(max);
       }
     }
     return null;

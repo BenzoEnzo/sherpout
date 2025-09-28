@@ -5,14 +5,14 @@ class TrainingPlanDTO {
   int? id;
   TranslatedStringDto? name;
   TranslatedStringDto? description;
-  List<TrainingPlanDayDTO>? days;
+  List<TrainingPlanDayDTO> days;
 
   TrainingPlanDTO({
     this.id,
     this.name,
     this.description,
-    this.days,
-  });
+    List<TrainingPlanDayDTO>? days,
+  }) : days = days ?? [];
 
   factory TrainingPlanDTO.fromJson(Map<String, dynamic> json) {
     return TrainingPlanDTO(
@@ -31,8 +31,7 @@ class TrainingPlanDTO {
       if (id != null) 'id': id,
       if (name != null) 'name': name!.toJson(),
       if (description != null) 'description': description!.toJson(),
-      if (days != null)
-        'days': days!.map((e) => e.toJson()).toList(),
+      'days': days.map((e) => e.toJson()).toList(),
     };
   }
 }

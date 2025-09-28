@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sherpoutmobile/common/components/field/translated_string_field.dart';
@@ -7,8 +8,8 @@ import 'package:sherpoutmobile/common/dto/translated_string_dto.dart';
 import 'package:sherpoutmobile/pages/training/plan/form/training_plan_form_days.dart';
 import 'package:sherpoutmobile/services/training_plan_service.dart';
 
+import '../../../../common/components/form/app_form.dart';
 import '../../../../common/dto/training_plan_day_dto.dart';
-import '../../../../common/form/app_form.dart';
 
 class TrainingPlanForm extends StatefulWidget {
   final TrainingPlanDTO trainingPlan;
@@ -31,15 +32,15 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
   }
 
   void _addDay() {
-    var dayNumber = widget.trainingPlan.days!.length + 1;
+    var dayNumber = widget.trainingPlan.days.length + 1;
     setState(() {
-      widget.trainingPlan.days?.add(TrainingPlanDayDTO(number: dayNumber));
+      widget.trainingPlan.days.add(TrainingPlanDayDTO(number: dayNumber));
     });
   }
 
   void _removeDay(int index) {
     setState(() {
-      widget.trainingPlan.days?.removeAt(index);
+      widget.trainingPlan.days.removeAt(index);
     });
   }
 
@@ -52,14 +53,14 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
         onSubmit: widget.isEdit ? _onEditSubmit : _onCreateSubmit,
         children: [
           TranslatedStringField(
-            label: "Name",
+            label: AppLocalizations.of(context)!.name,
             initialValue: trainingPlan.name ?? TranslatedStringDto(),
             onChanged: (value) => trainingPlan.name = value,
             isRequired: true,
             maxLength: 64,
           ),
           TranslatedStringField(
-            label: "Description",
+            label: AppLocalizations.of(context)!.description,
             initialValue: trainingPlan.name ?? TranslatedStringDto(),
             onChanged: (value) => trainingPlan.name = value,
             isRequired: false,
@@ -67,7 +68,7 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
             maxLines: 4,
           ),
           TrainingPlanFormDays(
-            days: trainingPlan.days ?? [],
+            days: trainingPlan.days,
             addDay: _addDay,
             removeDay: _removeDay,
           )
@@ -76,8 +77,6 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
 
   Future<void> _onCreateSubmit(TrainingPlanDTO toCreate) async {
     TrainingPlanDTO result = await _trainingPlanService.create(toCreate);
-
-    print(result.toJson());
 
     if (!mounted) return;
 

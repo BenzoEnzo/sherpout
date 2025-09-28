@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
 import 'package:sherpoutmobile/pages/training/plan/form/training_plan_form.dart';
@@ -50,7 +50,7 @@ class _TrainingPlanEditPageState extends State<TrainingPlanEditPage> with Single
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Edytuj trening"),
+          title: Text(AppLocalizations.of(context)!.editTrainingPlan),
         ),
         body: LoadingComponent(
             isLoading: _isLoading,

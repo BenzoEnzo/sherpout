@@ -1,5 +1,6 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sherpoutmobile/common/theme/app_colors.dart';
 
 import '../../dto/translated_string_dto.dart';
@@ -116,7 +117,7 @@ class _TranslatedStringFieldState extends State<TranslatedStringField> {
       final isEmptyPl = (_plController.text.isEmpty);
 
       if (isEmptyEn && isEmptyPl) {
-        return "At least one language has to be set.";
+        return AppLocalizations.of(context)!.atLeastOneLanguageHasToBeSet;
       }
     }
     return null;

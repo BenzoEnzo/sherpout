@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/components/tab_bar/app_tab_bar.dart';
 import 'package:sherpoutmobile/common/components/tab_bar/app_tab_bar_view.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_day_dto.dart';
+import 'package:sherpoutmobile/common/theme/app_colors.dart';
 import 'package:sherpoutmobile/pages/training/plan/form/day/training_plan_day_form.dart';
 
 class TrainingPlanFormDays extends StatefulWidget {
@@ -75,6 +76,7 @@ class _TrainingPlanFormDaysState extends State<TrainingPlanFormDays> with Ticker
               IconButton(
                 icon: const Icon(Icons.add),
                 onPressed: _handleAddDay,
+                color: AppColors.secondary,
               ),
           ],
         ),

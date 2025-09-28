@@ -1,5 +1,6 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
+import 'package:sherpoutmobile/common/theme/app_colors.dart';
 
 import '../../dto/translated_string_dto.dart';
 
@@ -93,7 +94,8 @@ class _TranslatedStringFieldState extends State<TranslatedStringField> {
                   SizedBox(width: 4),
                   GestureDetector(
                     onTap: _switchLanguage,
-                    child: Icon(Icons.arrow_forward_ios, size: 16),
+                    child: Icon(Icons.arrow_forward_ios,
+                        size: 16, color: AppColors.secondary),
                   ),
                 ],
               ),

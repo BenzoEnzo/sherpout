@@ -38,7 +38,6 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
   }
 
   void _removeDay(int index) {
-    print("twoja kurwa");
     setState(() {
       widget.trainingPlan.days?.removeAt(index);
     });
@@ -76,8 +75,9 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
   }
 
   Future<void> _onCreateSubmit(TrainingPlanDTO toCreate) async {
-    print("Jebac ${toCreate.toJson()}");
-    // TrainingPlanDTO result = await _trainingPlanService.create(toCreate);
+    TrainingPlanDTO result = await _trainingPlanService.create(toCreate);
+
+    print(result.toJson());
 
     if (!mounted) return;
 

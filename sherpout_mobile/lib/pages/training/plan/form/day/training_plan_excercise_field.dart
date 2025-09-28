@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/components/field/app_number_field.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_exercise_dto.dart';
+import 'package:sherpoutmobile/common/theme/app_colors.dart';
 
 import '../../../../../common/components/field/app_autocomplete_field.dart';
 import '../../../../../common/dto/exercise_select_dto.dart';
@@ -66,6 +67,7 @@ class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
             IconButton(
               icon: const Icon(Icons.delete_outline_rounded),
               onPressed: widget.removeExercise,
+              color: AppColors.secondary
             ),
           ],
         ));

@@ -3,13 +3,13 @@ import 'package:sherpoutmobile/common/dto/training_plan_exercise_dto.dart';
 class TrainingPlanDayDTO {
   int? id;
   int? number;
-  List<TrainingPlanExerciseDTO>? exercises;
+  List<TrainingPlanExerciseDTO> exercises;
 
   TrainingPlanDayDTO({
     this.id,
     this.number,
-    this.exercises,
-  });
+    List<TrainingPlanExerciseDTO>? exercises,
+  }) : exercises = exercises ?? [];
 
   factory TrainingPlanDayDTO.fromJson(Map<String, dynamic> json) {
     return TrainingPlanDayDTO(
@@ -26,8 +26,7 @@ class TrainingPlanDayDTO {
     return {
       if (id != null) 'id': id,
       if (number != null) 'number': number,
-      if (exercises != null)
-        'exercises': exercises!.map((e) => e.toJson()).toList(),
+      'exercises': exercises.map((e) => e.toJson()).toList(),
     };
   }
 }

@@ -37,28 +37,34 @@ class _TrainingPlanDayFormState extends State<TrainingPlanDayForm> {
   }
 
   void _addExercise() {
-    if (widget.day.exercises != null) {
-      setState(() {
-        widget.day.exercises!.add(TrainingPlanExerciseDTO());
-      });
-    } else {
-      setState(() {
-        widget.day.exercises = [TrainingPlanExerciseDTO()];
-      });
-    }
+    setState(() {
+      widget.day.exercises.add(TrainingPlanExerciseDTO());
+    });
+  }
+
+  void _removeExercise(int index) {
+    setState(() {
+      widget.day.exercises.removeAt(index);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      ...(widget.day.exercises ?? []).map((exercise) {
-        return TrainingPlanExerciseField(
-          dto: exercise,
-          exercises: _exercises,
-        );
-      }),
-      AppTextAndIconButton(text: "Add exercise", onPressed: _addExercise, icon: Icons.add),
-      AppTextAndIconButton(text: "Remove day", onPressed: widget.removeDay, icon: Icons.delete_outline_rounded),
+      ...List.generate(
+          widget.day.exercises.length,
+          (index) => TrainingPlanExerciseField(
+                key: ValueKey(index),
+                dto: widget.day.exercises[index],
+                exercises: _exercises,
+                removeExercise: () => _removeExercise(index),
+              )),
+      AppTextAndIconButton(
+          text: "Add exercise", onPressed: _addExercise, icon: Icons.add),
+      AppTextAndIconButton(
+          text: "Remove day",
+          onPressed: widget.removeDay,
+          icon: Icons.delete_outline_rounded),
     ]);
   }
 }

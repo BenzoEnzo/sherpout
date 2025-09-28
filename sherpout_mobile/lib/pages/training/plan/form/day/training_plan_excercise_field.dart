@@ -12,9 +12,13 @@ import '../../../../exercises/exercise_select_item.dart';
 class TrainingPlanExerciseField extends StatefulWidget {
   final TrainingPlanExerciseDTO dto;
   final List<ExerciseSelectDTO> exercises;
+  final void Function() removeExercise;
 
-  const TrainingPlanExerciseField(
-      {super.key, required this.dto, required this.exercises});
+  const TrainingPlanExerciseField({super.key,
+      required this.dto,
+      required this.exercises,
+      required this.removeExercise
+  });
 
   @override
   State<TrainingPlanExerciseField> createState() =>
@@ -61,7 +65,7 @@ class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
             ),
             IconButton(
               icon: const Icon(Icons.delete_outline_rounded),
-              onPressed: () => {},
+              onPressed: widget.removeExercise,
             ),
           ],
         ));

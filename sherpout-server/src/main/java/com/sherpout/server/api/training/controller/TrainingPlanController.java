@@ -49,4 +49,13 @@ public class TrainingPlanController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
+
+    @DeleteMapping("{id}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        trainingPlanService.delete(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
 }

@@ -60,7 +60,7 @@ class _ExercisesListPageState extends State<ExercisesListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final groupedExercises = _groupExercises(_filterExercises(_exercises));
+    final groupedExercises = _groupExercises(_filterExercises(_exercises, context));
 
     return Scaffold(
       appBar: AppBar(
@@ -103,11 +103,11 @@ class _ExercisesListPageState extends State<ExercisesListPage> {
     return map;
   }
 
-  List<ExerciseListDto> _filterExercises(List<ExerciseListDto> exercises) {
+  List<ExerciseListDto> _filterExercises(List<ExerciseListDto> exercises, BuildContext context) {
     if (_searchQuery.isEmpty) return exercises;
     return exercises.where((ex) {
       final query = _searchQuery.toLowerCase();
-      return ex.name.en.toLowerCase().contains(query) || ex.name.pl.toLowerCase().contains(query);
+      return ex.name.localized(context).contains(query);
     }).toList();
   }
 }

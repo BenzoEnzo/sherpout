@@ -9,14 +9,16 @@ class AppTextAndIconButton extends StatelessWidget {
   final void Function() onPressed;
   final bool isLoading;
   final bool isDisabled;
+  final Color backgroundColor;
 
-  const AppTextAndIconButton(
-      {super.key,
+  const AppTextAndIconButton({super.key,
       required this.text,
       required this.icon,
       required this.onPressed,
       this.isDisabled = false,
-      this.isLoading = false});
+      this.isLoading = false,
+      this.backgroundColor = AppColors.primary
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class AppTextAndIconButton extends StatelessWidget {
               style: AppTypography.titleSmall.copyWith(color: AppColors.background)
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
+              backgroundColor: backgroundColor,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),

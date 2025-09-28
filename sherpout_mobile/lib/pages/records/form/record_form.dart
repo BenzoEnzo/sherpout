@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sherpoutmobile/common/components/field/app_autocomplete_field.dart';
+import 'package:sherpoutmobile/common/components/field/app_date_field.dart';
+import 'package:sherpoutmobile/common/components/field/app_number_field.dart';
 import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
-import 'package:sherpoutmobile/common/form/app_form.dart';
-import 'package:sherpoutmobile/common/form/fields/app_form_date_input.dart';
 import 'package:sherpoutmobile/pages/exercises/exercise_select_item.dart';
 import 'package:sherpoutmobile/services/record_service.dart';
 
-import '../../../common/form/fields/app_form_autocomplete.dart';
-import '../../../common/form/fields/app_form_number_input.dart';
+import '../../../common/components/form/app_form.dart';
 import '../../../services/exercise_service.dart';
 
 class RecordForm extends StatefulWidget {
@@ -50,32 +50,31 @@ class _RecordFormState extends State<RecordForm> {
         onSubmit: widget.isEdit ? _onEditSubmit : _onCreateSubmit,
         children: [
           if (!widget.isEdit) ...[
-            AppFormAutocomplete<RecordDTO, ExerciseSelectDTO>(
-              key: "exercise",
+            AppAutocompleteField<ExerciseSelectDTO>(
               options: _exercises,
               label: AppLocalizations.of(context)!.exercise,
               isRequired: true,
-              getValue: (dto) => dto.exercise,
-              setValue: (dto, exercise) => dto.exercise = exercise,
+              initialValue: record.exercise,
+              setValue: (exercise) => record.exercise = exercise,
               getDisplay: (value) => value.name.localized(context),
               optionViewBuilder: (context, value) =>
                   ExerciseSelectItem(exercise: value),
             ),
           ],
-          AppFormNumberInput<RecordDTO>(
-            key: "value",
+          AppNumberField(
             label: AppLocalizations.of(context)!.weight,
             isRequired: true,
-            getValue: (dto) => dto.value,
-            setValue: (dto, value) => dto.value = value,
+            initialValue: record.value,
+            setValue: (value) => record.value = value,
             isDecimal: true,
+            min: 1,
+            max: 1000
           ),
-          AppFormDateInput<RecordDTO>(
-            key: "date",
+          AppDateField(
             label: AppLocalizations.of(context)!.date,
             isRequired: true,
-            getValue: (dto) => dto.date,
-            setValue: (dto, date) => dto.date = date,
+            initialValue: record.date,
+            setValue: (date) => record.date = date,
             lastDate: DateTime.now(),
           ),
         ]);

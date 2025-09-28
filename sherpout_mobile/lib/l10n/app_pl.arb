@@ -24,5 +24,29 @@
     "thisFieldIsRequired": "To pole jest wymagane.",
     "thisFieldHasToBeNumber": "To pole musi być liczbą.",
     "deleteRecordConfirmMessage": "Czy jesteś pewny, że chcesz usunąć ten rekord?",
-    "yes": "Tak"
+    "yes": "Tak",
+    "thisFieldHasToBeSmallerThan": "To pole musi być mniejsze niż {max}.",
+    "@thisFieldHasToBeSmallerThan": {
+        "placeholders": {
+            "max": {
+                "type": "num"
+            }
+        }
+    },
+    "thisFieldHasToBeBiggerThan": "To pole musi być większe niż {min}",
+    "@thisFieldHasToBeBiggerThan": {
+        "placeholders": {
+            "min": {
+                "type": "num"
+            }
+        }
+    },
+    "atLeastOneLanguageHasToBeSet": "Przynajmniej jeden język musi być ustawiony.",
+    "createNewTrainingPlan": "Stwórz nowy plan treningowy",
+    "editTrainingPlan": "Edytuj plan treningowy",
+    "name": "Nazwa",
+    "description": "Opis",
+    "addExercise": "Dodaj ćwiczenie",
+    "removeDay": "Usuń dzień",
+    "sets": "Serie"
 }

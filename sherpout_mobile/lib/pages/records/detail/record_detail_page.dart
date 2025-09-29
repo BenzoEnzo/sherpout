@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/pages/records/detail/record_chart.dart';
 import 'package:sherpoutmobile/pages/records/detail/record_history.dart';
-
+import '../../../common/components/tab_bar/app_tab_bar_view.dart';
+import '../../../common/components/tab_bar/app_tab_bar.dart';
 import '../../../../common/dto/record_dto.dart';
 import '../../../common/dto/date_range_query_param.dart';
 import '../list/record_row_component.dart';
@@ -38,16 +39,16 @@ class _RecordDetailPageState extends State<RecordDetailPage>
               padding: const EdgeInsets.all(16),
             ),
           ),
-          TabBar(
-            controller: _tabs,
+          AppTabBar(
+            tabController: _tabs,
             tabs: const [
               Tab(icon: Icon(Icons.history), text: 'History'),
               Tab(icon: Icon(Icons.show_chart), text: 'Chart'),
             ],
           ),
           Expanded(
-            child: TabBarView(
-              controller: _tabs,
+            child: AppTabBarView(
+              tabController: _tabs,
               children: [
                 RecordHistory(
                   exerciseId: widget.record.exercise!.id,

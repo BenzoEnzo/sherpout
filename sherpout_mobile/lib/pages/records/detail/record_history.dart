@@ -9,6 +9,7 @@ import '../delete/record_delete_dialog.dart';
 import '../form/record_form.dart';
 import 'record_history_row_component.dart';
 import 'record_content_card.dart';
+import 'record_history_year_divider.dart';
 
 class RecordHistory extends StatefulWidget {
   const RecordHistory({
@@ -72,23 +73,7 @@ class _RecordHistoryState extends State<RecordHistory> {
 
         final list = <Widget>[];
         for (final year in years) {
-          list.add(
-            Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 8),
-              child: Row(
-                children: [
-                  Text(
-                    year.toString(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(color: Colors.blueGrey.shade300),
-                  ),
-                  const SizedBox(width: 12),
-                  const Expanded(child: Divider(thickness: 1)),
-                ],
-              ),
-            ),
+          list.add(RecordHistoryYearDivider(year: year)
           );
 
           for (final rec in byYear[year]!) {

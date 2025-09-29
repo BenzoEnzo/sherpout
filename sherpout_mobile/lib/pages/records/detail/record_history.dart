@@ -62,6 +62,28 @@ class _RecordHistoryState extends State<RecordHistory> {
 
   void _refresh() => _loadRecords();
 
+  Future<void> _onEditRecord(RecordHistoryDTO rec) async {
+    final edited = await showDialog<bool>(
+      context: context,
+      builder: (_) => Dialog(
+        insetPadding: const EdgeInsets.all(24),
+        child: RecordForm(
+          record: RecordDTO(id: rec.id, date: rec.date, value: rec.value),
+          isEdit: true,
+        ),
+      ),
+    );
+    if (edited == true) _refresh();
+  }
+
+  Future<void> _onDeleteRecord(int id) async {
+    final deleted = await showDialog<bool>(
+      context: context,
+      builder: (_) => RecordDeleteDialog(id: id),
+    );
+    if (deleted == true) _refresh();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LoadingComponent(
@@ -93,30 +115,8 @@ class _RecordHistoryState extends State<RecordHistory> {
           RecordHistoryRowComponent(
             record: rec,
             verticalGap: 8,
-            onEdit: () async {
-              final edited = await showDialog<bool>(
-                context: context,
-                builder: (_) => Dialog(
-                  insetPadding: const EdgeInsets.all(24),
-                  child: RecordForm(
-                    record: RecordDTO(
-                      id: rec.id,
-                      date: rec.date,
-                      value: rec.value,
-                    ),
-                    isEdit: true,
-                  ),
-                ),
-              );
-              if (edited == true) _refresh();
-            },
-            onDelete: () async {
-              final deleted = await showDialog<bool>(
-                context: context,
-                builder: (_) => RecordDeleteDialog(id: rec.id!),
-              );
-              if (deleted == true) _refresh();
-            },
+            onEdit: _onEditRecord,
+            onDelete: _onDeleteRecord,
           ),
         );
       }

@@ -8,13 +8,13 @@ class RecordHistoryRowComponent extends StatelessWidget {
       {super.key,
       required this.record,
       this.verticalGap = 0,
-      this.onEdit,
-      this.onDelete});
+      required this.onEdit,
+      required this.onDelete});
 
   final RecordHistoryDTO record;
   final double verticalGap;
-  final VoidCallback? onEdit;
-  final VoidCallback? onDelete;
+  final Future<void> Function(RecordHistoryDTO record) onEdit;
+  final Future<void> Function(int id) onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +40,12 @@ class RecordHistoryRowComponent extends StatelessWidget {
             IconButton(
               visualDensity: VisualDensity.compact,
               icon: const Icon(Icons.edit, size: 20),
-              onPressed: onEdit,
+              onPressed: () => onEdit(record),
             ),
             IconButton(
               visualDensity: VisualDensity.compact,
               icon: const Icon(Icons.close, size: 20),
-              onPressed: onDelete,
+              onPressed: () => onDelete(record.id!),
             ),
           ],
         ));

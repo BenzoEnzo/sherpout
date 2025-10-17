@@ -12,10 +12,10 @@ public class LimitException extends SingleApiErrorException {
         );
     }
 
-    public LimitException(ErrorMessage errorMessage, Long amount) {
+    public LimitException(ErrorMessage errorMessage, Double value) {
         super(ApiError.builder(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR)
                 .withErrorLocationType(ErrorLocationType.BODY)
-                .withTextParam("amount", amount)
+                .withTextParam("value", value)
         );
     }
 }

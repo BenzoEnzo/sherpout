@@ -55,7 +55,7 @@ public class RecordController {
 
     @PutMapping("/{id}")
     @SecuredByGroup(UserGroup.USER)
-    public ResponseEntity<RecordDTO> updateRecord(@PathVariable Long id, @Valid @RequestBody RecordDTO request) {
+    public ResponseEntity<RecordDTO> updateRecord(@PathVariable Long id,@Valid @RequestBody RecordDTO request) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(recordService.updateRecord(id, request));

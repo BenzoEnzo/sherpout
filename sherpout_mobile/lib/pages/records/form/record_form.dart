@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get_it/get_it.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sherpoutmobile/common/components/field/app_autocomplete_field.dart';
+import 'package:sherpoutmobile/common/components/field/app_date_field.dart';
+import 'package:sherpoutmobile/common/components/field/app_number_field.dart';
 import 'package:sherpoutmobile/common/dto/exercise_select_dto.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
-import 'package:sherpoutmobile/common/form/app_form.dart';
-import 'package:sherpoutmobile/common/form/app_form_autocomplete.dart';
-import 'package:sherpoutmobile/common/form/app_form_date_input.dart';
-import 'package:sherpoutmobile/common/form/app_form_number_input.dart';
 import 'package:sherpoutmobile/pages/exercises/exercise_select_item.dart';
 import 'package:sherpoutmobile/services/record_service.dart';
 
+import '../../../common/components/form/app_form.dart';
 import '../../../services/exercise_service.dart';
 
 class RecordForm extends StatefulWidget {
@@ -27,7 +27,6 @@ class _RecordFormState extends State<RecordForm> {
   final ExerciseService _exerciseService = GetIt.instance<ExerciseService>();
   final RecordService _recordService = GetIt.instance<RecordService>();
   List<ExerciseSelectDTO> _exercises = [];
-  bool isLoading = false;
 
   @override
   void initState() {
@@ -36,10 +35,10 @@ class _RecordFormState extends State<RecordForm> {
   }
 
   Future<void> _loadExercises() async {
-      final exercises = await _exerciseService.getSelects();
-      setState(() {
-        _exercises = exercises;
-      });
+    final exercises = await _exerciseService.getSelects();
+    setState(() {
+      _exercises = exercises;
+    });
   }
 
   @override
@@ -48,55 +47,37 @@ class _RecordFormState extends State<RecordForm> {
 
     return AppForm(
         dto: record,
-        onSubmit: _onSubmit,
-        isLoading: false,
+        onSubmit: widget.isEdit ? _onEditSubmit : _onCreateSubmit,
         children: [
           if (!widget.isEdit) ...[
-            AppFormAutocomplete(
-              dto: record,
+            AppAutocompleteField<ExerciseSelectDTO>(
               options: _exercises,
               label: AppLocalizations.of(context)!.exercise,
               isRequired: true,
-              getValue: (dto) => dto.exercise,
-              setValue: (dto, exercise) => dto.exercise = exercise,
+              initialValue: record.exercise,
+              setValue: (exercise) => record.exercise = exercise,
               getDisplay: (value) => value.name.localized(context),
-              optionViewBuilder: (context, value) => ExerciseSelectItem(exercise: value),
+              optionViewBuilder: (context, value) =>
+                  ExerciseSelectItem(exercise: value),
             ),
-            SizedBox(height: 24),
           ],
-
-          AppFormNumberInput(
-              dto: record,
-              label: AppLocalizations.of(context)!.weight,
-              isRequired: true,
-              getValue: (dto) => dto.value,
-              setValue: (dto, value) => dto.value = value,
-              isDecimal: true,
+          AppNumberField(
+            label: AppLocalizations.of(context)!.weight,
+            isRequired: true,
+            initialValue: record.value,
+            setValue: (value) => record.value = value,
+            isDecimal: true,
+            min: 1,
+            max: 1000
           ),
-          SizedBox(height: 24),
-          AppFormDateInput(
-              dto: record,
-              label: AppLocalizations.of(context)!.date,
-              isRequired: true,
-              getValue: (dto) => dto.date,
-              setValue: (dto, date) => dto.date = date,
-              lastDate: DateTime.now(),
+          AppDateField(
+            label: AppLocalizations.of(context)!.date,
+            isRequired: true,
+            initialValue: record.date,
+            setValue: (date) => record.date = date,
+            lastDate: DateTime.now(),
           ),
-          SizedBox(height: 32),
-        ]
-    );
-  }
-
-  Future<void> _onSubmit(RecordDTO toSave) async {
-    setState(() {
-      isLoading = true;
-    });
-
-    widget.isEdit ? _onEditSubmit(toSave) : _onCreateSubmit(toSave);
-
-    setState(() {
-      isLoading = false;
-    });
+        ]);
   }
 
   Future<void> _onCreateSubmit(RecordDTO toCreate) async {

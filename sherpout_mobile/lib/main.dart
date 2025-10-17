@@ -6,12 +6,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sherpoutmobile/common/api_client.dart';
+import 'package:sherpoutmobile/common/api/api_client.dart';
 import 'package:sherpoutmobile/common/auth_service.dart';
 import 'package:sherpoutmobile/common/navigation_service.dart';
 import 'package:sherpoutmobile/services/exercise_service.dart';
 import 'package:sherpoutmobile/services/record_service.dart';
 import 'package:sherpoutmobile/services/image_service.dart';
+import 'package:sherpoutmobile/services/training_plan_service.dart';
 import 'package:sherpoutmobile/sherpout_app.dart';
 
 import 'common/user_provider.dart';
@@ -33,6 +34,7 @@ void configureDependencies() {
   getIt.registerLazySingleton(() => ExerciseService(getIt<ApiClient>()));
   getIt.registerLazySingleton(() => RecordService(getIt<ApiClient>()));
   getIt.registerLazySingleton(() => ImageService(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => TrainingPlanService(getIt<ApiClient>()));
 }
 
 String getInitialRoute(String? language, bool isUserLoggedIn) {

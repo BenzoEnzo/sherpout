@@ -6,7 +6,6 @@ class ExerciseSelectDTO {
   final TranslatedStringDto name;
   final ImageDto? cover;
 
-
   ExerciseSelectDTO({
     required this.id,
     required this.name,

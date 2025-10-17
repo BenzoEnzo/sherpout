@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Repository
 public interface RecordRepository extends JpaRepository<Record, Long> {
-    List<Record> findAllByExerciseAndDateBetweenOrderByDateDesc(Exercise exercise, LocalDateTime start, LocalDateTime end);
+    List<Record> findAllByExerciseAndUserIdAndDateBetweenOrderByDateDesc(Exercise exercise, UUID userId, LocalDateTime start, LocalDateTime end);
 
     @Query(value = """
             SELECT DISTINCT ON (r.exercise_id)

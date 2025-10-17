@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../components/buttons/app_text_and_icon_button.dart';
+import '../buttons/app_text_and_icon_button.dart';
 
 class AppFormSaveButton<T> extends StatelessWidget {
   final void Function() onSubmit;

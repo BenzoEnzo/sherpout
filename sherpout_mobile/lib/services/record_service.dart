@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:dio/dio.dart';
 import 'package:sherpoutmobile/common/dto/date_range_query_param.dart';
 
-import '../common/api_client.dart';
+import '../common/api/api_client.dart';
 import '../common/dto/record_dto.dart';
 import '../common/dto/record_history_dto.dart';
 

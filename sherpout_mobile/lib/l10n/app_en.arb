@@ -24,5 +24,29 @@
     "thisFieldIsRequired": "This field is required.",
     "thisFieldHasToBeNumber": "This field has to be number.",
     "deleteRecordConfirmMessage": "Are you sure you want to delete this record?",
-    "yes": "Yes"
+    "yes": "Yes",
+    "thisFieldHasToBeSmallerThan": "This field has to be smaller than {max}.",
+    "@thisFieldHasToBeSmallerThan": {
+        "placeholders": {
+            "max": {
+                "type": "num"
+            }
+        }
+    },
+    "thisFieldHasToBeBiggerThan": "This field has to be bigger than {min}.",
+    "@thisFieldHasToBeBiggerThan": {
+        "placeholders": {
+            "min": {
+                "type": "num"
+            }
+        }
+    },
+    "atLeastOneLanguageHasToBeSet": "At least one language hast to be set.",
+    "createNewTrainingPlan": "Create new training plan",
+    "editTrainingPlan": "Edit training plan",
+    "name": "Name",
+    "description": "Description",
+    "addExercise": "Add exercise",
+    "removeDay": "Remove day",
+    "sets": "Sets"
 }

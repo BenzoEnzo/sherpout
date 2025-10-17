@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sherpoutmobile/common/theme/app_colors.dart';
 import 'package:sherpoutmobile/pages/records/list/record_list_item_footer.dart';
 import '../../../common/dto/record_history_dto.dart';
 
@@ -33,7 +34,7 @@ class RecordHistoryRowComponent extends StatelessWidget {
                   RecordListItemFooter(
                       formattedDate: formattedDate,
                       weight: record.value,
-                      color: Colors.lightBlueAccent),
+                      color: AppColors.secondary),
                 ],
               ),
             ),

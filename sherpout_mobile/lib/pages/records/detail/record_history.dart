@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sherpoutmobile/pages/records/edit/record_edit_dialog.dart';
 
 import '../../../common/components/loading_component.dart';
 import '../../../common/dto/date_range_query_param.dart';
@@ -65,14 +66,10 @@ class _RecordHistoryState extends State<RecordHistory> {
   Future<void> _onEditRecord(RecordHistoryDTO rec) async {
     final edited = await showDialog<bool>(
       context: context,
-      builder: (_) => Dialog(
-        insetPadding: const EdgeInsets.all(24),
-        child: RecordForm(
-          record: RecordDTO(id: rec.id, date: rec.date, value: rec.value),
-          isEdit: true,
+      builder: (_) => RecordEditDialog(
+          record: RecordDTO(id: rec.id, date: rec.date, value: rec.value)
         ),
-      ),
-    );
+      );
     if (edited == true) _refresh();
   }
 

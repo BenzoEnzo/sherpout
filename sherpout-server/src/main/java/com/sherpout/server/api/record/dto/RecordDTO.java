@@ -21,7 +21,7 @@ public class RecordDTO {
     private LocalDateTime date;
 
     @NotNull
-    @Limit(1000)
+    @Limit(value = 777)
     private Double value;
 
     @Valid

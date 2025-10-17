@@ -22,7 +22,7 @@ public class RecordDTO {
     @Min(1)
     @Max(1000)
     @NotNull
-    private Integer value;
+    private Double value;
 
     @Valid
     @NotNull

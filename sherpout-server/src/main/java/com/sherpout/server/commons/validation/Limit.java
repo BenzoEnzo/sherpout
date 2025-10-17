@@ -17,6 +17,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Limit {
+    String message() default "";
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

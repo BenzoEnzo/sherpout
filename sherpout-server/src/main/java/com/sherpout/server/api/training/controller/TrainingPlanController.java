@@ -1,6 +1,7 @@
 package com.sherpout.server.api.training.controller;
 
 import com.sherpout.server.api.training.dto.TrainingPlanDTO;
+import com.sherpout.server.api.training.dto.TrainingPlanListDTO;
 import com.sherpout.server.api.training.logic.TrainingPlanService;
 import com.sherpout.server.config.security.group.SecuredByGroup;
 import com.sherpout.server.config.security.group.UserGroup;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("training-plans")
@@ -22,6 +25,14 @@ public class TrainingPlanController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(trainingPlanService.create(request));
+    }
+
+    @GetMapping
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<List<TrainingPlanListDTO>> getAll() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(trainingPlanService.getAll());
     }
 
     @PutMapping("/{id}")

@@ -1,6 +1,7 @@
 package com.sherpout.server.api.training.logic;
 
 import com.sherpout.server.api.training.dto.TrainingPlanDTO;
+import com.sherpout.server.api.training.dto.TrainingPlanListDTO;
 import com.sherpout.server.api.training.entity.ActiveTrainingPlan;
 import com.sherpout.server.api.training.entity.TrainingPlan;
 import com.sherpout.server.api.training.mapper.TrainingPlanMapper;
@@ -14,6 +15,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -30,6 +32,13 @@ public class TrainingPlanService {
         TrainingPlan entity = trainingPlanMapper.mapToEntity(dto);
         entity.setUserId(tokenService.getUserId());
         return trainingPlanMapper.mapToDTO(trainingPlanRepository.save(entity));
+    }
+
+    //TODO set last used when training execution complete
+    public List<TrainingPlanListDTO> getAll() {
+        return trainingPlanRepository.findAllByUserId(tokenService.getUserId()).stream()
+                .map(trainingPlanMapper::mapToListDTO)
+                .toList();
     }
 
     public TrainingPlanDTO getById(Long id) {

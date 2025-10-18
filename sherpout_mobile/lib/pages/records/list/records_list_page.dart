@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/components/app_page.dart';
+import 'package:sherpoutmobile/common/components/buttons/app_text_and_icon_button.dart';
 import 'package:sherpoutmobile/common/components/loading_component.dart';
 import 'package:sherpoutmobile/common/dto/record_dto.dart';
+import 'package:sherpoutmobile/pages/records/create/record_create_dialog.dart';
 import 'package:sherpoutmobile/pages/records/list/record_list_item.dart';
 import 'package:sherpoutmobile/services/record_service.dart';
-
-import 'new_record_button.dart';
 
 class RecordsPage extends StatefulWidget {
   const RecordsPage({super.key});
@@ -44,7 +44,13 @@ class _RecordsPageState extends State<RecordsPage> {
     }
   }
 
-  void _onAddNew() {}
+  Future<void> _onAddNew() async {
+    final created = await showDialog<bool>(
+      context: context,
+      builder: (_) => RecordCreateDialog(),
+    );
+    if (created == true) _loadRecords();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +70,11 @@ class _RecordsPageState extends State<RecordsPage> {
                   child: RecordItem(record: _records[index]));
             },
           ))),
-      floatingActionButton: NewRecordButton(onPressed: _onAddNew),
+      floatingActionButton: AppTextAndIconButton(
+          text: AppLocalizations.of(context)!.addNew,
+          icon: Icons.add,
+          onPressed: () => _onAddNew()
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

@@ -19,7 +19,7 @@ public class Record implements Ownable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime date;
-    private Integer value;
+    private Double value;
     private UUID userId;
     @ManyToOne
     private Exercise exercise;

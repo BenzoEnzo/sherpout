@@ -34,4 +34,39 @@ public class TrainingPlanController {
                 .status(HttpStatus.OK)
                 .body(trainingPlanService.getAll());
     }
+
+    @PutMapping("/{id}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<TrainingPlanDTO> update(@PathVariable Long id, @Valid @RequestBody TrainingPlanDTO request) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(trainingPlanService.update(id, request));
+    }
+
+    @GetMapping("/{id}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<TrainingPlanDTO> getById(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(trainingPlanService.getById(id));
+    }
+
+    @PostMapping("/{id}/activate")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<Void> activate(@PathVariable Long id) {
+        trainingPlanService.activateTrainingPlan(id);
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
+
+    @DeleteMapping("{id}")
+    @SecuredByGroup(UserGroup.USER)
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        trainingPlanService.delete(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
 }

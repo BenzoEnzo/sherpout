@@ -1,22 +1,22 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sherpoutmobile/common/form/app_form_save_button.dart';
-import 'package:sherpoutmobile/common/form/fields/app_form_field.dart';
+import 'package:sherpoutmobile/common/api/error/api_error_handler.dart';
+import 'package:sherpoutmobile/common/api/error/error_location_type.dart';
+import 'package:sherpoutmobile/common/theme/app_colors.dart';
 
-import '../api/error/api_error_handler.dart';
-import '../api/error/error_location_type.dart';
+import 'app_form_save_button.dart';
 
 class AppForm<T> extends StatefulWidget {
   final T dto;
-  final List<AppFormField> children;
+  final List<Widget> children;
   final Future<void> Function(T dto) onSubmit;
 
   const AppForm(
       {super.key,
-      required this.dto,
-      required this.children,
-      required this.onSubmit});
+        required this.dto,
+        required this.children,
+        required this.onSubmit});
 
   @override
   _AppFormState<T> createState() => _AppFormState<T>();
@@ -71,7 +71,11 @@ class _AppFormState<T> extends State<AppForm<T>> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ..._buildFieldsWithSpacing(context),
-          SizedBox(height: 32),
+          Divider(
+            color: AppColors.secondary,
+            thickness: 1,
+            height: 32,
+          ),
           AppFormSaveButton(onSubmit: _submit, isLoading: isLoading)
         ],
       ),
@@ -81,8 +85,7 @@ class _AppFormState<T> extends State<AppForm<T>> {
   List<Widget> _buildFieldsWithSpacing(BuildContext context) {
     final List<Widget> widgets = [];
     for (int i = 0; i < widget.children.length; i++) {
-      AppFormField field = widget.children[i];
-      widgets.add(field.build(context, _dto, backendErrors[field.key]));
+      widgets.add(widget.children[i]);
       if (i < widget.children.length - 1) {
         widgets.add(const SizedBox(height: 24));
       }

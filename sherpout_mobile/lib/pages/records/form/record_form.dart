@@ -81,12 +81,11 @@ class _RecordFormState extends State<RecordForm> {
   }
 
   Future<void> _onCreateSubmit(RecordDTO toCreate) async {
-    RecordDTO result = await _recordService.create(toCreate);
+    await _recordService.create(toCreate);
 
     if (!mounted) return;
 
-    //TODO redirect to record page if success
-    // context.push("records/${result.id}");
+    context.pop(true);
   }
 
   Future<void> _onEditSubmit(RecordDTO toEdit) async {

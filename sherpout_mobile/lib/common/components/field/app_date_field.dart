@@ -21,8 +21,12 @@ class AppDateField extends AppFieldStatelessWidget<DateTime> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController(
+      text: initialValue != null ? dateFormat.format(initialValue!) : '',
+    );
+
     return TextFormField(
-      initialValue: initialValue != null ? dateFormat.format(initialValue!) : '',
+      controller: controller,
       decoration: InputDecoration(
         label: Text(label),
         suffixIcon: const Icon(Icons.calendar_today),
@@ -32,13 +36,16 @@ class AppDateField extends AppFieldStatelessWidget<DateTime> {
       onTap: () async {
         final picked = await showDatePicker(
           context: context,
-          initialDate: initialValue ?? DateTime.now(),
+          initialDate: controller.text.isNotEmpty
+              ? dateFormat.parse(controller.text)
+              : (initialValue ?? DateTime.now()),
           firstDate: firstDate,
           lastDate: lastDate,
         );
 
         if (picked != null) {
           setValue(picked);
+          controller.text = dateFormat.format(picked);
         }
       },
     );

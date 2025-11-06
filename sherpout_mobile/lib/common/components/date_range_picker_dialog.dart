@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sherpoutmobile/common/components/field/app_date_field.dart';
 
 import '../dto/date_range_query_param.dart';
-import '../form/app_form_date_input.dart';
 
 class AppDateRangePickerDialog extends StatefulWidget {
   const AppDateRangePickerDialog({super.key, required this.initial});
@@ -27,27 +27,25 @@ class _AppDateRangePickerDialogState extends State<AppDateRangePickerDialog> {
           Row(
             children: [
               Expanded(
-                child: AppFormDateInput<_AppDateRangePickerDialogState>(
-                  dto: this,
+                child: AppDateField(
                   label: 'Od',
                   isRequired: true,
                   firstDate: DateTime(1900),
                   lastDate: DateTime.now(),
-                  getValue: (_) => _from,
-                  setValue: (_, v) => setState(() => _from = v),
+                  initialValue: _from,
+                  setValue: (date) => setState(() => _from = date),
                   dateFormat: DateFormat('yyyy-MM-dd'),
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: AppFormDateInput<_AppDateRangePickerDialogState>(
-                  dto: this,
+                child: AppDateField(
                   label: 'Do',
                   isRequired: true,
                   firstDate: DateTime(1900),
                   lastDate: DateTime.now(),
-                  getValue: (_) => _to,
-                  setValue: (_, v) => setState(() => _to = v),
+                  initialValue: _to,
+                  setValue: (date) => setState(() => _to = date),
                   dateFormat: DateFormat('yyyy-MM-dd'),
                 ),
               ),

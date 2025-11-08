@@ -32,6 +32,10 @@ public enum ErrorMessage {
             "This value is too big.",
             "Ta wartość jest zbyt duża."),
 
+    VALIDATION_LIMIT(
+            "The value provided exceeds the maximum allowed limit of {{value}}.",
+            "Wprowadzona wartość przekroczyła limit, który wynosi: {{value}}."),
+
     VALIDATION_MAX_FILE_SIZE(
             "The uploaded file is too large.",
             "Przesłany plik jest za duży."),

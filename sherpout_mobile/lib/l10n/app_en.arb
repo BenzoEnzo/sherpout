@@ -48,5 +48,7 @@
     "description": "Description",
     "addExercise": "Add exercise",
     "removeDay": "Remove day",
-    "sets": "Sets"
+    "sets": "Sets",
+    "trainingPlans": "Training plans",
+    "days": "Days"
 }

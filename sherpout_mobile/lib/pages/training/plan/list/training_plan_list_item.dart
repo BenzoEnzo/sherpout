@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
+import 'package:sherpoutmobile/pages/training/plan/list/training_plan_row_component.dart';
 
 class TrainingPlanItem extends StatelessWidget {
   const TrainingPlanItem({super.key, required this.trainingPlan});
@@ -11,6 +12,7 @@ class TrainingPlanItem extends StatelessWidget {
     return InkWell(
         key: ValueKey(trainingPlan.id),
         borderRadius: BorderRadius.circular(16),
-        onTap: () {});
+        onTap: () {},
+    child: TrainingPlanRowComponent(trainingPlan: trainingPlan));
   }
 }

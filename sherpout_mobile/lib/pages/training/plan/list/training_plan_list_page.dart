@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
+import 'package:sherpoutmobile/pages/training/plan/create/training_plan_create_page.dart';
 import 'package:sherpoutmobile/pages/training/plan/list/training_plan_list_item.dart';
 import 'package:sherpoutmobile/services/training_plan_service.dart';
 import 'package:sherpoutmobile/common/components/loading_component.dart';
@@ -44,13 +45,20 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
     }
   }
 
-  Future<void> _onAddNew() async {}
+  Future<void> _onAddNew() async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const TrainingPlanCreatePage(),
+      ),
+    );
+    _loadTrainingPlans();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.createNewTrainingPlan),
+        title: Text(AppLocalizations.of(context)!.trainingPlans),
       ),
       body: LoadingComponent(
           isLoading: _isLoading,

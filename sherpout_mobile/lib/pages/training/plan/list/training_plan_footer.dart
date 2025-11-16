@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sherpoutmobile/common/theme/app_colors.dart';
+import 'package:sherpoutmobile/common/components/buttons/add_new_button.dart';
 
 import '../create/training_plan_create_page.dart';
 
@@ -24,13 +23,6 @@ class TrainingPlanFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.extended(
-      backgroundColor: AppColors.secondary,
-      icon: const Icon(Icons.add,
-        color: AppColors.surface,),
-      label: Text(AppLocalizations.of(context)!.addNew,
-      style: TextStyle(color: AppColors.surface)),
-      onPressed: () => _onAddNew(context),
-    );
+    return AddNewButton(onPressed: () => _onAddNew(context));
   }
 }

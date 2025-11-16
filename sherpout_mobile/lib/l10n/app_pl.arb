@@ -50,5 +50,8 @@
     "removeDay": "Usuń dzień",
     "sets": "Serie",
     "trainingPlans": "Plany treningowe",
-    "days": "Dni"
+    "days": "Dni",
+    "sortByName": "Sortuj wg nazwy",
+    "sortByDate": "Sortuj wg daty",
+    "searchTrainingPlan": "Szukaj planu treningowego"
 }

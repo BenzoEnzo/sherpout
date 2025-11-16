@@ -10,8 +10,6 @@ class TrainingPlanItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        key: ValueKey(trainingPlan.id),
-        borderRadius: BorderRadius.circular(16),
         onTap: () {},
     child: TrainingPlanRowComponent(trainingPlan: trainingPlan));
   }

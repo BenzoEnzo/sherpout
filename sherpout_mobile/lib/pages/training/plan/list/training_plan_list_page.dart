@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
-import 'package:sherpoutmobile/pages/training/plan/create/training_plan_create_page.dart';
+import 'package:sherpoutmobile/pages/training/plan/list/training_plan_footer.dart';
 import 'package:sherpoutmobile/pages/training/plan/list/training_plan_list_item.dart';
 import 'package:sherpoutmobile/services/training_plan_service.dart';
 import 'package:sherpoutmobile/common/components/loading_component.dart';
@@ -45,15 +45,6 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
     }
   }
 
-  Future<void> _onAddNew() async {
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const TrainingPlanCreatePage(),
-      ),
-    );
-    _loadTrainingPlans();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,10 +63,7 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
                   child: TrainingPlanItem(trainingPlan: _trainingPlans[index]));
             },
           ))),
-      floatingActionButton: AppTextAndIconButton(
-          text: AppLocalizations.of(context)!.addNew,
-          icon: Icons.add,
-          onPressed: () => _onAddNew()),
+      floatingActionButton: TrainingPlanFooter(onReload: _loadTrainingPlans),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

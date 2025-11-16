@@ -26,6 +26,7 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
   final TrainingPlanService _trainingPlanService =
   GetIt.instance<TrainingPlanService>();
   List<TrainingPlanDTO> _trainingPlans = [];
+  List<TrainingPlanDTO> _filteredPlans = [];
   String _searchQuery = '';
   bool _isLoading = true;
   String? _error;
@@ -41,6 +42,7 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
       final trainingPlans = await _trainingPlanService.getAll();
       setState(() {
         _trainingPlans = trainingPlans;
+        _filteredPlans = _filterTrainingPlans(trainingPlans, context);
         _isLoading = false;
       });
     } catch (e) {
@@ -59,6 +61,7 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
     _debouncer.run(() {
       setState(() {
         _searchQuery = value;
+        _filteredPlans = _filterTrainingPlans(_trainingPlans, context);
       });
     });
   }
@@ -93,7 +96,7 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
                 onChanged: _onSearchChanged,
               ),
               const SizedBox(height: 16),
-              ..._trainingPlans.map(
+              ..._filteredPlans.map(
                     (plan) =>
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),

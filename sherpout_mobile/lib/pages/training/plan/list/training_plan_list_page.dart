@@ -23,10 +23,8 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
 
   final _debouncer = Debouncer(delay: Duration(milliseconds: 300));
 
-  final TrainingPlanService _trainingPlanService =
-  GetIt.instance<TrainingPlanService>();
+  final TrainingPlanService _trainingPlanService = GetIt.instance<TrainingPlanService>();
   List<TrainingPlanDTO> _trainingPlans = [];
-  List<TrainingPlanDTO> _filteredPlans = [];
   String _searchQuery = '';
   bool _isLoading = true;
   String? _error;
@@ -42,12 +40,11 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
       final trainingPlans = await _trainingPlanService.getAll();
       setState(() {
         _trainingPlans = trainingPlans;
-        _filteredPlans = _filterTrainingPlans(trainingPlans, context);
         _isLoading = false;
       });
     } catch (e) {
       setState(() {
-        _error = 'NIE DZIALA';
+        _error = 'Loading training plans failed';
         _isLoading = false;
       });
     }
@@ -61,9 +58,17 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
     _debouncer.run(() {
       setState(() {
         _searchQuery = value;
-        _filteredPlans = _filterTrainingPlans(_trainingPlans, context);
       });
     });
+  }
+
+  List<TrainingPlanDTO> _filterTrainingPlans(List<TrainingPlanDTO> trainingPlans,
+      BuildContext context) {
+    if (_searchQuery.isEmpty) return trainingPlans;
+    return trainingPlans.where((trainingPlan) {
+      final query = _searchQuery.toLowerCase();
+      return trainingPlan.name!.localized(context).toLowerCase().contains(query);
+    }).toList();
   }
 
   @override
@@ -77,31 +82,33 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
         error: _error,
         child: AppPage(
           child: ListView(
-            padding:
-            const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             children: [
-              TrainingPlanHeader(
-                onSortSelected: (index) {
-                  if (index == 0) {
-                    _sortTrainingPlansByName();
-                  } else {
-                    _sortTrainingPlansByDate();
-                  }
-                },
+              SizedBox(
+                width: double.infinity,
+                child: TrainingPlanHeader(
+                  onSortSelected: (index) {
+                    if (index == 0) {
+                      _sortTrainingPlansByName();
+                    } else {
+                      _sortTrainingPlansByDate();
+                    }
+                  },
+                ),
               ),
               const SizedBox(height: 16),
-              // 🌟 Search input
-              SearchInput(
-                hint: AppLocalizations.of(context)!.searchTrainingPlans,
-                onChanged: _onSearchChanged,
+              SizedBox(
+                width: double.infinity,
+                child: SearchInput(
+                  hint: AppLocalizations.of(context)!.searchTrainingPlans,
+                  onChanged: _onSearchChanged,
+                ),
               ),
               const SizedBox(height: 16),
-              ..._filteredPlans.map(
-                    (plan) =>
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: TrainingPlanItem(trainingPlan: plan),
-                    ),
+              ..._filterTrainingPlans(_trainingPlans, context).map(
+                    (plan) => Padding(
+                  padding: const EdgeInsets.only(bottom: 1),
+                  child: TrainingPlanItem(trainingPlan: plan),
+                ),
               ),
             ],
           ),
@@ -109,16 +116,7 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
       ),
       floatingActionButton:
       TrainingPlanFooter(onReload: _loadTrainingPlans),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
-
-  List<TrainingPlanDTO> _filterTrainingPlans(List<TrainingPlanDTO> trainingPlans,
-      BuildContext context) {
-    if (_searchQuery.isEmpty) return trainingPlans;
-    return trainingPlans.where((trainingPlan) {
-      final query = _searchQuery.toLowerCase();
-      return trainingPlan.name!.localized(context).contains(query);
-    }).toList();
-  }
 }
+

@@ -11,6 +11,6 @@ class TrainingPlanItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {},
-    child: TrainingPlanRowComponent(trainingPlan: trainingPlan));
+        child: TrainingPlanRowComponent(trainingPlan: trainingPlan));
   }
 }

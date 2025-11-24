@@ -3,6 +3,8 @@ import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
 import '../../../../common/theme/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../common/theme/app_typography.dart';
+
 class TrainingPlanRowComponent extends StatelessWidget {
   const TrainingPlanRowComponent({
     super.key,
@@ -26,29 +28,25 @@ class TrainingPlanRowComponent extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Icon(Icons.fitness_center, size: 40, color: Colors.blueGrey),
-          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  trainingPlan.name?.pl ?? '',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  trainingPlan.name!.localized(context),
+                  style: AppTypography.titleLarge,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  trainingPlan.description?.pl ?? '',
-                  style: Theme.of(context).textTheme.bodySmall,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  '${AppLocalizations.of(context)!.days}${trainingPlan.days.length}',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.grey[600],
+                if (trainingPlan.description != null &&
+                    trainingPlan.description!.localized(context).isNotEmpty)
+                  Text(
+                    trainingPlan.description!.localized(context),
+                    style: AppTypography.bodyMedium,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
+                Text(
+                  '${AppLocalizations.of(context)!.days}: ${trainingPlan.days.length}',
+                  style: AppTypography.bodySmall.copyWith(color: Colors.grey[600]),
                 ),
               ],
             ),

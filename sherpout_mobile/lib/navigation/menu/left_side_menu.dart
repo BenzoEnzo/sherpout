@@ -36,7 +36,7 @@ class LeftSideMenu extends StatelessWidget {
             context,
             icon: Icons.directions_run,
             label: AppLocalizations.of(context)!.trainings,
-            route: '/training-plans/create',
+            route: '/training-plans',
           ),
           _navTile(
             context,

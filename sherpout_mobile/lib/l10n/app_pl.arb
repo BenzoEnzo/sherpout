@@ -48,5 +48,10 @@
     "description": "Opis",
     "addExercise": "Dodaj ćwiczenie",
     "removeDay": "Usuń dzień",
-    "sets": "Serie"
+    "sets": "Serie",
+    "trainingPlans": "Plany treningowe",
+    "days": "Dni",
+    "sortByName": "Sortuj wg nazwy",
+    "sortByDate": "Sortuj wg daty",
+    "searchTrainingPlans": "Szukaj planu treningowego"
 }

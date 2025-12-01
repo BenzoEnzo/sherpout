@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_dto.dart';
-import 'package:sherpoutmobile/pages/training/plan/list/training_plan_footer.dart';
+import 'package:sherpoutmobile/pages/training/plan/list/training_plan_add_button.dart';
 import 'package:sherpoutmobile/pages/training/plan/list/training_plan_header.dart';
 import 'package:sherpoutmobile/pages/training/plan/list/training_plan_list_item.dart';
 import 'package:sherpoutmobile/services/training_plan_service.dart';
@@ -86,13 +86,9 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
               SizedBox(
                 width: double.infinity,
                 child: TrainingPlanHeader(
-                  onSortSelected: (index) {
-                    if (index == 0) {
-                      _sortTrainingPlansByName();
-                    } else {
-                      _sortTrainingPlansByDate();
-                    }
-                  },
+                  onSortSelected: (index) => index == 0
+                      ? _sortTrainingPlansByName()
+                      : _sortTrainingPlansByDate(),
                 ),
               ),
               const SizedBox(height: 16),
@@ -115,7 +111,7 @@ class _TrainingPlansPageState extends State<TrainingPlansPage> {
         ),
       ),
       floatingActionButton:
-      TrainingPlanFooter(onReload: _loadTrainingPlans),
+      TrainingPlanAddButton(onReload: _loadTrainingPlans),
     );
   }
 }

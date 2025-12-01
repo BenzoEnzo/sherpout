@@ -3,10 +3,10 @@ import 'package:sherpoutmobile/common/components/buttons/add_new_button.dart';
 
 import '../create/training_plan_create_page.dart';
 
-class TrainingPlanFooter extends StatelessWidget {
+class TrainingPlanAddButton extends StatelessWidget {
   final VoidCallback onReload;
 
-  const TrainingPlanFooter({
+  const TrainingPlanAddButton({
     super.key,
     required this.onReload,
   });

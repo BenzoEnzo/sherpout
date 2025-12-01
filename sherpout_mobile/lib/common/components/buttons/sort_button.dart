@@ -40,17 +40,7 @@ class _SortButtonState extends State<SortButton> {
             width: constraints.maxWidth / widget.labels.length - 2,
           ),
           isSelected: isSelected,
-          onPressed: (int index) {
-            setState(() {
-              for (int i = 0; i < isSelected.length; i++) {
-                isSelected[i] = i == index;
-              }
-            });
-
-            if (widget.onSelected != null) {
-              widget.onSelected!(index);
-            }
-          },
+          onPressed: _handleButtonPress,
           children: widget.labels
               .map(
                 (label) => Text(
@@ -62,5 +52,17 @@ class _SortButtonState extends State<SortButton> {
         );
       },
     );
+  }
+
+  void _handleButtonPress(int buttonIdx) {
+    setState(() {
+      for (int i = 0; i < isSelected.length; i++) {
+        isSelected[i] = i == buttonIdx;
+      }
+    });
+
+    if (widget.onSelected != null) {
+      widget.onSelected!(buttonIdx);
+    }
   }
 }

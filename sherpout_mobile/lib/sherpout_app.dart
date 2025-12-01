@@ -16,6 +16,7 @@ import 'package:sherpoutmobile/pages/personal/settings_page.dart';
 import 'package:sherpoutmobile/pages/records/list/records_list_page.dart';
 import 'package:sherpoutmobile/pages/training/plan/create/training_plan_create_page.dart';
 import 'package:sherpoutmobile/pages/training/plan/edit/training_plan_edit_page.dart';
+import 'package:sherpoutmobile/pages/training/plan/list/training_plan_list_page.dart';
 
 import 'common/theme/app_colors.dart';
 import 'l10n/l10n.dart';
@@ -105,6 +106,10 @@ class _SherpoutAppState extends State<SherpoutApp> {
         GoRoute(
           path: '/training-plans/create',
           builder: (context, state) => TrainingPlanCreatePage(),
+        ),
+        GoRoute(
+          path: '/training-plans',
+          builder: (context, state) => TrainingPlansPage(),
         ),
         GoRoute(
           path: '/training-plans/:id/edit',

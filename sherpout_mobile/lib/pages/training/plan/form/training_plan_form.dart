@@ -49,7 +49,9 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
   Widget build(BuildContext context) {
     final TrainingPlanDTO trainingPlan = widget.trainingPlan;
 
-    return AppForm(
+    return AbsorbPointer(
+      absorbing: widget.viewOnly,
+      child: AppForm(
         dto: trainingPlan,
         onSubmit: widget.viewOnly
             ? (dto) async {}
@@ -64,8 +66,8 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
           ),
           TranslatedStringField(
             label: AppLocalizations.of(context)!.description,
-            initialValue: trainingPlan.name ?? TranslatedStringDto(),
-            onChanged: (value) => trainingPlan.name = value,
+            initialValue: trainingPlan.description ?? TranslatedStringDto(),
+            onChanged: (value) => trainingPlan.description = value,
             isRequired: false,
             maxLength: 512,
             maxLines: 4,
@@ -75,7 +77,9 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
             addDay: _addDay,
             removeDay: _removeDay,
           )
-        ]);
+        ],
+      ),
+    );
   }
 
   Future<void> _onCreateSubmit(TrainingPlanDTO toCreate) async {

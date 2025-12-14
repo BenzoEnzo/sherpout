@@ -14,9 +14,10 @@ import '../../../../common/dto/training_plan_day_dto.dart';
 class TrainingPlanForm extends StatefulWidget {
   final TrainingPlanDTO trainingPlan;
   final bool isEdit;
+  final bool viewOnly;
 
   const TrainingPlanForm(
-      {super.key, required this.trainingPlan, this.isEdit = false});
+      {super.key, required this.trainingPlan, this.isEdit = false, required this.viewOnly});
 
   @override
   State<TrainingPlanForm> createState() => _TrainingPlanFormState();
@@ -50,7 +51,9 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
 
     return AppForm(
         dto: trainingPlan,
-        onSubmit: widget.isEdit ? _onEditSubmit : _onCreateSubmit,
+        onSubmit: widget.viewOnly
+            ? (dto) async {}
+            : (widget.isEdit ? _onEditSubmit : _onCreateSubmit),
         children: [
           TranslatedStringField(
             label: AppLocalizations.of(context)!.name,

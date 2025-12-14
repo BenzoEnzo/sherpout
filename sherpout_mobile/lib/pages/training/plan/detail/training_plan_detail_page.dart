@@ -25,7 +25,7 @@ class _TrainingPlanDetailPageState extends State<TrainingPlanDetailPage> {
       body: AppPage(
         child: TrainingPlanForm(
           trainingPlan: widget.trainingPlan,
-          isEdit: false,
+          viewOnly: true,
         ),
       ),
     );

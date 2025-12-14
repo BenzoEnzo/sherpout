@@ -54,7 +54,7 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
       child: AppForm(
         dto: trainingPlan,
         onSubmit: widget.viewOnly
-            ? (dto) async {}
+            ? null
             : (widget.isEdit ? _onEditSubmit : _onCreateSubmit),
         children: [
           TranslatedStringField(

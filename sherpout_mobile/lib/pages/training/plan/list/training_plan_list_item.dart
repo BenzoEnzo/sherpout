@@ -11,7 +11,7 @@ class TrainingPlanItem extends StatelessWidget {
   Future<void> _goToDetails(BuildContext context) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const TrainingPlanDetailPage(),
+        builder: (context) => TrainingPlanDetailPage(trainingPlan: trainingPlan),
       ),
     );
   }

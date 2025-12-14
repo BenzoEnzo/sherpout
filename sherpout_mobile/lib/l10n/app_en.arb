@@ -53,5 +53,6 @@
     "days": "Training days",
     "sortByName": "Sort by name",
     "sortByDate": "Sort by date",
-    "searchTrainingPlans": "Search a training plan"
+    "searchTrainingPlans": "Search a training plan",
+    "detailTrainingPlan": "Training plan details"
 }

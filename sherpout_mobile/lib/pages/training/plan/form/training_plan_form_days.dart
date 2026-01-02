@@ -5,13 +5,17 @@ import 'package:sherpoutmobile/common/dto/training_plan_day_dto.dart';
 import 'package:sherpoutmobile/common/theme/app_colors.dart';
 import 'package:sherpoutmobile/pages/training/plan/form/day/training_plan_day_form.dart';
 
+import '../../../../common/dto/training_plan_dto.dart';
+
 class TrainingPlanFormDays extends StatefulWidget {
   final List<TrainingPlanDayDTO> days;
-  final void Function() addDay;
-  final void Function(int index) removeDay;
+  final TrainingPlanDTO trainingPlan;
+  final bool viewOnly;
+  final void Function()? addDay;
+  final void Function(int index)? removeDay;
 
   const TrainingPlanFormDays(
-      {super.key, required this.days, required this.addDay, required this.removeDay});
+      {super.key, required this.days, this.addDay, this.removeDay, required this.viewOnly, required this.trainingPlan});
 
   @override
   State<TrainingPlanFormDays> createState() => _TrainingPlanFormDaysState();
@@ -27,18 +31,18 @@ class _TrainingPlanFormDaysState extends State<TrainingPlanFormDays> with Ticker
   }
 
   void _initController() {
-    tabController = TabController(length: widget.days.length, vsync: this);
+    tabController = TabController(length: widget.trainingPlan.days.length, vsync: this);
   }
 
   void _handleAddDay() {
-    widget.addDay();
+    widget.addDay?.call();
 
     tabController = TabController(length: widget.days.length, vsync: this);
     tabController.animateTo(widget.days.length - 1);
   }
 
   void _handleRemoveDay(int index) {
-    widget.removeDay(index);
+    widget.removeDay?.call(index);
     tabController = TabController(length: widget.days.length, vsync: this);
   }
 
@@ -61,6 +65,7 @@ class _TrainingPlanFormDaysState extends State<TrainingPlanFormDays> with Ticker
           TrainingPlanDayForm(
             day: entry.value,
             removeDay: () => _handleRemoveDay(entry.key),
+            viewOnly: widget.viewOnly
           ))
         .toList();
 

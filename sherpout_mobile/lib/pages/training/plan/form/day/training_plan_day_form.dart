@@ -13,9 +13,13 @@ import '../../../../../services/exercise_service.dart';
 class TrainingPlanDayForm extends StatefulWidget {
   final TrainingPlanDayDTO day;
   final void Function() removeDay;
+  final bool viewOnly;
 
   const TrainingPlanDayForm(
-      {super.key, required this.day, required this.removeDay});
+      {super.key,
+      required this.day,
+      required this.removeDay,
+      required this.viewOnly});
 
   @override
   State<TrainingPlanDayForm> createState() => _TrainingPlanDayFormState();
@@ -52,31 +56,37 @@ class _TrainingPlanDayFormState extends State<TrainingPlanDayForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ...List.generate(
-          widget.day.exercises.length,
-          (index) => TrainingPlanExerciseField(
-                key: ValueKey(index),
-                dto: widget.day.exercises[index],
-                exercises: _exercises,
-                removeExercise: () => _removeExercise(index),
-              )),
-      SizedBox(
-        width: double.infinity,
-        child: AppTextAndIconButton(
-            text: AppLocalizations.of(context)!.addExercise,
-            onPressed: _addExercise, icon: Icons.add
-        ),
-      ),
-      SizedBox(
-        width: double.infinity,
-        child: AppTextAndIconButton(
-          text: AppLocalizations.of(context)!.removeDay,
-          onPressed: widget.removeDay,
-          icon: Icons.delete_outline_rounded,
-          backgroundColor: AppColors.redAccent,
-        ),
-      ),
-    ]);
+    return Column(
+      children: [
+        ...List.generate(
+            widget.day.exercises.length,
+            (index) => TrainingPlanExerciseField(
+                  key: ValueKey(index),
+                  dto: widget.day.exercises[index],
+                  exercises: _exercises,
+                  removeExercise: () => _removeExercise(index),
+                  viewOnly: widget.viewOnly,
+                )),
+        if (!widget.viewOnly)
+          SizedBox(
+            width: double.infinity,
+            child: AppTextAndIconButton(
+              text: AppLocalizations.of(context)!.addExercise,
+              onPressed: _addExercise,
+              icon: Icons.add,
+            ),
+          ),
+        if (!widget.viewOnly)
+          SizedBox(
+            width: double.infinity,
+            child: AppTextAndIconButton(
+              text: AppLocalizations.of(context)!.removeDay,
+              onPressed: widget.removeDay,
+              icon: Icons.delete_outline_rounded,
+              backgroundColor: AppColors.redAccent,
+            ),
+          ),
+      ],
+    );
   }
 }

@@ -49,22 +49,25 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
   Widget build(BuildContext context) {
     final TrainingPlanDTO trainingPlan = widget.trainingPlan;
 
-    return AbsorbPointer(
-      absorbing: widget.viewOnly,
-      child: AppForm(
-        dto: trainingPlan,
-        onSubmit: widget.viewOnly
-            ? null
-            : (widget.isEdit ? _onEditSubmit : _onCreateSubmit),
-        children: [
-          TranslatedStringField(
+    return AppForm(
+      dto: trainingPlan,
+      onSubmit: widget.viewOnly
+          ? null
+          : (widget.isEdit ? _onEditSubmit : _onCreateSubmit),
+      children: [
+        AbsorbPointer(
+          absorbing: widget.viewOnly,
+          child: TranslatedStringField(
             label: AppLocalizations.of(context)!.name,
             initialValue: trainingPlan.name ?? TranslatedStringDto(),
             onChanged: (value) => trainingPlan.name = value,
             isRequired: true,
             maxLength: 64,
           ),
-          TranslatedStringField(
+        ),
+        AbsorbPointer(
+          absorbing: widget.viewOnly,
+          child: TranslatedStringField(
             label: AppLocalizations.of(context)!.description,
             initialValue: trainingPlan.description ?? TranslatedStringDto(),
             onChanged: (value) => trainingPlan.description = value,
@@ -72,13 +75,15 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
             maxLength: 512,
             maxLines: 4,
           ),
-          TrainingPlanFormDays(
-            days: trainingPlan.days,
-            addDay: _addDay,
-            removeDay: _removeDay,
-          )
-        ],
-      ),
+        ),
+        TrainingPlanFormDays(
+          days: trainingPlan.days,
+          trainingPlan: trainingPlan,
+          viewOnly: widget.viewOnly,
+          addDay: widget.viewOnly ? null : _addDay,
+          removeDay: widget.viewOnly ? null : _removeDay,
+        )
+      ],
     );
   }
 

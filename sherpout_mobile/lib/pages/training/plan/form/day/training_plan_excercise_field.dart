@@ -12,11 +12,14 @@ class TrainingPlanExerciseField extends StatefulWidget {
   final TrainingPlanExerciseDTO dto;
   final List<ExerciseSelectDTO> exercises;
   final void Function() removeExercise;
+  final bool viewOnly;
 
-  const TrainingPlanExerciseField({super.key,
-      required this.dto,
-      required this.exercises,
-      required this.removeExercise
+  const TrainingPlanExerciseField({
+    super.key,
+    required this.dto,
+    required this.exercises,
+    required this.removeExercise,
+    required this.viewOnly
   });
 
   @override
@@ -26,17 +29,14 @@ class TrainingPlanExerciseField extends StatefulWidget {
 
 class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          children: [
-            Expanded(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: AbsorbPointer(
+              absorbing: widget.viewOnly,
               child: AppAutocompleteField<ExerciseSelectDTO>(
                 options: widget.exercises,
                 label: AppLocalizations.of(context)!.exercise,
@@ -44,30 +44,36 @@ class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
                 initialValue: widget.dto.exercise,
                 setValue: (exercise) => widget.dto.exercise = exercise,
                 getDisplay: (value) => value.name.localized(context),
-                optionViewBuilder: (context, value) =>
-                    ExerciseSelectItem(exercise: value),
+                optionViewBuilder: (context, value) => ExerciseSelectItem(exercise: value),
               ),
             ),
-            SizedBox(width: 8),
-            SizedBox(
-              width: 60,
+          ),
+
+          const SizedBox(width: 8),
+
+          SizedBox(
+            width: 60,
+            child: AbsorbPointer(
+              absorbing: widget.viewOnly,
               child: AppNumberField(
-                  label: AppLocalizations.of(context)!.sets,
-                  initialValue: widget.dto.sets,
-                  setValue: (value) {
-                    widget.dto.sets = value.toInt();
-                  },
-                  isRequired: true,
-                  min: 1,
-                  max: 16
-              )
+                label: AppLocalizations.of(context)!.sets,
+                initialValue: widget.dto.sets,
+                setValue: (value) => widget.dto.sets = value.toInt(),
+                isRequired: true,
+                min: 1,
+                max: 16,
+              ),
             ),
+          ),
+
+          if (!widget.viewOnly)
             IconButton(
               icon: const Icon(Icons.delete_outline_rounded),
               onPressed: widget.removeExercise,
-              color: AppColors.secondary
+              color: AppColors.secondary,
             ),
-          ],
-        ));
+        ],
+      ),
+    );
   }
 }

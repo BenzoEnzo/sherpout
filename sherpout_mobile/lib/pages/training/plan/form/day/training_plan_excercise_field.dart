@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sherpoutmobile/common/components/field/app_number_field.dart';
 import 'package:sherpoutmobile/common/dto/training_plan_exercise_dto.dart';
 import 'package:sherpoutmobile/common/theme/app_colors.dart';
+import 'package:sherpoutmobile/pages/exercises/detail/exercise_detail_page.dart';
 
 import '../../../../../common/components/field/app_autocomplete_field.dart';
+import '../../../../../common/dto/exercise_dto.dart';
 import '../../../../../common/dto/exercise_select_dto.dart';
+import '../../../../../services/exercise_service.dart';
+import '../../../../exercises/detail/exercise_detail.dart';
 import '../../../../exercises/exercise_select_item.dart';
 
 class TrainingPlanExerciseField extends StatefulWidget {
@@ -72,6 +77,22 @@ class _TrainingPlanExerciseFieldState extends State<TrainingPlanExerciseField> {
               onPressed: widget.removeExercise,
               color: AppColors.secondary,
             ),
+
+          if (widget.viewOnly)
+            IconButton(
+              icon: const Icon(Icons.info_outline),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ExerciseDetailPage(id: widget.dto.exercise!.id),
+                  ),
+                );
+              },
+              color: AppColors.secondary,
+            ),
+
         ],
       ),
     );

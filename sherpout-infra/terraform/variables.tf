@@ -19,3 +19,8 @@ variable "tags" {
   }
 }
 
+variable "my_ip" {
+  description = "Your public IP for ssh"
+  type        = string
+}
+

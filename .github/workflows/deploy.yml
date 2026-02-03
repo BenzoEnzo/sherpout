@@ -1,4 +1,4 @@
-name: Publish sherpout jar
+name: Deploy
 
 on:
   push:

@@ -23,6 +23,7 @@ jobs:
           with:
             name: sherpout-server-jar
             path: sherpout-server/target/
+            workflow-run-id: ${{ github.event.workflow_run.id }}
 
         - name: Configure AWS credentials
           uses: aws-actions/configure-aws-credentials@v6.0.0

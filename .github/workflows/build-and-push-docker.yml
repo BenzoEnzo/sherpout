@@ -1,0 +1,40 @@
+name: Build and Push Docker Image to ECR
+
+on:
+  workflow_run:
+    workflows: ["Deploy"]
+    types: [completed]
+
+permissions:
+    contents: read
+    id-token: write
+
+jobs:
+  build-and-push:
+     runs-on: ubuntu-latest
+     steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Configure AWS credentials
+          uses: aws-actions/configure-aws-credentials@v6.0.0
+          with:
+            role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+            aws-region: eu-north-1
+
+        - name: Login to ECR
+          id: login-ecr
+          uses: aws-actions/amazon-ecr-login@v2
+
+        - name: Build image
+          run: docker build -t sherpout-server ./sherpout-server
+
+        - name: Tag
+          run: |
+            docker tag sherpout-server \
+            ${{ steps.login-ecr.outputs.registry }}/sherpout/imgs:${{ github.event.workflow_run.head_sha }}
+
+        - name: Push
+          run: |
+            docker push \
+            ${{ steps.login-ecr.outputs.registry }}/sherpout/imgs:${{ github.event.workflow_run.head_sha }}

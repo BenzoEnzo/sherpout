@@ -1,6 +1,8 @@
 name: Build and Push Docker Image to ECR
 
 on:
+  push:
+  pull_request:
   workflow_run:
     workflows: ["Deploy"]
     types:

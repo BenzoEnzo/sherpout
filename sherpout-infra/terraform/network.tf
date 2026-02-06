@@ -24,7 +24,7 @@ resource "aws_subnet" "tst_private_subnet_1" {
   vpc_id                  = aws_vpc.tst_vpc.id
   cidr_block              = var.private_subnet_cidr_block[0]
   map_public_ip_on_launch = false
-  availability_zone       = "eu-west-1a"
+  availability_zone       = "eu-north-1a"
 
   tags = merge(var.tags, {
     Name = "sherpout-tst-private-subnet",
@@ -36,7 +36,7 @@ resource "aws_subnet" "tst_private_subnet_2" {
   vpc_id                  = aws_vpc.tst_vpc.id
   cidr_block              = var.private_subnet_cidr_block[1]
   map_public_ip_on_launch = false
-  availability_zone       = "eu-west-1b"
+  availability_zone       = "eu-north-1b"
 
   tags = merge(var.tags, {
     Name = "sherpout-tst-private-subnet",

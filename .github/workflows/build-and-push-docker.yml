@@ -10,7 +10,7 @@ permissions:
     id-token: write
 
 jobs:
-  build:
+  build-and-push:
      runs-on: ubuntu-latest
      steps:
         - name: Checkout repository
@@ -20,7 +20,7 @@ jobs:
           uses: aws-actions/configure-aws-credentials@v6.0.0
           with:
             role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-            aws-region: us-east-1
+            aws-region: eu-north-1
 
         - name: Login to ECR
           id: login-ecr

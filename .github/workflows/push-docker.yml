@@ -32,9 +32,9 @@ jobs:
         - name: Tag
           run: |
             docker tag sherpout-server \
-            ${{ steps.login-ecr.outputs.registry }}/sherpout-server:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/sherpout/imgs:${{ github.event.workflow_run.head_sha }}
 
         - name: Push
           run: |
             docker push \
-            ${{ steps.login-ecr.outputs.registry }}/sherpout-server:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/sherpout/imgs:${{ github.event.workflow_run.head_sha }}

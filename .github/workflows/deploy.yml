@@ -3,30 +3,47 @@ name: Deploy
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
-  workflow_dispatch: {}
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Set up JDK 21 and cache Maven dependencies
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
           cache: maven
 
-      - name: Build sherpout-server
+      - name: Build JAR
         working-directory: sherpout-server
         run: mvn -B -DskipTests package
 
-      - name: Upload JAR artifact
-        uses: actions/upload-artifact@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          name: sherpout-server-jar
-          path: sherpout-server/target/*.jar
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: eu-north-1
+
+      - name: Login to ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build image
+        run: docker build -t sherpout-server ./sherpout-server
+
+      - name: Tag
+        run: |
+          docker tag sherpout-server \
+          ${{ steps.login-ecr.outputs.registry }}/sherpout/imgs:${{ github.sha }}
+
+      - name: Push
+        run: |
+          docker push \
+          ${{ steps.login-ecr.outputs.registry }}/sherpout/imgs:${{ github.sha }}

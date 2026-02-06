@@ -21,7 +21,7 @@ jobs:
         - name: Download JAR artifact
           uses: actions/download-artifact@v4
           with:
-            name: sherpout-server-jar
+            name: sherpout-server.jar
             path: ./sherpout-server/target/
 
         - name: Configure AWS credentials

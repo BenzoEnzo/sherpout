@@ -1,9 +1,9 @@
-package com.sherpout.server.api.training.mapper;
+package com.sherpout.server.api.training.plan.mapper;
 
 import com.sherpout.server.api.exercise.mapper.ExerciseMapper;
 import com.sherpout.server.api.exercise.mapper.ExerciseMapperHelper;
-import com.sherpout.server.api.training.dto.TrainingPlanExerciseDTO;
-import com.sherpout.server.api.training.entity.TrainingPlanExercise;
+import com.sherpout.server.api.training.plan.dto.TrainingPlanExerciseDTO;
+import com.sherpout.server.api.training.plan.entity.TrainingPlanExercise;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

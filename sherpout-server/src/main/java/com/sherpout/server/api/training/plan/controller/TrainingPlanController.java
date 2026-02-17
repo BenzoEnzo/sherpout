@@ -1,8 +1,8 @@
-package com.sherpout.server.api.training.controller;
+package com.sherpout.server.api.training.plan.controller;
 
-import com.sherpout.server.api.training.dto.TrainingPlanDTO;
-import com.sherpout.server.api.training.dto.TrainingPlanListDTO;
-import com.sherpout.server.api.training.logic.TrainingPlanService;
+import com.sherpout.server.api.training.plan.dto.TrainingPlanDTO;
+import com.sherpout.server.api.training.plan.dto.TrainingPlanListDTO;
+import com.sherpout.server.api.training.plan.logic.TrainingPlanService;
 import com.sherpout.server.config.security.group.SecuredByGroup;
 import com.sherpout.server.config.security.group.UserGroup;
 import jakarta.validation.Valid;

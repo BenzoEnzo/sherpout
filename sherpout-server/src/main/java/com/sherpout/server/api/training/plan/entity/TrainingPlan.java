@@ -1,4 +1,4 @@
-package com.sherpout.server.api.training.entity;
+package com.sherpout.server.api.training.plan.entity;
 
 import com.sherpout.server.commons.entity.TranslatedString;
 import com.sherpout.server.config.security.ownership.Ownable;

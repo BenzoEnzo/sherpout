@@ -1,8 +1,8 @@
-package com.sherpout.server.api.training.mapper;
+package com.sherpout.server.api.training.plan.mapper;
 
-import com.sherpout.server.api.training.dto.TrainingPlanDayDTO;
-import com.sherpout.server.api.training.entity.TrainingPlanDay;
-import com.sherpout.server.api.training.entity.TrainingPlanExercise;
+import com.sherpout.server.api.training.plan.dto.TrainingPlanDayDTO;
+import com.sherpout.server.api.training.plan.entity.TrainingPlanDay;
+import com.sherpout.server.api.training.plan.entity.TrainingPlanExercise;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,4 +1,4 @@
-package com.sherpout.server.api.training.dto;
+package com.sherpout.server.api.training.plan.dto;
 
 import com.sherpout.server.commons.dto.TranslatedStringDTO;
 import lombok.Getter;

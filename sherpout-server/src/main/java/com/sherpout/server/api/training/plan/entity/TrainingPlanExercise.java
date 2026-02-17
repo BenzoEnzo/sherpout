@@ -1,4 +1,4 @@
-package com.sherpout.server.api.training.entity;
+package com.sherpout.server.api.training.plan.entity;
 
 import com.sherpout.server.api.exercise.entity.Exercise;
 import jakarta.persistence.*;

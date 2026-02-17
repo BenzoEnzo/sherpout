@@ -1,4 +1,4 @@
-package com.sherpout.server.api.training.dto;
+package com.sherpout.server.api.training.plan.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;

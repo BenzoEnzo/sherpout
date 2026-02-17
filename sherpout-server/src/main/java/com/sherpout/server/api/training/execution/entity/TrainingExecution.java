@@ -1,6 +1,6 @@
 package com.sherpout.server.api.training.execution.entity;
 
-import com.sherpout.server.api.training.entity.TrainingPlan;
+import com.sherpout.server.api.training.plan.entity.TrainingPlan;
 import com.sherpout.server.config.security.ownership.Ownable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

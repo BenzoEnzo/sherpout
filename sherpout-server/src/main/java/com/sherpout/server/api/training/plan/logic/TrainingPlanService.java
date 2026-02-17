@@ -1,12 +1,12 @@
-package com.sherpout.server.api.training.logic;
+package com.sherpout.server.api.training.plan.logic;
 
-import com.sherpout.server.api.training.dto.TrainingPlanDTO;
-import com.sherpout.server.api.training.dto.TrainingPlanListDTO;
-import com.sherpout.server.api.training.entity.ActiveTrainingPlan;
-import com.sherpout.server.api.training.entity.TrainingPlan;
-import com.sherpout.server.api.training.mapper.TrainingPlanMapper;
-import com.sherpout.server.api.training.repository.ActiveTrainingPlanRepository;
-import com.sherpout.server.api.training.repository.TrainingPlanRepository;
+import com.sherpout.server.api.training.plan.dto.TrainingPlanDTO;
+import com.sherpout.server.api.training.plan.dto.TrainingPlanListDTO;
+import com.sherpout.server.api.training.plan.entity.ActiveTrainingPlan;
+import com.sherpout.server.api.training.plan.entity.TrainingPlan;
+import com.sherpout.server.api.training.plan.mapper.TrainingPlanMapper;
+import com.sherpout.server.api.training.plan.repository.ActiveTrainingPlanRepository;
+import com.sherpout.server.api.training.plan.repository.TrainingPlanRepository;
 import com.sherpout.server.api.user.logic.TokenService;
 import com.sherpout.server.config.security.ownership.OwnershipGuard;
 import com.sherpout.server.error.exception.UnableToFindTrainingPlanException;

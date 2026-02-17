@@ -29,7 +29,9 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
         if (rateLimit == null) return true;
 
-        String key = createRateLimitKey(handlerMethod);
+        RateLimitKey key = new RateLimitKey(handlerMethod.getMethod().toGenericString(),
+                tokenService.getUserId().toString());
+
         Duration duration = Duration.ofMillis(rateLimit.unit().toMillis(rateLimit.duration()));
         Bucket bucket = rateLimitRegistry.getOrCreate(key, rateLimit.requests(), duration);
 
@@ -46,12 +48,6 @@ public class RateLimitInterceptor implements HandlerInterceptor {
         return AnnotatedElementUtils.findMergedAnnotation(
                 handlerMethod.getMethod(), RateLimit.class
         );
-    }
-
-    private String createRateLimitKey(HandlerMethod handlerMethod) {
-        String endpoint = handlerMethod.getMethod().toGenericString();
-        String userId = tokenService.getUserId().toString();
-        return "rl:" + endpoint + ":" + userId;
     }
 }
 

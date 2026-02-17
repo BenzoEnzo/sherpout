@@ -13,8 +13,8 @@ import java.time.Duration;
 public class RateLimitRegistry {
     private final ProxyManager<String> proxyManager;
 
-    public Bucket getOrCreate(String key, long requests, Duration duration) {
-        return proxyManager.builder().build(key, () -> createRateLimit(requests, duration));
+    public Bucket getOrCreate(RateLimitKey rateLimitKey, long requests, Duration duration) {
+        return proxyManager.builder().build(rateLimitKey.getKey(), () -> createRateLimit(requests, duration));
     }
 
     private BucketConfiguration createRateLimit(long requests, Duration duration) {

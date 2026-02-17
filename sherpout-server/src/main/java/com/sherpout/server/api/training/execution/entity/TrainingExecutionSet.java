@@ -1,6 +1,5 @@
-package com.sherpout.server.api.training.entity;
+package com.sherpout.server.api.training.execution.entity;
 
-import com.sherpout.server.api.exercise.entity.Exercise;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,18 +11,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TrainingPlanExercise {
+public class TrainingExecutionSet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "training_plan_day_id")
-    private TrainingPlanDay trainingPlanDay;
-
-    @ManyToOne
     @JoinColumn(name = "exercise_id")
-    private Exercise exercise;
+    private TrainingExecutionExercise exercise;
 
-    private Integer sets;
+    private Integer weight;
 }

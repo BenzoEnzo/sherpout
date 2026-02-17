@@ -1,6 +1,6 @@
-package com.sherpout.server.api.training.repository;
+package com.sherpout.server.api.training.plan.repository;
 
-import com.sherpout.server.api.training.entity.TrainingPlan;
+import com.sherpout.server.api.training.plan.entity.TrainingPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

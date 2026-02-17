@@ -1,12 +1,12 @@
-package com.sherpout.server.api.training.logic;
+package com.sherpout.server.api.training.plan.logic;
 
-import com.sherpout.server.api.training.dto.TrainingPlanDayDTO;
-import com.sherpout.server.api.training.dto.TrainingPlanExerciseDTO;
-import com.sherpout.server.api.training.entity.TrainingPlan;
-import com.sherpout.server.api.training.entity.TrainingPlanDay;
-import com.sherpout.server.api.training.entity.TrainingPlanExercise;
-import com.sherpout.server.api.training.mapper.TrainingPlanDayMapper;
-import com.sherpout.server.api.training.mapper.TrainingPlanExerciseMapper;
+import com.sherpout.server.api.training.plan.dto.TrainingPlanDayDTO;
+import com.sherpout.server.api.training.plan.dto.TrainingPlanExerciseDTO;
+import com.sherpout.server.api.training.plan.entity.TrainingPlan;
+import com.sherpout.server.api.training.plan.entity.TrainingPlanDay;
+import com.sherpout.server.api.training.plan.entity.TrainingPlanExercise;
+import com.sherpout.server.api.training.plan.mapper.TrainingPlanDayMapper;
+import com.sherpout.server.api.training.plan.mapper.TrainingPlanExerciseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

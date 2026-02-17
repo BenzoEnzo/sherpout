@@ -53,5 +53,6 @@
     "days": "Dni treningowe",
     "sortByName": "Sortuj wg nazwy",
     "sortByDate": "Sortuj wg daty",
-    "searchTrainingPlans": "Szukaj planu treningowego"
+    "searchTrainingPlans": "Szukaj planu treningowego",
+    "detailTrainingPlan": "Szczegóły planu treningowego"
 }

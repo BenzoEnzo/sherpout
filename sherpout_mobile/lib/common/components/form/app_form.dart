@@ -10,13 +10,13 @@ import 'app_form_save_button.dart';
 class AppForm<T> extends StatefulWidget {
   final T dto;
   final List<Widget> children;
-  final Future<void> Function(T dto) onSubmit;
+  final Future<void> Function(T dto)? onSubmit;
 
   const AppForm(
       {super.key,
         required this.dto,
         required this.children,
-        required this.onSubmit});
+      this.onSubmit});
 
   @override
   _AppFormState<T> createState() => _AppFormState<T>();
@@ -40,7 +40,9 @@ class _AppFormState<T> extends State<AppForm<T>> {
     setLoading(true);
     try {
       _formKey.currentState!.save();
-      await widget.onSubmit.call(_dto);
+      if (widget.onSubmit != null) {
+        await widget.onSubmit!(_dto);
+      }
     } on DioException catch (ex) {
       final handler = ex.error as ApiErrorHandler;
 
@@ -71,12 +73,14 @@ class _AppFormState<T> extends State<AppForm<T>> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ..._buildFieldsWithSpacing(context),
+          if(widget.onSubmit != null)... [
           Divider(
             color: AppColors.secondary,
             thickness: 1,
             height: 32,
           ),
           AppFormSaveButton(onSubmit: _submit, isLoading: isLoading)
+          ]
         ],
       ),
     );

@@ -60,6 +60,7 @@ class _TrainingPlanEditPageState extends State<TrainingPlanEditPage> with Single
                     child: TrainingPlanForm(
                     trainingPlan: _trainingPlan!,
                     isEdit: true,
+                    viewOnly: false,
                   ))
                 : null
         )

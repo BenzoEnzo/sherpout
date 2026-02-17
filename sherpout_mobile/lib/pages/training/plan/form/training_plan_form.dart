@@ -14,9 +14,10 @@ import '../../../../common/dto/training_plan_day_dto.dart';
 class TrainingPlanForm extends StatefulWidget {
   final TrainingPlanDTO trainingPlan;
   final bool isEdit;
+  final bool viewOnly;
 
   const TrainingPlanForm(
-      {super.key, required this.trainingPlan, this.isEdit = false});
+      {super.key, required this.trainingPlan, this.isEdit = false, required this.viewOnly});
 
   @override
   State<TrainingPlanForm> createState() => _TrainingPlanFormState();
@@ -49,30 +50,41 @@ class _TrainingPlanFormState extends State<TrainingPlanForm> {
     final TrainingPlanDTO trainingPlan = widget.trainingPlan;
 
     return AppForm(
-        dto: trainingPlan,
-        onSubmit: widget.isEdit ? _onEditSubmit : _onCreateSubmit,
-        children: [
-          TranslatedStringField(
+      dto: trainingPlan,
+      onSubmit: widget.viewOnly
+          ? null
+          : (widget.isEdit ? _onEditSubmit : _onCreateSubmit),
+      children: [
+        AbsorbPointer(
+          absorbing: widget.viewOnly,
+          child: TranslatedStringField(
             label: AppLocalizations.of(context)!.name,
             initialValue: trainingPlan.name ?? TranslatedStringDto(),
             onChanged: (value) => trainingPlan.name = value,
             isRequired: true,
             maxLength: 64,
           ),
-          TranslatedStringField(
+        ),
+        AbsorbPointer(
+          absorbing: widget.viewOnly,
+          child: TranslatedStringField(
             label: AppLocalizations.of(context)!.description,
-            initialValue: trainingPlan.name ?? TranslatedStringDto(),
-            onChanged: (value) => trainingPlan.name = value,
+            initialValue: trainingPlan.description ?? TranslatedStringDto(),
+            onChanged: (value) => trainingPlan.description = value,
             isRequired: false,
             maxLength: 512,
             maxLines: 4,
           ),
-          TrainingPlanFormDays(
-            days: trainingPlan.days,
-            addDay: _addDay,
-            removeDay: _removeDay,
-          )
-        ]);
+        ),
+        TrainingPlanFormDays(
+          days: trainingPlan.days,
+          trainingPlan: trainingPlan,
+          viewOnly: widget.viewOnly,
+          addDay: widget.viewOnly ? null : _addDay,
+          removeDay: widget.viewOnly ? null : _removeDay,
+        )
+      ],
+    );
   }
 
   Future<void> _onCreateSubmit(TrainingPlanDTO toCreate) async {

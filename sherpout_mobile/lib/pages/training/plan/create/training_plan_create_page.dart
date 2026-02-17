@@ -21,7 +21,8 @@ class TrainingPlanCreatePage extends StatelessWidget {
             days: [
               TrainingPlanDayDTO(number: 1)
             ]
-          ))),
+          ),
+      viewOnly: false,)),
     );
   }
 }

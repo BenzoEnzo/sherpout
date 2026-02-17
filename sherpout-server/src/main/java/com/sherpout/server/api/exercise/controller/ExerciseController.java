@@ -9,6 +9,7 @@ import com.sherpout.server.api.exercise.logic.ExerciseService;
 import com.sherpout.server.api.user.logic.TokenService;
 import com.sherpout.server.config.security.group.SecuredByGroup;
 import com.sherpout.server.config.security.group.UserGroup;
+import com.sherpout.server.commons.rate.limit.RateLimit;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

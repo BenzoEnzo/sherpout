@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum ErrorMessage {
+    TOO_MANY_REQUESTS(
+            "Too many requests. Please try again later.",
+            "Zbyt wiele żądań. Proszę spróbować ponownie później."),
     UNAUTHORIZED(
             "Unauthorized access.",
             "Nieautoryzowany dostęp."),

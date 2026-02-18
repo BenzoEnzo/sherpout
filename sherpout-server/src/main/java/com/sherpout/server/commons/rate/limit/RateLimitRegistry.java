@@ -1,5 +1,6 @@
 package com.sherpout.server.commons.rate.limit;
 
+import com.sherpout.server.external.redis.RedisDataKey;
 import io.github.bucket4j.*;
 import io.github.bucket4j.distributed.proxy.ProxyManager;
 
@@ -13,8 +14,8 @@ import java.time.Duration;
 public class RateLimitRegistry {
     private final ProxyManager<String> proxyManager;
 
-    public Bucket getOrCreate(RateLimitKey rateLimitKey, long requests, Duration duration) {
-        return proxyManager.builder().build(rateLimitKey.getKey(), () -> createRateLimit(requests, duration));
+    public Bucket getOrCreate(RedisDataKey redisDataKey, long requests, Duration duration) {
+        return proxyManager.builder().build(redisDataKey.toTextKey(), () -> createRateLimit(requests, duration));
     }
 
     private BucketConfiguration createRateLimit(long requests, Duration duration) {

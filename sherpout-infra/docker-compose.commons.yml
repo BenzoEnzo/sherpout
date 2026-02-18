@@ -81,12 +81,27 @@ services:
       - MINIO_ROOT_PASSWORD=password
     command: server /data --console-address ":9001"
 
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: [ "redis-server", "--appendonly", "yes" ]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
 volumes:
   ldap_data:
   ldap_config:
   postgres-data:
     driver: local
   minio_data:
+  redis_data:
 
 networks:
   default:

@@ -6,6 +6,7 @@ import com.sherpout.server.api.record.logic.RecordService;
 import com.sherpout.server.commons.param.DateRangeQueryParam;
 import com.sherpout.server.config.security.group.SecuredByGroup;
 import com.sherpout.server.config.security.group.UserGroup;
+import com.sherpout.server.commons.rate.limit.RateLimit;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ public class RecordController {
 
     @PostMapping
     @SecuredByGroup(UserGroup.USER)
+    @RateLimit(requests = 2, duration = 5)
     public ResponseEntity<RecordDTO> createRecord(@Valid @RequestBody RecordDTO request) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
